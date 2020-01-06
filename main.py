@@ -17,4 +17,5 @@ with open('Data/ConnectiesHolland.csv', newline='') as csvfile:
         else:
             dict_connections[row[1]] = [row]
         
-print(dict_connections)
+for key in dict_connections.keys():
+    dict_connections[key]
