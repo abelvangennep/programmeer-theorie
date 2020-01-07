@@ -5,7 +5,7 @@ sys.path.append(os.path.join(directory, "code", "classes"))
 sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 
-from connection import Connection 
+from connection import Connection
 from loaddata import loaddata, loadconnections, loadstations
 
 def main():
@@ -17,7 +17,10 @@ def main():
     for connection in connections_data:
         print(connection)
 
-
+    trajecten = []
+    traject = []
+    while (len(traject) < 7):
+        while(Traject.)
 
 
 if __name__ == "__main__":
