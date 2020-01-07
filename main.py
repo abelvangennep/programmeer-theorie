@@ -17,8 +17,5 @@ def main():
     for connection in connections_data:
         print(connection)
 
-
-
-
 if __name__ == "__main__":
     main()
