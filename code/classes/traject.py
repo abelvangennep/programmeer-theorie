@@ -1,17 +1,18 @@
 from connection import Connection
 
-class Traject(): 
+class Traject():
 
-    def __init__(self): 
-        self.connections = [] 
+    def __init__(self):
+        self.connections = []
         self.travel_time = 0
+        self.end = False
 
-    def add_connection(self, connection): 
+    def add_connection(self, connection):
         self.connections.append(connection)
         self.travel_time += connection.travel_time
 
-    def end_traject(self): 
-        pass
+    def end_traject(self):
+        self.end = True
 
-    def __str__(self): 
+    def __str__(self):
         pass
