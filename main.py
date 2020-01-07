@@ -6,14 +6,19 @@ sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 
 from connection import Connection 
-from loaddataconnections import loaddataconnections
+from loaddata import loaddata, loadconnections, loadstations
 
 def main():
 
-    connections_data = loaddataconnections('Data/ConnectiesHolland.csv')
+    load_data = loaddata('Data/ConnectiesHolland.csv')
+
+    connections_data = loadconnections(load_data)
 
     for connection in connections_data:
         print(connection)
+
+
+
 
 if __name__ == "__main__":
     main()
