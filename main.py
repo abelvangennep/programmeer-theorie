@@ -14,25 +14,6 @@ def main():
 
     for connection in connections_data:
         print(connection)
-            
-
-
-
-
-
-    #         row.append('0')
-    #         if row[0] in dict_connections:
-    #             dict_connections[row[0]].append(row)
-    #         else:
-    #             dict_connections[row[0]] = [row]
-            
-    #         if row[1] in dict_connections:
-    #             dict_connections[row[1]].append(row)
-    #         else:
-    #             dict_connections[row[1]] = [row]
-            
-    # for key in dict_connections.keys():
-    #    dict_connections[key]
 
 if __name__ == "__main__":
     main()
