@@ -4,23 +4,36 @@ from station import Station
 from connection import Connection
 from stations import Stations
 
-def loaddata(file):
-    stations = Stations()
+def load_data(file):
+    data_list = []
 
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            station_1_name = row[0]
-            station_2_name = row[1]
-            travel_time = int(row[2])
-            
-            station_1 = stations.get_station(station_1_name)
-            station_2 = stations.get_station(station_2_name)
+            data_list.append(row)
 
-            connection = Connection(station_1, station_2, travel_time) 
-            station_1.add_connection(connection)
-            station_2.add_connection(connection)
+    return data_list
 
-            # print(f"Added {station1} to {station2} : {duration}")
-    return stations    
+def load_stations(data_list):
+    stations = Stations()
+    for item in data_list:
+        stations.create_station(item[0])
+        stations.create_station(item[1])
+    
+    return stations
+
+def load_connections(data_list, stations_object):
+    connections = []
+
+    for item in data_list:
+        station_1 = stations_object.get_station(item[0])
+        station_2 = stations_object.get_station(item[1])
+
+        connection = Connection(station_1, station_2, int(item[2]))
+        connections.append(connection)
+        station_1.add_connection(connection)
+        station_2.add_connection(connection)
+    
+
+    return connections
 

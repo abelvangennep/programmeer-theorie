@@ -7,9 +7,13 @@ class Stations():
         self.stations = {} 
 
     def get_station(self, station_name): 
-        if not station_name in self.stations: 
-            self.stations[station_name] = Station(station_name)
         return self.stations[station_name]
+    
+
+    def create_station(self, station_name):
+        if not station_name in self.stations: 
+            self.stations[station_name] = Station(station_name) 
+        
 
     def get_random(self): 
         return random.choice(list(self.stations.values()))

@@ -9,10 +9,12 @@ class Traject():
     def add_connection(self, connection):
         self.connections.append(connection) 
         self.travel_time += connection.travel_time
+       
         if self.current_station == connection.station_1: 
             self.current_station = connection.station_2
         else: 
             self.current_station = connection.station_1
+        
 
     def __str__(self):
         station = self.start_station
