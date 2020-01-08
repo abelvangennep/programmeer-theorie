@@ -32,8 +32,6 @@ for i in range(7):
             break 
 
         traject.add_connection(connection)
-        connection.set_visited()
-        
 
     print(f"{traject}\n")
     trajecten.append(traject)
