@@ -24,6 +24,8 @@ for i in range(7):
         if traject.travel_time + connection.travel_time > max:
             break 
         traject.add_connection(connection)
+        connection.set_visited()
+        
 
     print(f"{traject}\n")
     trajecten.append(traject)
