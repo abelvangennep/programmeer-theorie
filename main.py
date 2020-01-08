@@ -11,6 +11,7 @@ from traject import Traject
 
 stations = loaddata("data/ConnectiesHolland.csv")
 
+
 max = 120
 
 trajecten = []
