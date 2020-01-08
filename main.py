@@ -4,35 +4,25 @@ sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "classes"))
 sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
-import random
-
 from connection import Connection
-from loaddata import loaddata, loadconnections, loadstations
+from station import Station
+from loaddata import loaddata
 from traject import Traject
 
-def main():
+stations = loaddata("data/ConnectiesHolland.csv")
 
-    load_data = loaddata('Data/ConnectiesHolland.csv')
+max = 120
 
-    connections_data = loadconnections(load_data)
+trajecten = []
+for i in range(7):
+    station = stations.get_random()
 
-    # for connection in connections_data:
-    #     print(connection)
+    traject = Traject(station) 
+    while True:
+        connection = traject.current_station.get_random_connection()
+        if traject.travel_time + connection.travel_time > max:
+            break 
+        traject.add_connection(connection)
 
-
-    trajecten = []
-    traject = []
-    while (len(traject) < 7):
-        train = Traject()
-        print(train)
-        while(train.end == False):
-            randomconnection = random.choice(connections_data)
-            train.add_connection(randomconnection)
-            print(train)
-            # controleren of de connectie uberhaupt gemaakt kan worden
-            # random uit lijst oid halen van mogelijke opties van verbindingen
-
-
-
-if __name__ == "__main__":
-    main()
+    print(f"{traject}\n")
+    trajecten.append(traject)

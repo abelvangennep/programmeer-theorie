@@ -1,12 +1,18 @@
+import random
+
 class Station():
     """
 
     """
-    def __init__(self, name, all_connections):
+    def __init__(self, name):
         self.name = name
-        self.connection = []
+        self.connections = []
 
-        self.add_connections(name)
+    def add_connection(self, connection):
+        self.connections.append(connection)
 
-    def add_connections(self, name):
-        pass
+    def get_random_connection(self): 
+        return random.choice(self.connections)
+
+    def __str__(self):
+        return self.name

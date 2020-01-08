@@ -2,17 +2,12 @@ class Connection():
     """
 
     """
-    def __init__(self, destination_1, destination_2, travel_time):
-        self.destination_1 = destination_1
-        self.destination_2 = destination_2
+    def __init__(self, station_1, station_2, travel_time):
+        self.station_1 = station_1
+        self.station_2 = station_2
         self.travel_time = travel_time
-        self.visited = False
-
-    def visited(self):
-        pass
 
     def __str__(self):
         """Returns a string"""
-
-        return f"{self.destination_1}, {self.destination_2}, {self.travel_time}"
+        return f"{self.station_1}, {self.station_2}, {self.travel_time}"
 
