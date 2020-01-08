@@ -11,21 +11,18 @@ from traject import Traject
 
 stations = loaddata("data/ConnectiesHolland.csv")
 
-
 max = 120
 
 trajecten = []
 for i in range(7):
     station = stations.get_random()
 
-    traject = Traject(station) 
+    traject = Traject(station)
     while True:
         connection = traject.current_station.get_random_connection()
         if traject.travel_time + connection.travel_time > max:
-            break 
+            break
         traject.add_connection(connection)
-        connection.set_visited()
-        
 
     print(f"{traject}\n")
     trajecten.append(traject)
