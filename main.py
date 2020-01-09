@@ -9,7 +9,7 @@ from station import Station
 from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
-
+from calculatefunction import calculate
 
 
 if __name__ == '__main__':
@@ -21,4 +21,4 @@ if __name__ == '__main__':
 
     solution = random_solution(stations_objects, connection_objects)
 
-    
+    calculate(solution)

@@ -37,9 +37,10 @@ def random_solution(stations_objects, connection_objects):
     
     for traject in trajecten:
         total_travel_time += traject.travel_time
-        
+
     solution["total_travel_time"] = total_travel_time
     solution["visited_trajects"] = counter_visited
+    solution["total_trajects"] = len(connection_objects)
     solution["trajecten"] = trajecten
 
     
