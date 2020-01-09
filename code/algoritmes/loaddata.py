@@ -19,21 +19,22 @@ def load_stations(data_list):
     for item in data_list:
         stations.create_station(item[0])
         stations.create_station(item[1])
-    
+
     return stations
 
-def load_connections(data_list, stations_object):
+def load_connections(data_list, stations_dict):
     connections = []
 
     for item in data_list:
-        station_1 = stations_object.get_station(item[0])
-        station_2 = stations_object.get_station(item[1])
+        # station_1 = stations_dict.get_station(item[0])
+        # print(station_1)
+        # station_2 = stations_dict.get_station(item[1])
 
-        connection = Connection(station_1, station_2, int(item[2]))
+        connection = Connection(item[0], item[1], int(item[2]))
         connections.append(connection)
-        station_1.add_connection(connection)
-        station_2.add_connection(connection)
-    
+        stations_dict.add_connection(item[0], connection)
+        # print(connection)
+        stations_dict.add_connection(item[1], connection)
+
 
     return connections
-
