@@ -21,3 +21,4 @@ if __name__ == '__main__':
 
     solution = random_solution(stations_objects, connection_objects)
 
+    
