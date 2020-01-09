@@ -11,25 +11,25 @@ from traject import Traject
 
 data_list = load_data("data/ConnectiesHolland.csv")
 
-stations_dict = load_stations(data_list)
+stations_objects = load_stations(data_list)
 
-connection_objects = load_connections(data_list, stations_dict)
+connection_objects = load_connections(data_list, stations_objects)
 
 max = 120
-print(stations_dict)
+
 trajecten = []
 for i in range(7):
-    station = stations_dict.get_random()
-    traject = Traject(station)
+    station = stations_objects.get_random()
+    traject = Traject(station) 
     # print(f"traject: {traject}")
     # print(f"traject_station: {traject.current_station}")
     while True:
         # print(f"currentstation:{traject.current_station}")
         connection = traject.current_station.get_random_connection()
-
+        
 
         if traject.travel_time + connection.travel_time > max:
-            break
+            break 
 
         traject.add_connection(connection)
 
