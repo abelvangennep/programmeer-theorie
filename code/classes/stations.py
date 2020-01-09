@@ -11,13 +11,24 @@ class Stations():
     
 
     def create_station(self, station_name):
+        # print(type(Station(station_name)))
         if not station_name in self.stations: 
             self.stations[station_name] = Station(station_name) 
+            
         
 
     def get_random(self):
-        print(f"{random.choice(list(self.stations.values()))}")
-        return random.choice(list(self.stations.values()))
+        unvisited_connections = []
+        for connections in self.stations.values():
+            for connection in connections.connections:
+                # print(connection.visited)
+                if connection.visited == False:
+                    unvisited_connections.append(connection.station_1)
+                    unvisited_connections.append(connection.station_2)
+                    # print(connection)
+                    
+                
+        return random.choice(unvisited_connections)
 
     def __str__(self):
         stations = ""

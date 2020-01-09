@@ -6,32 +6,18 @@ sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 from connection import Connection
 from station import Station
+from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 
-data_list = load_data("data/ConnectiesHolland.csv")
 
-stations_objects = load_stations(data_list)
 
-connection_objects = load_connections(data_list, stations_objects)
+if __name__ == '__main__':
+    data_list = load_data("data/ConnectiesHolland.csv")
 
-max = 120
+    stations_objects = load_stations(data_list)
 
-trajecten = []
-for i in range(7):
-    station = stations_objects.get_random()
-    traject = Traject(station) 
-    # print(f"traject: {traject}")
-    # print(f"traject_station: {traject.current_station}")
-    while True:
-        # print(f"currentstation:{traject.current_station}")
-        connection = traject.current_station.get_random_connection()
-        
+    connection_objects = load_connections(data_list, stations_objects)
 
-        if traject.travel_time + connection.travel_time > max:
-            break 
+    solution = random_solution(stations_objects, connection_objects)
 
-        traject.add_connection(connection)
-
-    print(f"{traject}\n")
-    trajecten.append(traject)
