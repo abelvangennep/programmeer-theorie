@@ -6,7 +6,7 @@ sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 from connection import Connection
 from station import Station
-from randomsolution import random_solution, solution_1_city
+from randomsolution import random_solution, solution_1_city, solution_2_start
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
         connection_objects = load_connections(data_list, stations_objects)
 
-        solution = solution_1_city(stations_objects, connection_objects)
+        solution = random_solution(stations_objects, connection_objects)
 
         score = calculate(solution)
 
