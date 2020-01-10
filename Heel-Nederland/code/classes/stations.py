@@ -15,9 +15,7 @@ class Stations():
         if not station_name in self.stations: 
             self.stations[station_name] = Station(station_name) 
             
-        
-
-    def get_random(self):
+    def get_random_station(self):
         unvisited_connections = []
         for connections in self.stations.values():
             for connection in connections.connections:
