@@ -72,13 +72,11 @@ def solution_1_city(stations_objects, connection_objects):
         for connection in connection_objects:
             if connection.visited == True:
                 counter_visited += 1
+                
         if len(connection_objects) == counter_visited:
             break
-    
-    for traject in trajecten:
-        total_travel_time += traject.travel_time
 
-    solution["total_travel_time"] = total_travel_time
+
     solution["visited_trajects"] = counter_visited
     solution["total_trajects"] = len(connection_objects)
     solution["trajecten"] = trajecten

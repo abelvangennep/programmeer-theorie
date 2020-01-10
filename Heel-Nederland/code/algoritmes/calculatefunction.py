@@ -1,5 +1,9 @@
 def calculate(solution):
-    minutes = solution["total_travel_time"]
+    minutes = 0
+    for traject in solution["trajecten"]:
+        minutes += traject.travel_time
+    
+    solution["trajecten"]
     P = solution["visited_trajects"] / solution["total_trajects"]
     T = len(solution["trajecten"])
     # print("_____________________________________________")

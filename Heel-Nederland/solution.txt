@@ -50,3 +50,12 @@ SCORE:7026.0
 attempts:10000
 SCORE:7018.0
 
+attempts:1
+SCORE:6848.0
+
+attempts:1
+SCORE:6150.0
+
+attempts:1
+SCORE:6167.0
+

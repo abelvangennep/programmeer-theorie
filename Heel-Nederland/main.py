@@ -10,11 +10,12 @@ from randomsolution import random_solution, solution_1_city
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
+from cut import cut 
 
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 10000
+    attempts = 100
 
     for _ in range(attempts):
         data_list = load_data("data/ConnectiesNationaal.csv")
@@ -24,7 +25,7 @@ if __name__ == '__main__':
         connection_objects = load_connections(data_list, stations_objects)
 
         solution = random_solution(stations_objects, connection_objects)
-
+        solution = cut(solution)
         score = calculate(solution)
 
         if score > best_score:

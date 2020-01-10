@@ -14,7 +14,22 @@ class Traject():
             self.current_station = connection.station_2
         else:
             self.current_station = connection.station_1
+    
+    def delete_connection(self, connection): 
+    
+        if self.connections.index(connection) == 0: 
+            if self.start_station == connection.station_1: 
+                self.start_station = connection.station_2
+            else: 
+                self.start_station = connection.station_1    
+        else: 
+            if self.current_station == connection.station_1: 
+                self.current_station = connection.station_2
+            else: 
+                self.current_station = connection.station_1                        
         
+        self.travel_time -= connection.travel_time
+        self.connections.remove(connection)
 
     def __str__(self):
         station = self.start_station

@@ -34,6 +34,7 @@ class Stations():
                         unvisited_connections.append(connection.station_2)
                     # print(connection)
         if len(stations_with_1_connection) > 0: 
+            print("1")
             return random.choice(stations_with_1_connection)
         else:
             for station in self.stations.values():
@@ -44,8 +45,9 @@ class Stations():
                             stations_uneven_connections.append(station) 
 
         if  len(stations_uneven_connections) > 0: 
+            print("2")
             return random.choice(stations_uneven_connections)
-
+        print("3")
         return random.choice(unvisited_connections)
 
     def get_random_station_original(self):        
