@@ -14,10 +14,10 @@ from calculatefunction import calculate
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 100000
+    attempts = 10
 
     for _ in range(attempts):
-        data_list = load_data("data/ConnectiesHolland.csv")
+        data_list = load_data("data/ConnectiesNationaal.csv")
 
         stations_objects = load_stations(data_list)
 

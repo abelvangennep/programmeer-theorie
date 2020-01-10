@@ -2,11 +2,11 @@ from traject import Traject
 from stations import Stations
 
 def random_solution(stations_objects, connection_objects):
-    max = 120
+    max = 180
     solution = {}
     trajecten = []
     total_travel_time = 0
-    for _ in range(7):
+    for _ in range(20):
         station = stations_objects.get_random()
         traject = Traject(station) 
         # print(f"traject: {traject}")

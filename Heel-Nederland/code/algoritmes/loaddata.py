@@ -29,7 +29,7 @@ def load_connections(data_list, stations_object):
         station_1 = stations_object.get_station(item[0])
         station_2 = stations_object.get_station(item[1])
 
-        connection = Connection(station_1, station_2, int(item[2]))
+        connection = Connection(station_1, station_2, int(float(item[2])))
         connections.append(connection)
         station_1.add_connection(connection)
         station_2.add_connection(connection)

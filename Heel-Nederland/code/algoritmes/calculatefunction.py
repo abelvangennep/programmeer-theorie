@@ -6,9 +6,9 @@ def calculate(solution):
     # print(P * 10000 - (T * 100 + minutes))
     score = P * 10000 - (T * 100 + minutes)
 
-    # f= open("solution.txt","a+")
+    f= open("solution.txt","a+")
 
-    # f.write(f"SCORE:{score}\n" + f"MINUTES:{minutes}\n" + f"P:{P}\n" + f"T:{T}\n" + "\n")
-    # f.close()
+    f.write(f"SCORE:{score}\n" + f"MINUTES:{minutes}\n" + f"P:{P}\n" + f"T:{T}\n" + "\n")
+    f.close()
 
     return score
