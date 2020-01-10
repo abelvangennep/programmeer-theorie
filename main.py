@@ -13,12 +13,24 @@ from calculatefunction import calculate
 
 
 if __name__ == '__main__':
-    data_list = load_data("data/ConnectiesHolland.csv")
+    best_score = 0
+    attempts = 100000
 
-    stations_objects = load_stations(data_list)
+    for _ in range(attempts):
+        data_list = load_data("data/ConnectiesHolland.csv")
 
-    connection_objects = load_connections(data_list, stations_objects)
+        stations_objects = load_stations(data_list)
 
-    solution = random_solution(stations_objects, connection_objects)
+        connection_objects = load_connections(data_list, stations_objects)
 
-    calculate(solution)
+        solution = random_solution(stations_objects, connection_objects)
+
+        score = calculate(solution)
+
+        if score > best_score:
+            best_score = score
+
+    f= open("solution.txt","a+")
+    f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
+    f.close()
+

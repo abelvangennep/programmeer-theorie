@@ -6,7 +6,7 @@ def random_solution(stations_objects, connection_objects):
     solution = {}
     trajecten = []
     total_travel_time = 0
-    for i in range(7):
+    for _ in range(7):
         station = stations_objects.get_random()
         traject = Traject(station) 
         # print(f"traject: {traject}")
@@ -22,7 +22,7 @@ def random_solution(stations_objects, connection_objects):
             traject.add_connection(connection)
             connection.set_visited()
 
-        print(f"{traject}\n")
+        # print(f"{traject}\n")
         trajecten.append(traject)
 
         
@@ -32,7 +32,7 @@ def random_solution(stations_objects, connection_objects):
             if connection.visited == True:
                 counter_visited += 1
         if len(connection_objects) == counter_visited:
-            print("gelukt")
+            # print("gelukt")
             break
     
     for traject in trajecten:
