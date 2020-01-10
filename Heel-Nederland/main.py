@@ -6,7 +6,7 @@ sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 from connection import Connection
 from station import Station
-from randomsolution import random_solution, solution_1_city, solution_2_start
+from randomsolution import random_solution, solution_1_city
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
