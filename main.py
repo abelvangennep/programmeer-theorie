@@ -10,11 +10,12 @@ from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
+from visualisation import visualise
 
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 100000
+    attempts = 1000
 
     for _ in range(attempts):
         data_list = load_data("data/ConnectiesHolland.csv")
@@ -33,4 +34,3 @@ if __name__ == '__main__':
     f= open("solution.txt","a+")
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
-
