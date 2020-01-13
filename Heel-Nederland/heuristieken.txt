@@ -1,0 +1,15 @@
+Begin K = 6.816 & 6801
+
+1. Binnen 1 traject nooit 2x zelfde stad
+    Uitslag: Dit implementeren heeft een negatief effect op de K
+    K = 6734 & 6755
+
+2.1 Begin met station met, maar 1 verbinding
+    Uitslag, het beginnen met een station met, maar 1 verbinding gaf een significant hogere Uitslag
+    K = 6814 & 6996
+
+2.2 Als er geen station is met maar 1 verbinding, kies een station met een oneven aantal verbindingen.
+    Uitslag is significant beter
+    K = 7026 & 7018
+
+

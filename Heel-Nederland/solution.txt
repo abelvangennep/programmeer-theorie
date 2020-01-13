@@ -1,7 +1,5 @@
 Scores heel Holland
 
-
-
 attempts:10000
 SCORE:6734.0
 
@@ -58,4 +56,22 @@ SCORE:6150.0
 
 attempts:1
 SCORE:6167.0
+
+attempts:100
+SCORE:6793.0
+
+attempts:1
+SCORE:6457.0
+
+attempts:1
+SCORE:6062.0
+
+attempts:1
+SCORE:6238.0
+
+attempts:1
+SCORE:6377.0
+
+attempts:1
+SCORE:6164.0
 
