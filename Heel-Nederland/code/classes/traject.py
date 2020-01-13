@@ -33,7 +33,6 @@ class Traject():
                     self.current_station = connection.station_1        
                 # self.start_station = self.connections[-2]                
             
-            self.travel_time -= connection.travel_time
             self.connections.remove(connection)
 
     def __str__(self):
