@@ -1,0 +1,12 @@
+Scores Noord-/Zuid-Holland
+
+1.000 attempts:
+SCORE:8548.0
+SCORE:9162.0
+SCORE:9155.0
+
+100.000 attempts:
+SCORE:9186.0
+attempts:100000
+SCORE:9192.0
+
