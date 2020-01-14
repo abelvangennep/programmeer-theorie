@@ -16,7 +16,7 @@ from stations import Stations
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 1
+    attempts = 10000
 
     # raw_input returns the empty string for "enter"
     yes = {'yes','y', 'ye', ''}
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
         connection_objects = load_connections(data_list, stations_objects)
 
-        solution = random_solution(stations_objects, connection_objects)
+        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections)
         solution = cut(solution)
         score = calculate(solution)
 
