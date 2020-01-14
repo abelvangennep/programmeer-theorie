@@ -6,7 +6,7 @@ sys.path.append(os.path.join(directory, "code", "algoritmes"))
 
 from connection import Connection
 from station import Station
-from randomsolution import random_solution, solution_1_city
+from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
@@ -21,6 +21,15 @@ if __name__ == '__main__':
     # raw_input returns the empty string for "enter"
     yes = {'yes','y', 'ye', ''}
     no = {'no','n'}
+
+    # Prompt user for heuristiek: Random station chooses a station with one connection
+    connection_only_once = input("Should a station only be visited once, per traject.").lower()
+    if connection_only_once in yes:
+        connection_only_once = True
+    elif connection_only_once in no:
+        connection_only_once = False
+    else:
+        sys.stdout.write("Please respond with 'yes' or 'no'")
 
     # Prompt user for heuristiek: Random station chooses a station with one connection
     station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
@@ -47,7 +56,7 @@ if __name__ == '__main__':
 
         connection_objects = load_connections(data_list, stations_objects)
         
-        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections)
+        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, connection_only_once)
         solution = cut(solution)
         score = calculate(solution)
 
