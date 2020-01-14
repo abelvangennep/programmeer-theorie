@@ -26,14 +26,14 @@ class Traject():
                 else:
                     self.start_station = connection.station_1
                 # self.start_station = self.connections[1]
-                self.connections.remove(self.connections[0])
+                self.connections.pop(0)
             else:
                 if self.current_station == connection.station_1:
                     self.current_station = connection.station_2
                 else:
                     self.current_station = connection.station_1
                 # self.start_station = self.connections[-2]
-                self.connections.remove(self.connections[-1])
+                self.connections.pop(-1)
 
 
     def __str__(self):
