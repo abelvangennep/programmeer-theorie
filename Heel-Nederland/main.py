@@ -10,7 +10,7 @@ from randomsolution import random_solution, solution_1_city
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
-from cut import cut 
+from cut import cut
 from stations import Stations
 
 
@@ -40,13 +40,13 @@ if __name__ == '__main__':
     else:
         sys.stdout.write("Please respond with 'yes' or 'no'")
 
-    for _ in range(attempts):
-        data_list = load_data("data/ConnectiesNationaal.csv")
+    data_list = load_data("data/ConnectiesNationaal.csv")
 
+    for _ in range(attempts):
         stations_objects = load_stations(data_list)
 
         connection_objects = load_connections(data_list, stations_objects)
-
+        
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections)
         solution = cut(solution)
         score = calculate(solution)
@@ -57,6 +57,3 @@ if __name__ == '__main__':
     f= open("solution.txt","a+")
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
-    
-    
-

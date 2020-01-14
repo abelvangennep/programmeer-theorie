@@ -78,3 +78,9 @@ SCORE:6164.0
 attempts:1
 SCORE:5685.0
 
+attempts:10000
+SCORE:7064.0
+
+attempts:10000
+SCORE:7065.0
+
