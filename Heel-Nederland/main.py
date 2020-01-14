@@ -11,6 +11,7 @@ from loaddata import load_data, load_stations, load_connections
 from traject import Traject
 from calculatefunction import calculate
 from cut import cut
+from paste import paste
 from stations import Stations
 from userinput import boolean_input
 
@@ -71,9 +72,9 @@ if __name__ == '__main__':
             # Cut a connection from a "traject" if the begin or end connection is in an other traject
             solution = cut(solution)
 
-        # if paste_connections:
-        #     # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
-        #     solution = paste(solution)
+        if paste_connections:
+            # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
+            solution = paste(solution)
         
         # Calculate the K of a solution
         score = calculate(solution)

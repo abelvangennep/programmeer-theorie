@@ -34,6 +34,10 @@ class Traject():
                     self.current_station = connection.station_1
                 # self.start_station = self.connections[-2]
                 self.connections.pop(-1)
+            return False
+        
+        else: 
+            return True
 
 
     def __str__(self):
@@ -46,3 +50,8 @@ class Traject():
                 station = connection.station_1
             route = f"{route} - {connection.travel_time} - {station}"
         return f"{route} ({self.travel_time})"
+
+        # connecties = ""
+        # for connection in self.connections:
+        #     connecties += f" -{connection} "
+        # return connecties
