@@ -1,6 +1,9 @@
 def calculate(solution):
     minutes = 0
     for traject in solution["trajecten"]:
+        if traject.travel_time == 0: 
+            print("delete traject")
+            solution["trajecten"].remove(traject)
         minutes += traject.travel_time
     
     solution["trajecten"]
