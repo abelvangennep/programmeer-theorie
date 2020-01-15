@@ -25,7 +25,7 @@ def paste(solution):
                             traject_2.add_connection(connection)
 
                         for connection in traject_1.connections:                          
-                            traject_1.delete_connection(connection)
+                            traject_1.delete_connection(connection, 0)
                             
                             # if empty_train:
                             #     solution["trajecten"].remove(traject_1)

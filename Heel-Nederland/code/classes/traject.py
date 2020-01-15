@@ -50,25 +50,30 @@ class Traject():
         else:
             self.current_station = connection.station_1
 
-    def delete_connection(self, connection):
+    def delete_connection(self, connection, index):
 
         self.travel_time -= connection.travel_time
+        self.index = index
 
+        
         if self.travel_time > 0:
-            if self.connections.index(connection) == 0:
+
+            if index == 0: 
                 if self.start_station == connection.station_1:
                     self.start_station = connection.station_2
                 else:
                     self.start_station = connection.station_1
                 
-                self.connections.pop(0)
-            else:
+                self.connections.pop(index)
+
+            elif index == -1: 
                 if self.current_station == connection.station_1:
                     self.current_station = connection.station_2
                 else:
                     self.current_station = connection.station_1
                 
-                self.connections.pop(-1)
+                self.connections.pop(index)
+
             return False
         
         else: 
