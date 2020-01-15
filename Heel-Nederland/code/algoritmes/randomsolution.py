@@ -17,27 +17,19 @@ def random_solution(stations_objects, connection_objects, station_1_connection, 
         
         traject = Traject(station) 
 
-        if connection_only_once:
-            visited_stations = []
-            while True:
-                connection = traject.current_station.get_random_connection_1(visited_stations)
+        
+        visited_stations = []
+        while True:
+            connection = traject.get_random_connection(visited_stations, connection_only_once)
+            if connection_only_once:
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
-                if traject.travel_time + connection.travel_time > max:
-                    break 
+            if traject.travel_time + connection.travel_time > max:
+                break 
 
-                traject.add_connection(connection)
-                connection.set_visited()
-        else:
-            while True:
-                connection = traject.current_station.get_random_connection()
-
-                if traject.travel_time + connection.travel_time > max:
-                    break 
-
-                traject.add_connection(connection)
-                connection.set_visited()
+            traject.add_connection(connection)
+            connection.set_visited()
 
         trajecten.append(traject)
 

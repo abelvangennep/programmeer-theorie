@@ -54,6 +54,8 @@ if __name__ == '__main__':
         paste_connections = boolean_input(paste_connections)
         if not connection_only_once == 3:
             break
+    
+    print("1")
 
     # Load data from csv files with all the connections and their travel time
     data_list = load_data("data/ConnectiesNationaal.csv")
@@ -64,10 +66,8 @@ if __name__ == '__main__':
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects)
-        
         # Solution random, generates a random solution with possibly some heuristieken
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, connection_only_once)
-
         if cut_connections:
             # Cut a connection from a "traject" if the begin or end connection is in an other traject
             solution = cut(solution)

@@ -3,14 +3,13 @@ def paste(solution):
     for traject in trajecten: 
         if traject.travel_time <= 0: 
             solution["trajecten"].remove(traject)
-    print(solution["trajecten"])
+    # print(solution["trajecten"])
 
     for traject_1 in trajecten: 
         first_station_1 = traject_1.start_station
         last_station_1 = traject_1.current_station
-
         for traject_2 in trajecten: 
-            if traject_1 is not traject_2: 
+            if traject_1 is not traject_2 and traject_1.travel_time > 0 and traject_2.travel_time > 0: 
                 # print(traject_1.travel_time + traject_2.travel_time) 
                 if traject_1.travel_time + traject_2.travel_time <= 180:
                     # print(f"total travel time under 3 hours: {traject_1.travel_time + traject_2.travel_time}")
@@ -26,7 +25,7 @@ def paste(solution):
                             traject_2.add_connection(connection)
 
                         for connection in traject_1.connections:                          
-                            empty_train = traject_1.delete_connection(connection)
+                            traject_1.delete_connection(connection)
                             
                             # if empty_train:
                             #     solution["trajecten"].remove(traject_1)
@@ -34,6 +33,8 @@ def paste(solution):
 
                         print(f"traject 1 after: {traject_1}\n")
                         print(f"traject 2 after: {traject_2}\n")
+                    
+                    # if traject_1.travel_time <= 
 
                     # elif first_station_2 == last_station_1: 
 

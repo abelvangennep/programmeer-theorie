@@ -92,3 +92,24 @@ SCORE:7105.0
 
 attempts:10000
 SCORE:7093.0
+attempts:10000
+SCORE:7106.0
+
+attempts:10000
+SCORE:7022.0
+
+attempts:10000
+SCORE:7077.0
+
+attempts:10000
+SCORE:6821.0
+
+attempts:10000
+SCORE:6809.0
+
+attempts:10000
+SCORE:7011.0
+
+attempts:10000
+SCORE:7021.0
+
