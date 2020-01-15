@@ -79,6 +79,27 @@ class Traject():
         else: 
             return True
 
+    def coordinates(self):
+        coordinates = {}
+        coordinates_x = []
+        coordinates_y = []
+        station = self.start_station
+        
+        for connection in self.connections:
+            if connection.station_1 == station:
+                coordinates_x.append(station.x)
+                coordinates_y.append(station.y)
+                station = connection.station_2
+            else:
+                coordinates_x.append(station.x)
+                coordinates_y.append(station.y)
+                station = connection.station_1
+        
+        coordinates["x"] = coordinates_x
+        coordinates["y"] = coordinates_y
+
+        return coordinates
+
 
     def __str__(self):
         station = self.start_station

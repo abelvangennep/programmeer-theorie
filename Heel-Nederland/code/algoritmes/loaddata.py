@@ -14,11 +14,11 @@ def load_data(file):
 
     return data_list
 
-def load_stations(data_list):
+def load_stations(data_list, stations_data):
     stations = Stations()
     for item in data_list:
-        stations.create_station(item[0])
-        stations.create_station(item[1])
+        stations.create_station(item[0], stations_data)
+        stations.create_station(item[1], stations_data)
     
     return stations
 

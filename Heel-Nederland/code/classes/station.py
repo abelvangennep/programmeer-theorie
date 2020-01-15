@@ -4,9 +4,11 @@ class Station():
     """
 
     """
-    def __init__(self, name):
+    def __init__(self, name, x, y):
         self.name = name
         self.connections = []
+        self.x = x
+        self.y = y
         # self.unvisited_connections = []
 
     def add_connection(self, connection):

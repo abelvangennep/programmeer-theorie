@@ -59,10 +59,11 @@ if __name__ == '__main__':
 
     # Load data from csv files with all the connections and their travel time
     data_list = load_data("data/ConnectiesNationaal.csv")
+    stations_data = load_data("data/StationsNationaal.csv")
 
     for _ in range(attempts):
         # Stations_object is a dictionary in which all the station objects are loaded
-        stations_objects = load_stations(data_list)
+        stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects)
