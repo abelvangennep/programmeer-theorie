@@ -10,9 +10,13 @@ class Stations():
         return self.stations[station_name]
 
 
-    def create_station(self, station_name):
+    def create_station(self, station_name, stations_data):
         if not station_name in self.stations:
-            self.stations[station_name] = Station(station_name)
+            for item in stations_data:
+                if station_name == item[0]:
+                    y = item[1]
+                    x = item[2]
+            self.stations[station_name] = Station(station_name, x, y)
 
     def get_random_station(self):
         unvisited_connections = []
