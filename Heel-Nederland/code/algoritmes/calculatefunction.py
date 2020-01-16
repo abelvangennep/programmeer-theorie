@@ -11,7 +11,11 @@ def calculate(solution):
     T = len(solution["trajecten"])
     # print("_____________________________________________")
     # print(P * 10000 - (T * 100 + minutes))
+    print(f"minutes:{minutes}")
+    print(f"number of trajecten:{T}")
+    print(f"P:{P}")
     score = P * 10000 - (T * 100 + minutes)
+    print(f"score:{score}")
 
     # f= open("solution.txt","a+")
 
