@@ -86,6 +86,12 @@ if __name__ == '__main__':
             best_solution = solution
             best_score = score
 
+    f= open("output.csv","a+")
+    f.write("trein, lijnvoering\n")
+    for traject in best_solution["trajecten"]:
+        f.write(f"trein, {traject}\n")
+    f.close()
+
     # Append the best_score to a text file
     f= open("solution.txt","a+")
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
