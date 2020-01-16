@@ -36,7 +36,8 @@ def random_solution(stations_objects, connection_objects, station_1_connection, 
         counter_visited = 0
        
         for connection in connection_objects:
-            if connection.visited == True:
+            # if connection.visited == True:
+            if connection.visited > 0:  
                 counter_visited += 1
         if len(connection_objects) == counter_visited:
             break

@@ -28,7 +28,8 @@ class Stations():
                 # stations_with_1_connection.append(station.connections[0].station_2)
         for station in self.stations.values():
             for connection in station.connections:
-                if connection.visited == False:
+                # if connection.visited == False:
+                if connection.visited < 1: 
                     if connection.station_1 not in unvisited_connections:
                         unvisited_connections.append(connection.station_1)
                     if connection.station_2 not in unvisited_connections:
@@ -51,7 +52,8 @@ class Stations():
         for station in self.stations.values():
             if len(station.connections) % 2 == 1:
                 for connection in station.connections:
-                    if connection.visited == False and station not in stations_uneven_connections:
+                    # if connection.visited == False and station not in stations_uneven_connections:
+                    if connection.visited < 1 and station not in stations_uneven_connections:
                         stations_uneven_connections.append(station)
         if  len(stations_uneven_connections) > 0:
             return random.choice(stations_uneven_connections)
@@ -62,7 +64,8 @@ class Stations():
 
         for connections in self.stations.values():
             for connection in connections.connections:
-                if connection.visited == False:
+                # if connection.visited == False:
+                if connection.visited < 1: 
                     unvisited_connections.append(connection.station_1)
                     unvisited_connections.append(connection.station_2)
 

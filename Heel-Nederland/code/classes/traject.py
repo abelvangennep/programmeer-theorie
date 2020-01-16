@@ -17,7 +17,8 @@ class Traject():
 
         for connection in self.current_station.connections:
 
-            if connection.visited == False:
+            # if connection.visited == False:
+            if connection.visited < 1: 
                 unvisited_connections.append(connection)
 
             if connection not in self.connections:
@@ -53,6 +54,8 @@ class Traject():
 
         self.travel_time -= connection.travel_time
         self.index = index
+
+        connection.delete_visit() 
 
         
         if self.travel_time > 0:
