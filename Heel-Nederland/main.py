@@ -3,6 +3,7 @@ directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "classes"))
 sys.path.append(os.path.join(directory, "code", "algoritmes"))
+sys.path.append(os.path.join(directory, "code", "visualize"))
 
 from connection import Connection
 from station import Station
@@ -14,6 +15,7 @@ from cut import cut
 from paste import paste
 from stations import Stations
 from userinput import boolean_input
+from visualize import draw_traject
 
 
 if __name__ == '__main__':
@@ -40,21 +42,21 @@ if __name__ == '__main__':
         station_uneven_connections = boolean_input(station_uneven_connections)
         if not connection_only_once == 3:
             break
-    
+
     # Prompt user for heuristiek: Cut a traject if the begin or end connection is already in an other traject
     while True:
         cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other traject.").lower()
         cut_connections = boolean_input(cut_connections)
         if not connection_only_once == 3:
             break
-    
+
     # Prompt user for heuristiek: Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
     while True:
         paste_connections = input("Do you prefer to paste trajects together,if their total time is less then 180min and their begin and start station is equal.").lower()
         paste_connections = boolean_input(paste_connections)
         if not connection_only_once == 3:
             break
-    
+
     print("1")
 
     # Load data from csv files with all the connections and their travel time
@@ -76,7 +78,7 @@ if __name__ == '__main__':
         if paste_connections:
             # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
-        
+
         # Calculate the K of a solution
         score = calculate(solution)
 
@@ -89,4 +91,4 @@ if __name__ == '__main__':
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-
+    draw_traject(best_solution, stations_objects)

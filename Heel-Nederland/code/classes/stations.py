@@ -14,8 +14,8 @@ class Stations():
         if not station_name in self.stations:
             for item in stations_data:
                 if station_name == item[0]:
-                    y = item[1]
-                    x = item[2]
+                    y = float(item[1])
+                    x = float(item[2])
             self.stations[station_name] = Station(station_name, x, y)
 
     def get_random_station(self):
