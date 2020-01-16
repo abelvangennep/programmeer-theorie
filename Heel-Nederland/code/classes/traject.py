@@ -40,7 +40,6 @@ class Traject():
 
         return random.choice(all_connections)        
 
-
     def add_connection(self, connection):
         self.connections.append(connection)
         self.travel_time += connection.travel_time
@@ -77,7 +76,14 @@ class Traject():
             return False
         
         else: 
+            self.delete_traject() 
             return True
+
+    def delete_traject(self): 
+        self.travel_time = 0
+        self.connections = []
+        self.start_station = ""
+        self.current_station = ""
 
     def coordinates(self):
         coordinates = {}
@@ -104,13 +110,19 @@ class Traject():
     def __str__(self):
         station = self.start_station
         route = self.start_station
-        for connection in self.connections:
-            if connection.station_1 == station:
-                station = connection.station_2
-            else:
-                station = connection.station_1
-            route = f"{route} - {connection.travel_time} - {station}"
-        return f"{route} ({self.travel_time})"
+        if not self.connections: 
+            string = "*deleted*"
+        else: 
+
+            for connection in self.connections:
+                if connection.station_1 == station:
+                    station = connection.station_2
+                else:
+                    station = connection.station_1
+                route = f"{route} - {connection.travel_time} - {station}"
+            string = f"{route} ({self.travel_time})"
+        # return f"{route} ({self.travel_time})"
+        return string
 
         # connecties = ""
         # for connection in self.connections:
