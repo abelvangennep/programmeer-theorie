@@ -20,41 +20,41 @@ from visualize import draw_traject
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 10
+    attempts = 10000
 
     # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
     while True:
-        connection_only_once = input("Should a station only be visited once, per traject.").lower()
-        connection_only_once = boolean_input(connection_only_once)
-        if not connection_only_once == 3:
+        station_only_once = input("Should a station only be visited once, per traject.").lower()
+        station_only_once = boolean_input(station_only_once)
+        if not station_only_once == 3:
             break
 
     # Prompt user for heuristiek: Random station chooses a station with one connection
     while True:
         station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
         station_1_connection = boolean_input(station_1_connection)
-        if not connection_only_once == 3:
+        if not station_1_connection == 3:
             break
 
     # Prompt user for heuristiek: Random station chooses a station with an uneven number of connections
     while True:
         station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
         station_uneven_connections = boolean_input(station_uneven_connections)
-        if not connection_only_once == 3:
+        if not station_uneven_connections == 3:
             break
 
     # Prompt user for heuristiek: Cut a traject if the begin or end connection is already in an other traject
     while True:
         cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other traject.").lower()
         cut_connections = boolean_input(cut_connections)
-        if not connection_only_once == 3:
+        if not cut_connections == 3:
             break
 
     # Prompt user for heuristiek: Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
     while True:
         paste_connections = input("Do you prefer to paste trajects together,if their total time is less then 180min and their begin and start station is equal.").lower()
         paste_connections = boolean_input(paste_connections)
-        if not connection_only_once == 3:
+        if not paste_connections == 3:
             break
 
 
@@ -69,14 +69,33 @@ if __name__ == '__main__':
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects)
         # Solution random, generates a random solution with possibly some heuristieken
-        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, connection_only_once)
+        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once)
         if cut_connections:
             # Cut a connection from a "traject" if the begin or end connection is in an other traject
+            
+            # visited_connections = []
+            # for traject in solution["trajecten"]: 
+            #     for connection in traject.connections: 
+            #         if connection not in visited_connections: 
+            #             visited_connections.append(connection)
+        
+            # print("BEFORE", len(visited_connections))
+
             solution = cut(solution)
 
         if paste_connections:
             # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
+
+
+        # visited_connections = []
+        # for traject in solution["trajecten"]: 
+        #     for connection in traject.connections: 
+        #         if connection not in visited_connections: 
+        #             visited_connections.append(connection)
+    
+        # print("AFTER", len(visited_connections))
+
 
         # Calculate the K of a solution
         score = calculate(solution)

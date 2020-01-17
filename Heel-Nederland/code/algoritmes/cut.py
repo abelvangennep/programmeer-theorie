@@ -9,10 +9,14 @@ def cut(solution):
 
             if first_connection.visited > 1: 
                 traject.delete_connection(0)
+                # if first_connection.visited < 1: 
+                #     print("first connection", first_connection)
 
             elif last_connection.visited > 1: 
                 traject.delete_connection(-1)
-            
+                # if first_connection.visited < 1: 
+                    # print("last connection", last_connection)
+
             else: 
                 break 
     

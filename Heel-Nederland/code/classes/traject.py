@@ -50,11 +50,15 @@ class Traject():
         else:
             self.current_station = connection.station_1
 
+        connection.add_visit()
+
     def delete_connection(self, index):
         connection = self.connections[index]
-        
-        self.travel_time -= connection.travel_time 
-        
+
+        # print(f"connection before delete {connection}")
+
+        self.travel_time -= connection.travel_time
+  
         if self.travel_time > 0:
 
             if index == 0: 
@@ -62,22 +66,30 @@ class Traject():
                     self.start_station = connection.station_2
                 else:
                     self.start_station = connection.station_1
-                connection.delete_visit()
-                self.connections.pop(index)
 
             elif index == -1: 
                 if self.current_station == connection.station_1:
                     self.current_station = connection.station_2
                 else:
                     self.current_station = connection.station_1
-                connection.delete_visit()
-                self.connections.pop(index)
+            
+            self.connections.pop(index)
+
+            connection.delete_visit()
+
+            # print(f"connection after delete {connection}")
         
         else: 
+            # print("empty train")
             self.empty_traject() 
 
+    def empty_traject(self):
+        for connection in self.connections: 
+            # print("connection before delete", connection)
+            connection.delete_visit()
+            # print("connection after delete", connection)
 
-    def empty_traject(self): 
+
         self.travel_time = 0
         self.connections = []
         self.start_station = ""
@@ -111,7 +123,7 @@ class Traject():
     def __str__(self):
         station = self.start_station
         route = self.start_station
-        if not self.connections: 
+        if not self.connections and self.travel_time == 0 and self.start_station == "": 
             string = "*deleted*"
         else: 
 
