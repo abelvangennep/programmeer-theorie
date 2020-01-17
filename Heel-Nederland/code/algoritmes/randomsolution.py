@@ -1,19 +1,14 @@
 from traject import Traject
 from stations import Stations
 
-def random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, connection_only_once):
+def random_solution(stations_dict, connection_objects, station_1_connection, station_uneven_connections, connection_only_once):
     max = 180
     solution = {}
     trajecten = []
     total_travel_time = 0
 
     for _ in range(20):
-        if station_1_connection:
-            station = stations_objects.get_random_station_1_conn(station_uneven_connections)
-        elif station_uneven_connections:
-            station = stations_objects.get_random_station_uneven_conn()
-        else:
-            station = stations_objects.get_random_station()
+        station = stations_dict.get_random_start_station(station_uneven_connections, station_1_connection)
         
         traject = Traject(station) 
 
@@ -29,7 +24,7 @@ def random_solution(stations_objects, connection_objects, station_1_connection, 
                 break 
 
             traject.add_connection(connection)
-            connection.set_visited()
+            connection.add_visit()
 
         trajecten.append(traject)
 
@@ -44,7 +39,7 @@ def random_solution(stations_objects, connection_objects, station_1_connection, 
     
     for traject in trajecten:
         total_travel_time += traject.travel_time
-
+        
     solution["total_travel_time"] = total_travel_time
     solution["visited_trajects"] = counter_visited
     solution["total_trajects"] = len(connection_objects)

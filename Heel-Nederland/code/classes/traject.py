@@ -74,34 +74,10 @@ class Traject():
                 self.connections.pop(index)
         
         else: 
-            self.delete_traject() 
+            self.empty_traject() 
 
-    def delll(self, index):
-        connection = self.connections[index]
-        print(f"index:{index}")
-        print(f"connection:{connection}")
-        self.travel_time -= self.connections.pop(index).travel_time
 
-        if self.travel_time > 0:
-            if index == 0: 
-                if self.start_station == connection.station_1:
-                    self.start_station = connection.station_2
-                else:
-                    self.start_station = connection.station_1
-                connection.delete_visit()
-                self.connections.pop(index)
-
-            elif index == -1: 
-                if self.current_station == connection.station_1:
-                    self.current_station = connection.station_2
-                else:
-                    self.current_station = connection.station_1
-                connection.delete_visit()
-                self.connections.pop(index)
-        else:
-            self.delete_traject()
-
-    def delete_traject(self): 
+    def empty_traject(self): 
         self.travel_time = 0
         self.connections = []
         self.start_station = ""

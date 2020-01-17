@@ -20,7 +20,7 @@ def paste(solution):
                             for connection in traject_1.connections: 
                                 traject_2.add_connection(connection)
                         
-                            traject_1.delete_traject()
+                            traject_1.empty_traject()
                                 
                             # print(f"traject 1 after: {traject_1}\n")
                             # print(f"traject 2 after: {traject_2}\n")
@@ -32,7 +32,7 @@ def paste(solution):
 
                             for connection in traject_2.connections: 
                                 traject_1.add_connection(connection)
-                            traject_2.delete_traject() 
+                            traject_2.empty_traject() 
 
                         #     print(f"traject 1 after: {traject_1}\n")
                         #     print(f"traject 2 after: {traject_2}\n")
@@ -43,7 +43,7 @@ def paste(solution):
 
                             for connection in reversed(traject_1.connections): 
                                 traject_2.add_connection(connection)
-                            traject_1.delete_traject()
+                            traject_1.empty_traject()
                                 
                         #     print(f"traject 1 after: {traject_1}\n")
                         #     print(f"traject 2 after: {traject_2}\n")

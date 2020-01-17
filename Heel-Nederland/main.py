@@ -20,7 +20,7 @@ from visualize import draw_traject
 
 if __name__ == '__main__':
     best_score = 0
-    attempts = 10000
+    attempts = 10
 
     # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
     while True:
@@ -57,7 +57,6 @@ if __name__ == '__main__':
         if not connection_only_once == 3:
             break
 
-    print("1")
 
     # Load data from csv files with all the connections and their travel time
     data_list = load_data("data/ConnectiesNationaal.csv")

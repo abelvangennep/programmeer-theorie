@@ -9,7 +9,7 @@ class Connection():
         # self.visited = False
         self.visited = 0 
 
-    def set_visited(self):
+    def add_visit(self):
         # self.visited = True
         self.visited += 1 
 
