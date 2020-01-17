@@ -2,15 +2,17 @@ from station import Station
 import random
 
 class Stations():
-
+    """ 
+    """
     def __init__(self):
         self.stations = {}
 
     def get_station(self, station_name):
+        """Return the station with the given station name""" 
         return self.stations[station_name]
 
-
     def create_station(self, station_name, stations_data):
+        """Create a new station"""
         if not station_name in self.stations:
             for item in stations_data:
                 if station_name == item[0]:
@@ -19,6 +21,7 @@ class Stations():
             self.stations[station_name] = Station(station_name, x, y)
 
     def get_random_start_station(self, uneven_connection, one_connection):
+        """Return a random start station"""
         stations_with_1_connection = []
         stations_uneven_connections = []
         unvisited_connections = []
