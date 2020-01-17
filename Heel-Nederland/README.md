@@ -7,3 +7,9 @@ test
 
 
 paniekkk
+
+# mac
+pip3 install matplotlib
+
+# windows
+pip install matplotlib
