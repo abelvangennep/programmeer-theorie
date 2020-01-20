@@ -1,22 +1,22 @@
 def cut(solution): 
-    trajecten = solution["trajecten"]
+    trains = solution["trajecten"]
 
-    for traject in trajecten: 
-        while traject.travel_time > 0: 
+    for train in trains: 
+        # While the train exists 
+        while train.travel_time > 0: 
 
-            first_connection = traject.connections[0]
-            last_connection = traject.connections[-1]
+            first_connection = train.connections[0]
+            last_connection = train.connections[-1]
 
+            # Delete the first connection of the train, if it has been visited more than once
             if first_connection.visited > 1: 
-                traject.delete_connection(0)
-                # if first_connection.visited < 1: 
-                #     print("first connection", first_connection)
+                train.delete_connection(0)
 
+            # Delete the last connection of the train, if it has been visited more than once
             elif last_connection.visited > 1: 
-                traject.delete_connection(-1)
-                # if first_connection.visited < 1: 
-                    # print("last connection", last_connection)
+               train.delete_connection(-1)
 
+            # If the first and last connection can't be deleted, break the while loop 
             else: 
                 break 
     

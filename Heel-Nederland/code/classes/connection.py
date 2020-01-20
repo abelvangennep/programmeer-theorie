@@ -6,14 +6,14 @@ class Connection():
         self.station_1 = station_1
         self.station_2 = station_2
         self.travel_time = travel_time
-        # self.visited = False
         self.visited = 0 
 
     def add_visit(self):
-        # self.visited = True
+        """Add a visit to the connection""" 
         self.visited += 1 
 
-    def delete_visit(self): 
+    def delete_visit(self):
+        """Delete a visit from the connection""" 
         self.visited -= 1 
 
     def __str__(self):

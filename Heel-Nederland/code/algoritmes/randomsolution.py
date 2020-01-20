@@ -35,12 +35,8 @@ def random_solution(stations_dict, connection_objects, station_1_connection, sta
         if len(connection_objects) == counter_visited or len(trajecten) > 20:
             break
 
-    existing_trajecten = []
-    for traject in trajecten: 
-        if traject.travel_time > 0: 
-            existing_trajecten.append(traject)
-    
+    solution["trajecten"] = trajecten
     solution["total_connections"] = len(connection_objects)
-    solution["trajecten"] = existing_trajecten
+    
 
     return solution

@@ -246,6 +246,7 @@ attempts:10000
 SCORE:7840.0
 
 attempts:10000
+<<<<<<< HEAD
 SCORE:7164.0
 
 attempts:10000
@@ -283,4 +284,13 @@ SCORE:7202.0
 
 attempts:10000
 SCORE:7154.0
+=======
+SCORE:7114.0
+
+attempts:10000
+SCORE:7080.0
+
+attempts:10000
+SCORE:7218.0
+>>>>>>> 0e7445cb6d608f4fdd64fb5afa59a0dfee06fa31
 
