@@ -246,6 +246,45 @@ attempts:10000
 SCORE:7840.0
 
 attempts:10000
+<<<<<<< HEAD
+SCORE:7164.0
+
+attempts:10000
+SCORE:7181.0
+
+attempts:10000
+SCORE:7215.0
+
+attempts:10000
+SCORE:7176.0
+
+attempts:10000
+SCORE:7210.0
+
+attempts:10000
+SCORE:7210.0
+
+attempts:10000
+SCORE:7132.0
+
+attempts:10000
+SCORE:7219.0
+
+attempts:10000
+SCORE:7234.0
+
+attempts:10000
+SCORE:7197.0
+
+attempts:10000
+SCORE:7238.0
+
+attempts:10000
+SCORE:7202.0
+
+attempts:10000
+SCORE:7154.0
+=======
 SCORE:7114.0
 
 attempts:10000
@@ -253,4 +292,5 @@ SCORE:7080.0
 
 attempts:10000
 SCORE:7218.0
+>>>>>>> 0e7445cb6d608f4fdd64fb5afa59a0dfee06fa31
 
