@@ -18,7 +18,7 @@ from userinput import boolean_input
 from visualize import draw_traject
 
 
-if __name__ == '__main__':
+def main():
     best_score = 0
     attempts = 10000
 
@@ -72,14 +72,6 @@ if __name__ == '__main__':
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once)
         if cut_connections:
             # Cut a connection from a "traject" if the begin or end connection is in an other traject
-            
-            # visited_connections = []
-            # for traject in solution["trajecten"]: 
-            #     for connection in traject.connections: 
-            #         if connection not in visited_connections: 
-            #             visited_connections.append(connection)
-        
-            # print("BEFORE", len(visited_connections))
 
             solution = cut(solution)
 
@@ -87,7 +79,7 @@ if __name__ == '__main__':
             # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
 
-
+        solution = delete_train(solution)
         # visited_connections = []
         # for traject in solution["trajecten"]: 
         #     for connection in traject.connections: 
@@ -115,4 +107,19 @@ if __name__ == '__main__':
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    draw_traject(best_solution, stations_objects)
+    # draw_traject(best_solution, stations_objects)
+
+def delete_train(solution):
+    trajecten = solution["trajecten"]
+    existing_trajecten = []
+
+    for traject in trajecten: 
+        if traject.travel_time > 0: 
+            existing_trajecten.append(traject)
+
+    solution["trajecten"] = existing_trajecten
+
+    return solution
+
+if __name__ == '__main__':
+    main()
