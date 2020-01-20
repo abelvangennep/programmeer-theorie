@@ -15,12 +15,12 @@ from cut import cut
 from paste import paste
 from stations import Stations
 from userinput import boolean_input
-from visualize import draw_traject
+from visualize import draw_traject, draw_traject_holland
 
 
 def main():
     best_score = 0
-    attempts = 10000
+    attempts = 1
 
     # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
     while True:
@@ -81,11 +81,11 @@ def main():
 
         solution = delete_train(solution)
         # visited_connections = []
-        # for traject in solution["trajecten"]: 
-        #     for connection in traject.connections: 
-        #         if connection not in visited_connections: 
+        # for traject in solution["trajecten"]:
+        #     for connection in traject.connections:
+        #         if connection not in visited_connections:
         #             visited_connections.append(connection)
-    
+
         # print("AFTER", len(visited_connections))
 
 
@@ -107,14 +107,15 @@ def main():
     f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    # draw_traject(best_solution, stations_objects)
+    draw_traject(best_solution, stations_objects)
+    # draw_traject_holland(best_solution, stations_objects)
 
 def delete_train(solution):
     trajecten = solution["trajecten"]
     existing_trajecten = []
 
-    for traject in trajecten: 
-        if traject.travel_time > 0: 
+    for traject in trajecten:
+        if traject.travel_time > 0:
             existing_trajecten.append(traject)
 
     solution["trajecten"] = existing_trajecten
