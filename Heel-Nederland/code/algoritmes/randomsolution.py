@@ -38,5 +38,4 @@ def random_solution(stations_dict, connection_objects, station_1_connection, sta
     solution["trajecten"] = trajecten
     solution["total_connections"] = len(connection_objects)
     
-
     return solution

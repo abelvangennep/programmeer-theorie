@@ -3,6 +3,7 @@ directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "classes"))
 sys.path.append(os.path.join(directory, "code", "algoritmes"))
+sys.path.append(os.path.join(directory, "code", "heuristics"))
 sys.path.append(os.path.join(directory, "code", "visualize"))
 
 from connection import Connection
@@ -10,11 +11,9 @@ from station import Station
 from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
 from traject import Traject
-from calculatefunction import calculate
 from cut import cut
 from paste import paste
 from stations import Stations
-from userinput import boolean_input
 from visualize import draw_traject, draw_traject_holland
 
 
@@ -23,40 +22,25 @@ def main():
     attempts = 1
 
     # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
-    while True:
-        station_only_once = input("Should a station only be visited once, per traject.").lower()
-        station_only_once = boolean_input(station_only_once)
-        if not station_only_once == 3:
-            break
+    station_only_once = input("Should a station only be visited once, per traject.").lower()
+    station_only_once = boolean_input(station_only_once)
 
     # Prompt user for heuristiek: Random station chooses a station with one connection
-    while True:
-        station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
-        station_1_connection = boolean_input(station_1_connection)
-        if not station_1_connection == 3:
-            break
+    station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
+    station_1_connection = boolean_input(station_1_connection)
 
     # Prompt user for heuristiek: Random station chooses a station with an uneven number of connections
-    while True:
-        station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
-        station_uneven_connections = boolean_input(station_uneven_connections)
-        if not station_uneven_connections == 3:
-            break
+    station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
+    station_uneven_connections = boolean_input(station_uneven_connections)
 
     # Prompt user for heuristiek: Cut a traject if the begin or end connection is already in an other traject
-    while True:
-        cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other traject.").lower()
-        cut_connections = boolean_input(cut_connections)
-        if not cut_connections == 3:
-            break
+    cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other traject.").lower()
+    cut_connections = boolean_input(cut_connections)
 
     # Prompt user for heuristiek: Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
-    while True:
-        paste_connections = input("Do you prefer to paste trajects together,if their total time is less then 180min and their begin and start station is equal.").lower()
-        paste_connections = boolean_input(paste_connections)
-        if not paste_connections == 3:
-            break
-
+    paste_connections = input("Do you prefer to paste trajects together,if their total time is less then 180min and their begin and start station is equal.").lower()
+    paste_connections = boolean_input(paste_connections)
+        
 
     # Load data from csv files with all the connections and their travel time
     data_list = load_data("data/ConnectiesNationaal.csv")
@@ -110,6 +94,20 @@ def main():
     draw_traject(best_solution, stations_objects)
     # draw_traject_holland(best_solution, stations_objects)
 
+def boolean_input(user_input):
+    yes = {'yes','y', 'ye', ''}
+    no = {'no','n'}
+
+    if user_input in yes:
+        user_input = True
+    elif user_input in no:
+        user_input = False
+    else:
+        sys.stdout.write("Please respond with 'yes' or 'no', you have now automatically chosen for the answer 'no' ")
+        user_input = False
+
+    return user_input
+
 def delete_train(solution):
     trajecten = solution["trajecten"]
     existing_trajecten = []
@@ -121,6 +119,27 @@ def delete_train(solution):
     solution["trajecten"] = existing_trajecten
 
     return solution
+
+def calculate(solution):
+    
+    trains = solution["trajecten"]
+    minutes = 0 
+    visited_connections = []
+    
+    for train in trains: 
+        minutes += train.travel_time
+
+        for connection in train.connections: 
+            if connection not in visited_connections: 
+                visited_connections.append(connection)
+
+    P = len(visited_connections) / solution["total_connections"]
+
+    T = len(trains)
+
+    score = P * 10000 - (T * 100 + minutes)
+
+    return score 
 
 if __name__ == '__main__':
     main()
