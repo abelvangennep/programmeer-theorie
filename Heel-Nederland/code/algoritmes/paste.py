@@ -50,6 +50,14 @@ def paste(solution):
 
                         # If the start station of the first train and the start station of the second train are the same
                         elif first_station_1 == first_station_2: 
-                            pass
+                            train_1.start_station = train_1.current_station
+                            train_1.current_station = train_1.start_station
+                            train_1.connections = list(reversed(train_1.connections))
+                            
+                            for connection in train_2.connections: 
+                                train_1.add_connection(connection)
+
+                            # Empty the second train object 
+                            train_2.empty_traject() 
 
     return solution
