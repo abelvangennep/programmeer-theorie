@@ -21,6 +21,9 @@ def main():
     best_score = 0
     attempts = 1
 
+    skip_station = input("Do you want to omit/avoid/skip a specific station? ")
+    # skip_station = boolean_input(skip_station)
+
     # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
     station_only_once = input("Should a station only be visited once, per traject.").lower()
     station_only_once = boolean_input(station_only_once)
@@ -43,8 +46,8 @@ def main():
         
 
     # Load data from csv files with all the connections and their travel time
-    data_list = load_data("data/ConnectiesNationaal.csv")
-    stations_data = load_data("data/StationsNationaal.csv")
+    data_list = load_data("data/ConnectiesNationaal.csv", skip_station)
+    stations_data = load_data("data/StationsNationaal.csv", skip_station)
 
     for _ in range(attempts):
         # Stations_object is a dictionary in which all the station objects are loaded
@@ -64,14 +67,6 @@ def main():
             solution = paste(solution)
 
         solution = delete_train(solution)
-        # visited_connections = []
-        # for traject in solution["trajecten"]:
-        #     for connection in traject.connections:
-        #         if connection not in visited_connections:
-        #             visited_connections.append(connection)
-
-        # print("AFTER", len(visited_connections))
-
 
         # Calculate the K of a solution
         score = calculate(solution)

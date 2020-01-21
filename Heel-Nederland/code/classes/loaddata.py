@@ -4,13 +4,17 @@ from station import Station
 from connection import Connection
 from stations import Stations
 
-def load_data(file):
+def load_data(file, skip):
     data_list = []
 
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            data_list.append(row)
+            if skip:
+                if row[0] != skip and row[1] != skip:
+                    data_list.append(row)
+            else:
+                data_list.append(row)
 
     return data_list
 
@@ -19,7 +23,7 @@ def load_stations(data_list, stations_data):
     for item in data_list:
         stations.create_station(item[0], stations_data)
         stations.create_station(item[1], stations_data)
-    
+
     return stations
 
 def load_connections(data_list, stations_object):
@@ -33,7 +37,7 @@ def load_connections(data_list, stations_object):
         connections.append(connection)
         station_1.add_connection(connection)
         station_2.add_connection(connection)
-    
+
 
     return connections
 
