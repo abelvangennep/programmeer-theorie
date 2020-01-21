@@ -1,6 +1,6 @@
 Begin K = 6.816 & 6801
 
-1. Binnen 1 traject nooit 2x zelfde stad
+1. Binnen 1 train nooit 2x zelfde stad
     Uitslag: Dit implementeren heeft een negatief effect op de K
     K = 6734 & 6755
 

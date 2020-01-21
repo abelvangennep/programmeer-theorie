@@ -1,5 +1,5 @@
 def cut(solution): 
-    trains = solution["trajecten"]
+    trains = solution["trains"]
 
     for train in trains: 
         # While the train exists 
