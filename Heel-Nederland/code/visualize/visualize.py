@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 # Draw points based on x, y values
-def draw_traject(best_solution, stations_objects):
+def draw_train(best_solution, stations_objects):
 
     axes = plt.gca()
     axes.set_ylim(50.7, 53.7)
@@ -27,8 +27,8 @@ def draw_traject(best_solution, stations_objects):
         x = coordinate[1]
         plt.scatter(x, y, s = 5)
 
-    for traject in best_solution["trajecten"]:
-        dict_coordinates = traject.coordinates()
+    for train in best_solution["trains"]:
+        dict_coordinates = train.coordinates()
         x_list = dict_coordinates["x"]
         y_list = dict_coordinates["y"]
         plt.pause(0.5)
@@ -51,7 +51,7 @@ def draw_traject(best_solution, stations_objects):
     plt.ylabel("Y")
 
     # Set chart title
-    plt.title("Traject")
+    plt.title("train")
 
     #     # Read image
     # img = plt.imread("NLkaart.png")
@@ -60,7 +60,7 @@ def draw_traject(best_solution, stations_objects):
 
     plt.show()
 
-def draw_traject_holland(best_solution, stations_objects):
+def draw_train_holland(best_solution, stations_objects):
         axes = plt.gca()
         axes.set_ylim(51.55, 53.08)
         axes.set_xlim(3.9, 5.45)
@@ -80,8 +80,8 @@ def draw_traject_holland(best_solution, stations_objects):
             x = coordinate[1]
             plt.scatter(x, y, s = 5)
 
-        for traject in best_solution["trajecten"]:
-            dict_coordinates = traject.coordinates()
+        for train in best_solution["trains"]:
+            dict_coordinates = train.coordinates()
             x_list = dict_coordinates["x"]
             y_list = dict_coordinates["y"]
             plt.pause(0.5)
@@ -93,6 +93,6 @@ def draw_traject_holland(best_solution, stations_objects):
         plt.ylabel("Y")
 
         # Set chart title
-        plt.title("Traject Holland")
+        plt.title("train Holland")
 
         plt.show()

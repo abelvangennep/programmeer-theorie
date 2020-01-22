@@ -10,11 +10,14 @@ from connection import Connection
 from station import Station
 from randomsolution import random_solution
 from loaddata import load_data, load_stations, load_connections
-from traject import Traject
+from train import Train
 from cut import cut
 from paste import paste
 from stations import Stations
-from visualize import draw_traject, draw_traject_holland
+from visualize import draw_train, draw_train_holland
+from simulatedannealing import simulated_annealing
+from calculatefunction import calculate
+import math
 
 
 def main():
@@ -24,8 +27,8 @@ def main():
     skip_station = input("Do you want to omit/avoid/skip a specific station? ")
     # skip_station = boolean_input(skip_station)
 
-    # Prompt user for heuristiek: In one traject a train should never get twice to the same station.
-    station_only_once = input("Should a station only be visited once, per traject.").lower()
+    # Prompt user for heuristiek: In one train a train should never get twice to the same station.
+    station_only_once = input("Should a station only be visited once, per train.").lower()
     station_only_once = boolean_input(station_only_once)
 
     # Prompt user for heuristiek: Random station chooses a station with one connection
@@ -36,12 +39,12 @@ def main():
     station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
     station_uneven_connections = boolean_input(station_uneven_connections)
 
-    # Prompt user for heuristiek: Cut a traject if the begin or end connection is already in an other traject
-    cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other traject.").lower()
+    # Prompt user for heuristiek: Cut a train if the begin or end connection is already in an other train
+    cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other train.").lower()
     cut_connections = boolean_input(cut_connections)
 
-    # Prompt user for heuristiek: Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
-    paste_connections = input("Do you prefer to paste trajects together,if their total time is less then 180min and their begin and start station is equal.").lower()
+    # Prompt user for heuristiek: Paste 2 trains if their total time is less then 180min and their begin and start station is the same
+    paste_connections = input("Do you prefer to paste trains together,if their total time is less then 180min and their begin and start station is equal.").lower()
     paste_connections = boolean_input(paste_connections)
         
 
@@ -58,16 +61,17 @@ def main():
         # Solution random, generates a random solution with possibly some heuristieken
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once)
         if cut_connections:
-            # Cut a connection from a "traject" if the begin or end connection is in an other traject
+            # Cut a connection from a "train" if the begin or end connection is in an other train
 
             solution = cut(solution)
 
         if paste_connections:
-            # Paste 2 trajects if their total time is less then 180min and their begin and start station is the same
+            # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
 
         solution = delete_train(solution)
 
+        
         # Calculate the K of a solution
         score = calculate(solution)
 
@@ -75,19 +79,39 @@ def main():
             best_solution = solution
             best_score = score
 
+    # print("0.4", math.exp(0.4))
+    # print("0.2", math.exp(0.2))
+    # print("-0.4", math.exp(-0.4))
+    # print("0.001", math.exp(0.001))
+    # print("2", math.exp(2))
+
     f= open("output.csv","a+")
-    f.write("trein, lijnvoering\n")
-    for traject in best_solution["trajecten"]:
-        f.write(f"trein, {traject}\n")
+    f.write("random: trein, lijnvoering\n")
+    for train in best_solution["trains"]:
+        f.write(f"trein, {train}\n")
     f.close()
 
     # Append the best_score to a text file
     f= open("solution.txt","a+")
-    f.write(f"attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
+    f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    draw_traject(best_solution, stations_objects)
-    # draw_traject_holland(best_solution, stations_objects)
+    better_solution = simulated_annealing(solution, stations_objects)
+    better_score = calculate(better_solution)
+
+    f= open("output.csv","a+")
+    f.write("simulated annealing: trein, lijnvoering\n")
+    for train in better_solution["trains"]:
+        f.write(f"trein, {train}\n")
+    f.close()
+
+    # Append the best_score to a text file
+    f= open("solution.txt","a+")
+    f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
+    f.close()
+
+    # draw_train(better_solution, stations_objects)
+    # # draw_train_holland(best_solution, stations_objects)
 
 def boolean_input(user_input):
     yes = {'yes','y', 'ye', ''}
@@ -104,37 +128,17 @@ def boolean_input(user_input):
     return user_input
 
 def delete_train(solution):
-    trajecten = solution["trajecten"]
-    existing_trajecten = []
+    trains = solution["trains"]
+    existing_trains = []
 
-    for traject in trajecten:
-        if traject.travel_time > 0:
-            existing_trajecten.append(traject)
+    for train in trains:
+        if train.travel_time > 0:
+            existing_trains.append(train)
 
-    solution["trajecten"] = existing_trajecten
+    solution["trains"] = existing_trains
 
     return solution
 
-def calculate(solution):
-    
-    trains = solution["trajecten"]
-    minutes = 0 
-    visited_connections = []
-    
-    for train in trains: 
-        minutes += train.travel_time
-
-        for connection in train.connections: 
-            if connection not in visited_connections: 
-                visited_connections.append(connection)
-
-    P = len(visited_connections) / solution["total_connections"]
-
-    T = len(trains)
-
-    score = P * 10000 - (T * 100 + minutes)
-
-    return score 
 
 if __name__ == '__main__':
     main()

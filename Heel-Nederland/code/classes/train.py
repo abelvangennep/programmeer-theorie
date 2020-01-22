@@ -1,7 +1,7 @@
 import random
 
 
-class Traject():
+class Train():
 
     def __init__(self, start_station):
         self.start_station = start_station
@@ -9,11 +9,15 @@ class Traject():
         self.connections = []
         self.travel_time = 0
 
+    def set_start_station(self, station):
+        self.start_station = station
+        self.current_station = station
+
     def get_random_connection(self, visited_stations, visit_city_once):
         """Return a random connection"""
         unvisited_connections = []
         unvisited_cities = []
-        unvisited_connections_traject = []
+        unvisited_connections_train = []
         all_connections = []
 
         # Loop over all of the current station's connections
@@ -25,7 +29,7 @@ class Traject():
 
             # Add the connection to the list of unvisited connections in this train, if it is not in self.connections
             if connection not in self.connections:
-                unvisited_connections_traject.append(connection)
+                unvisited_connections_train.append(connection)
 
             # Add every connection to the list of all connections
             all_connections.append(connection)
@@ -45,8 +49,8 @@ class Traject():
             return random.choice(unvisited_cities)
 
         # Return a random in this train unvisited connection, if there is any 
-        if unvisited_connections_traject:
-            return random.choice(unvisited_connections_traject)
+        if unvisited_connections_train:
+            return random.choice(unvisited_connections_train)
 
         # Return a random connection, if all of the other lists are empty 
         return random.choice(all_connections)
@@ -93,9 +97,9 @@ class Traject():
 
         # Empty the train, if the connection is the last connection
         else:
-            self.empty_traject()
+            self.empty_train()
 
-    def empty_traject(self):
+    def empty_train(self):
         """Empty the train object by deleting all variables"""
         for connection in self.connections:
             connection.delete_visit()

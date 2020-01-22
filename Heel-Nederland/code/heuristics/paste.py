@@ -1,5 +1,5 @@
 def paste(solution):
-    trains = solution["trajecten"]
+    trains = solution["trains"]
 
     for train_1 in trains:
         # If the train exists
@@ -26,7 +26,7 @@ def paste(solution):
                                 train_2.add_connection(connection)
 
                             # Empty the first train object
-                            train_1.empty_traject()
+                            train_1.empty_train()
 
                         # If the end station of the first train and the start station of the second train are the same
                         elif first_station_2 == last_station_1:
@@ -36,7 +36,7 @@ def paste(solution):
                                 train_1.add_connection(connection)
                             
                             # Empty the second train object
-                            train_2.empty_traject()
+                            train_2.empty_train()
 
                         # If the end station of the first train and the end station of the second train are the same                        
                         elif last_station_1 == last_station_2:
@@ -46,7 +46,7 @@ def paste(solution):
                                 train_2.add_connection(connection)
                             
                             # Empty the first train object
-                            train_1.empty_traject()
+                            train_1.empty_train()
 
                         # If the start station of the first train and the start station of the second train are the same
                         elif first_station_1 == first_station_2: 
@@ -58,6 +58,6 @@ def paste(solution):
                                 train_1.add_connection(connection)
 
                             # Empty the second train object 
-                            train_2.empty_traject() 
+                            train_2.empty_train() 
 
     return solution

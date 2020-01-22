@@ -46,6 +46,15 @@ class Stations():
             return random.choice(stations_uneven_connections)
         return random.choice(unvisited_connections)
 
+    def get_complete_random_start_station(self):
+        all_stations = []
+
+        for station in self.stations.values():
+            if station not in all_stations:
+                all_stations.append(station)
+        
+        return random.choice(all_stations)
+
     def __str__(self):
         stations = ""
         for station in self.stations:

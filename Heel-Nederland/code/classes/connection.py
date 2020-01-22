@@ -8,6 +8,12 @@ class Connection():
         self.travel_time = travel_time
         self.visited = 0 
 
+    def __eq__(self, other):
+        if self.station_1.name == other.station_1.name and self.station_2.name == other.station_2.name:
+            return True
+        return False
+        
+
     def add_visit(self):
         """Add a visit to the connection""" 
         self.visited += 1 
