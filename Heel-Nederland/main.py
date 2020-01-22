@@ -19,37 +19,82 @@ from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 import math
 
-
 def main():
     best_score = 0
     attempts = 1
 
-    skip_station = input("Do you want to omit/avoid/skip a specific station? ")
-    # skip_station = boolean_input(skip_station)
+    # ...  
+    data = ""
+    max_minutes = 0
+    max_trains = 0  
+    holland = input("Please choose:\nNoord- en Zuid-Holland (1)\nor Heel Nederland (2)\n")
+    while True: 
+        option_1 = ['1','noord- en zuid-holland']
+        option_2 = ['2', 'heel nederland', '']
 
-    # Prompt user for heuristiek: In one train a train should never get twice to the same station.
-    station_only_once = input("Should a station only be visited once, per train.").lower()
-    station_only_once = boolean_input(station_only_once)
+        if holland.lower() in option_1: 
+            data = "data/ConnectiesHolland.csv"
+            max_minutes = 120
+            max_trains = 7 
+            break 
+        elif holland.lower() in option_2:
+            data = "data/ConnectiesNationaal.csv"
+            max_minutes = 180
+            max_trains = 20 
+            break
+        else: 
+            holland = input("Invalid input. Please type '1' or '2'. ")
 
-    # Prompt user for heuristiek: Random station chooses a station with one connection
-    station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
-    station_1_connection = boolean_input(station_1_connection)
+    # Advanced 
+    skip_station = input("\nDoes any train station need to be avoided? If so, please type the station that should be omitted.\n")
+    # change_connections = input("\nShould any connections be changed? ")
 
-    # Prompt user for heuristiek: Random station chooses a station with an uneven number of connections
-    station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
-    station_uneven_connections = boolean_input(station_uneven_connections)
+    # ... 
+    random = input("\nPlease choose: \nCompletely random (1) \nor Random with Heuristics (2)\n")
+    heuristics = False
+    while True: 
+        option_1 = ['1', 'random', 'completely random']
+        option_2 = ['2', 'heuristics', 'random with heuristics', '']
 
-    # Prompt user for heuristiek: Cut a train if the begin or end connection is already in an other train
-    cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other train.").lower()
-    cut_connections = boolean_input(cut_connections)
+        if random.lower() in option_1: 
+            # Set all heuristics to false 
+            station_only_once = False 
+            station_1_connection = False 
+            station_uneven_connections = False 
+            cut_connections = False
+            paste_connections = False
+            break 
+        elif random.lower() in option_2: 
+            heuristics = True
+            break 
+        else: 
+            random = input("Invalid input. Please type '1' or '2'. ")
 
-    # Prompt user for heuristiek: Paste 2 trains if their total time is less then 180min and their begin and start station is the same
-    paste_connections = input("Do you prefer to paste trains together,if their total time is less then 180min and their begin and start station is equal.").lower()
-    paste_connections = boolean_input(paste_connections)
-        
+    # Prompt the user for which heuristics they want to apply, if they chose this option 
+    if heuristics: 
+        print("\nPlease choose which heuristics to apply. Respond with yes or no for each heuristic:")
 
-    # Load data from csv files with all the connections and their travel time
-    data_list = load_data("data/ConnectiesNationaal.csv", skip_station)
+        station_only_once = input("Visit a station only once per train. ")
+        station_only_once = boolean_input(station_only_once)
+
+        station_1_connection = input("Start a train with a station that only has one connection. ")
+        station_1_connection = boolean_input(station_1_connection)
+
+        station_uneven_connections = input("Start a train with a station that has an uneven number of connections. ")
+        station_uneven_connections = boolean_input(station_uneven_connections)
+
+        cut_connections = input("Delete already visited connections, where possible. ")
+        cut_connections = boolean_input(cut_connections)
+
+        paste_connections = input("Join trains together, if possible. ")
+        paste_connections = boolean_input(paste_connections)
+
+    # ...
+    sim_annealing = input("\nDo you want to use the Simulated Annealing algorithm?\n")
+    sim_annealing = boolean_input(sim_annealing)
+
+    # Load data from the csv files with all the connections and their travel times
+    data_list = load_data(data, skip_station)
     stations_data = load_data("data/StationsNationaal.csv", skip_station)
 
     for _ in range(attempts):
@@ -58,20 +103,20 @@ def main():
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects)
-        # Solution random, generates a random solution with possibly some heuristieken
-        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once)
+
+        # Solution random, generates a random solution with chosen heuristics 
+        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains)
+        
         if cut_connections:
             # Cut a connection from a "train" if the begin or end connection is in an other train
-
             solution = cut(solution)
 
         if paste_connections:
             # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
 
-        solution = delete_train(solution)
+        solution = delete_trains(solution)
 
-        
         # Calculate the K of a solution
         score = calculate(solution)
 
@@ -96,38 +141,45 @@ def main():
     f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    better_solution = simulated_annealing(solution, stations_objects)
-    better_score = calculate(better_solution)
+    if sim_annealing: 
+        better_solution = simulated_annealing(solution, stations_objects)
+        better_score = calculate(better_solution)
 
-    f= open("output.csv","a+")
-    f.write("simulated annealing: trein, lijnvoering\n")
-    for train in better_solution["trains"]:
-        f.write(f"trein, {train}\n")
-    f.close()
+        f= open("output.csv","a+")
+        f.write("simulated annealing: trein, lijnvoering\n")
+        for train in better_solution["trains"]:
+            f.write(f"trein, {train}\n")
+        f.close()
 
-    # Append the best_score to a text file
-    f= open("solution.txt","a+")
-    f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
-    f.close()
+        # Append the best_score to a text file
+        f= open("solution.txt","a+")
+        f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
+        f.close()
 
-    # draw_train(better_solution, stations_objects)
-    # # draw_train_holland(best_solution, stations_objects)
-
-def boolean_input(user_input):
-    yes = {'yes','y', 'ye', ''}
-    no = {'no','n'}
-
-    if user_input in yes:
-        user_input = True
-    elif user_input in no:
-        user_input = False
+        draw_train(better_solution, stations_objects)
+        # draw_train_holland(best_solution, stations_objects)
     else:
-        sys.stdout.write("Please respond with 'yes' or 'no', you have now automatically chosen for the answer 'no' ")
-        user_input = False
+        draw_train(best_solution, stations_objects)
+
+# ... 
+def boolean_input(user_input):
+    yes = ['yes', 'y', 'ye', '']
+    no = ['no', 'n']
+
+    while True: 
+        if user_input.lower() in yes:
+            user_input = True
+            break 
+        elif user_input.lower() in no:
+            user_input = False
+            break 
+        else:
+            user_input = input("Invalid input. Please respond with yes or no. ")
 
     return user_input
 
-def delete_train(solution):
+# remove trains
+def delete_trains(solution):
     trains = solution["trains"]
     existing_trains = []
 
