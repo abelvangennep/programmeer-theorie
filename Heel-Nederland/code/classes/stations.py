@@ -25,6 +25,7 @@ class Stations():
         stations_with_1_connection = []
         stations_uneven_connections = []
         unvisited_connections = []
+        all_stations = []
         
         for station in self.stations.values():
             if one_connection:
@@ -35,16 +36,23 @@ class Stations():
                 if uneven_connection:
                     if connection.visited < 1 and station not in stations_uneven_connections and len(station.connections) % 2 == 1:
                         stations_uneven_connections.append(station)
-
-                if connection.visited < 1 and station not in unvisited_connections: 
-                        unvisited_connections.append(station)
+                
+                if connection.visited < 1 and station not in unvisited_connections:
+                    unvisited_connections.append(station)
+            
+            if station not in all_stations:
+                all_stations.append(station)
 
         if len(stations_with_1_connection) > 0:
             return random.choice(stations_with_1_connection)
         
         elif len(stations_uneven_connections) > 0:
             return random.choice(stations_uneven_connections)
-        return random.choice(unvisited_connections)
+
+        elif len(unvisited_connections) > 0:
+            return random.choice(unvisited_connections)
+        
+        return random.choice(all_stations)
 
     def get_complete_random_start_station(self):
         all_stations = []
