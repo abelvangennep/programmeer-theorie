@@ -10,18 +10,18 @@ import random
 def simulated_annealing(solution, stations_dict):
     max = 180
     temperature = 160
-    cooling_factor = 0.9995
+    cooling_factor = 0.99
     temperature_end = 10
     iteration = 0
 
     while temperature > temperature_end:
         iteration += 1
-        
+
         solution_2 = copy.deepcopy(solution)
         trains_2 = solution_2["trains"]
         K_train_1 = calculate(solution)
         train = random.choice(trains_2)
-        
+
         train.empty_train()
 
         station = stations_dict.get_complete_random_start_station()
@@ -55,11 +55,5 @@ def simulated_annealing(solution, stations_dict):
 
         temperature = temperature * cooling_factor
         # time.sleep(1)
-    
+
     return solution_2
-
-
-    
-        
-
-

@@ -3,48 +3,13 @@ from __future__ import print_function
 import os
 import subprocess
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 
-# Draw points based on x, y values
 def draw_train(best_solution, stations_objects):
 
+    # Set x ,y limits
     axes = plt.gca()
-    axes.set_ylim(50.7, 53.7)
     axes.set_xlim(3.25, 7.3)
-
-        # Read image
-    img = plt.imread("NLkaart.png")
-
-    plt.imshow(img, aspect = "auto", extent = [3.25, 7.3, 50.65, 53.7])
-
-    station_coordinates = []
-    for station in stations_objects.stations.values():
-        station_coordinates.append([station.y, station.x])
-
-    # kan dit in een keer met hierboven
-    for coordinate in station_coordinates:
-        y = coordinate[0]
-        x = coordinate[1]
-        plt.scatter(x, y, s = 5)
-
-    for train in best_solution["trains"]:
-        dict_coordinates = train.coordinates()
-        x_list = dict_coordinates["x"]
-        y_list = dict_coordinates["y"]
-        plt.pause(0.5)
-        # for i in range(len(x_list)):
-        plt.plot(x_list, y_list)
-        plt.pause(0.5)
-
-    # station_coordinates = []
-    # for station in stations_objects.stations.values():
-    #     station_coordinates.append([station.y, station.x])
-    #
-    # # kan dit in een keer met hierboven
-    # for coordinate in station_coordinates:
-    #     y = coordinate[0]
-    #     x = coordinate[1]
-    #     plt.scatter(x, y, s = 5)
+    axes.set_ylim(50.7, 53.7)
 
     # Set x, y label
     plt.xlabel("X")
@@ -53,40 +18,30 @@ def draw_train(best_solution, stations_objects):
     # Set chart title
     plt.title("train")
 
-    #     # Read image
-    # img = plt.imread("NLkaart.png")
-    #
-    # plt.imshow(img, aspect = "auto", extent = [3.25, 7.3, 50.65, 53.7])
+    # Read and show image
+    img = plt.imread("NLkaart.png")
+    plt.imshow(img, aspect = "auto", extent = [3.25, 7.3, 50.65, 53.7])
+
+    station_coordinates = []
+    for station in stations_objects.stations.values():
+        station_coordinates.append([station.y, station.x])
+        plt.scatter(station.x, station.y, s = 5)
+
+    for train in best_solution["trains"]:
+        dict_coordinates = train.coordinates()
+        x_list = dict_coordinates["x"]
+        y_list = dict_coordinates["y"]
+        plt.plot(x_list, y_list)
+        plt.pause(1)
 
     plt.show()
 
 def draw_train_holland(best_solution, stations_objects):
+
+        # Set x ,y limits
         axes = plt.gca()
         axes.set_ylim(51.55, 53.08)
         axes.set_xlim(3.9, 5.45)
-
-            # Read image
-        img = plt.imread("NLkaartHolland.png")
-
-        plt.imshow(img, aspect = "auto", extent = [3.9, 5.45, 51.55, 53.08])
-
-        station_coordinates = []
-        for station in stations_objects.stations.values():
-            station_coordinates.append([station.y, station.x])
-
-        # kan dit in een keer met hierboven
-        for coordinate in station_coordinates:
-            y = coordinate[0]
-            x = coordinate[1]
-            plt.scatter(x, y, s = 5)
-
-        for train in best_solution["trains"]:
-            dict_coordinates = train.coordinates()
-            x_list = dict_coordinates["x"]
-            y_list = dict_coordinates["y"]
-            plt.pause(0.5)
-            plt.plot(x_list, y_list)
-            plt.pause(0.5)
 
         # Set x, y label
         plt.xlabel("X")
@@ -94,5 +49,21 @@ def draw_train_holland(best_solution, stations_objects):
 
         # Set chart title
         plt.title("train Holland")
+
+        # Read and show image
+        img = plt.imread("NLkaartHolland.png")
+        plt.imshow(img, aspect = "auto", extent = [3.9, 5.45, 51.55, 53.08])
+
+        station_coordinates = []
+        for station in stations_objects.stations.values():
+            station_coordinates.append([station.y, station.x])
+            plt.scatter(station.x, station.y, s = 5)
+
+        for train in best_solution["trains"]:
+            dict_coordinates = train.coordinates()
+            x_list = dict_coordinates["x"]
+            y_list = dict_coordinates["y"]
+            plt.plot(x_list, y_list)
+            plt.pause(1)
 
         plt.show()

@@ -1,15 +1,30 @@
-# programmeer-theorie
+# RailNl
 
-hallo
+Get the quality of the train routes as high as possible.
 
-Wa modde
-test
-
-
-paniekkk
-
-# mac
+## Installing
+For Mac
+'''bash
 pip3 install matplotlib
+'''
 
-# windows
+For Windows
+```bash
 pip install matplotlib
+```
+
+## Usage
+For Mac
+```bash
+python3 main.py
+```
+
+For windows
+```bash
+python main.py
+```
+
+## Authors
+Yana
+Abel
+Emma

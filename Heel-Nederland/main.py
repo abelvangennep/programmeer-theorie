@@ -46,7 +46,7 @@ def main():
     # Prompt user for heuristiek: Paste 2 trains if their total time is less then 180min and their begin and start station is the same
     paste_connections = input("Do you prefer to paste trains together,if their total time is less then 180min and their begin and start station is equal.").lower()
     paste_connections = boolean_input(paste_connections)
-        
+
 
     # Load data from csv files with all the connections and their travel time
     data_list = load_data("data/ConnectiesNationaal.csv", skip_station)
@@ -71,7 +71,7 @@ def main():
 
         solution = delete_train(solution)
 
-        
+
         # Calculate the K of a solution
         score = calculate(solution)
 
@@ -110,7 +110,7 @@ def main():
     f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
     f.close()
 
-    # draw_train(better_solution, stations_objects)
+    draw_train(better_solution, stations_objects)
     # # draw_train_holland(best_solution, stations_objects)
 
 def boolean_input(user_input):
