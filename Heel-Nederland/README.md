@@ -1,12 +1,12 @@
-# RailNl
+# RailNL
 
 Get the quality of the train routes as high as possible.
 
 ## Installing
 For Mac
-'''bash
+```bash
 pip3 install matplotlib
-'''
+```
 
 For Windows
 ```bash
@@ -25,6 +25,6 @@ python main.py
 ```
 
 ## Authors
-Yana
-Abel
-Emma
+#### Yana
+#### Abel
+#### Emma
