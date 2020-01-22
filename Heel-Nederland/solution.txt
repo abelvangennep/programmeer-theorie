@@ -450,3 +450,9 @@ SCORE:6896.0
 simulated annealing: attempts:1
 SCORE:6097.483146067416
 
+random: attempts:1
+SCORE:6661.0
+
+simulated annealing: attempts:1
+SCORE:5676.921348314607
+
