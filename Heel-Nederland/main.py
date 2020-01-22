@@ -44,10 +44,32 @@ def main():
             break
         else: 
             holland = input("Invalid input. Please type '1' or '2'. ")
+    
 
+    
     # Advanced 
-    skip_station = input("\nDoes any train station need to be avoided? If so, please type the station that should be omitted.\n")
-    # change_connections = input("\nShould any connections be changed? ")
+    skip_station = input("\nDoes a train station need to be avoided? ")
+    skip_station = boolean_input(skip_station)
+    if skip_station: 
+        skip_station = input("Which station? ")
+
+    # Load data from the csv files with all the connections and their travel times
+    data_list = load_data(data, skip_station)
+
+    while True: 
+        if data_list == False: 
+            skip_station = False
+            data_list = load_data(data, skip_station)
+            stations_data = load_data("data/StationsNationaal.csv", skip_station)
+            all_stations = load_stations(data_list, stations_data)
+
+            skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
+            data_list = load_data(data, skip_station)
+        elif data_list != False: 
+                break 
+
+    change_connections = input("\nShould any connections be changed? ")
+    change_connections = boolean_input(change_connections)
 
     # ... 
     random = input("\nPlease choose: \nCompletely random (1) \nor Random with Heuristics (2)\n")
@@ -93,8 +115,8 @@ def main():
     sim_annealing = input("\nDo you want to use the Simulated Annealing algorithm?\n")
     sim_annealing = boolean_input(sim_annealing)
 
-    # Load data from the csv files with all the connections and their travel times
-    data_list = load_data(data, skip_station)
+    # # Load data from the csv files with all the connections and their travel times
+    # data_list = load_data(data, skip_station)
     stations_data = load_data("data/StationsNationaal.csv", skip_station)
 
     for _ in range(attempts):
@@ -103,6 +125,8 @@ def main():
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects)
+        # if connection_objects == False: 
+        #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
 
         # Solution random, generates a random solution with chosen heuristics 
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains)
