@@ -45,8 +45,6 @@ def main():
         else: 
             holland = input("Invalid input. Please type '1' or '2'. ")
     
-
-    
     # Advanced 
     skip_station = input("\nDoes a train station need to be avoided? ")
     skip_station = boolean_input(skip_station)
@@ -117,32 +115,6 @@ def main():
 
     # # Load data from the csv files with all the connections and their travel times
     # data_list = load_data(data, skip_station)
-    skip_station = input("Do you want to omit/avoid/skip a specific station? ")
-    # skip_station = boolean_input(skip_station)
-
-    # Prompt user for heuristiek: In one train a train should never get twice to the same station.
-    station_only_once = input("Should a station only be visited once, per train.").lower()
-    station_only_once = boolean_input(station_only_once)
-
-    # Prompt user for heuristiek: Random station chooses a station with one connection
-    station_1_connection = input("Do you prefer to start with a station, which has only one connection.").lower()
-    station_1_connection = boolean_input(station_1_connection)
-
-    # Prompt user for heuristiek: Random station chooses a station with an uneven number of connections
-    station_uneven_connections = input("Do you prefer to start with a station, with an uneven number of connections.").lower()
-    station_uneven_connections = boolean_input(station_uneven_connections)
-
-    # Prompt user for heuristiek: Cut a train if the begin or end connection is already in an other train
-    cut_connections = input("Do you prefer to cut connections, if the beginning or end is already in an other train.").lower()
-    cut_connections = boolean_input(cut_connections)
-
-    # Prompt user for heuristiek: Paste 2 trains if their total time is less then 180min and their begin and start station is the same
-    paste_connections = input("Do you prefer to paste trains together,if their total time is less then 180min and their begin and start station is equal.").lower()
-    paste_connections = boolean_input(paste_connections)
-
-
-    # Load data from csv files with all the connections and their travel time
-    data_list = load_data("data/ConnectiesNationaal.csv", skip_station)
     stations_data = load_data("data/StationsNationaal.csv", skip_station)
 
     for _ in range(attempts):
@@ -150,7 +122,7 @@ def main():
         stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
-        connection_objects = load_connections(data_list, stations_objects)
+        connection_objects = load_connections(data_list, stations_objects, change_connections)
         # if connection_objects == False: 
         #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
 
@@ -166,7 +138,6 @@ def main():
             solution = paste(solution)
 
         solution = delete_trains(solution)
-
 
         # Calculate the K of a solution
         score = calculate(solution)
