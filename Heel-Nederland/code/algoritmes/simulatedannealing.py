@@ -1,5 +1,6 @@
 # from .train import Train
 from calculatefunction import calculate
+from visualize import see_annealing
 from train import Train
 import math
 import random
@@ -10,21 +11,28 @@ import timeit
 import random
 
 def simulated_annealing(solution, stations_dict):
-
+    score = []
     start = timeit.default_timer()
     max = 180
-    temperature = 600
-    cooling_factor = 0.999
+    temperature = 240
+    cooling_factor = 0.9999
     temperature_end = 10
     iteration = 0
+    number_of_trains = 10
+
+    try :
+        del solution["trains"][number_of_trains:]
+    except IndexError:
+        print("Index Out of Range")
+
     trains = solution["trains"]
+    solution_2 = {}
+    solution_2["total_connections"] = solution["total_connections"]
 
 
     while temperature > temperature_end:
         iteration += 1
 
-        solution_2 = {}
-        solution_2["total_connections"] = solution["total_connections"]
         solution_2["trains"] =  []
 
         train = random.choice(trains)
@@ -51,6 +59,7 @@ def simulated_annealing(solution, stations_dict):
 
         K_train_1 = calculate(solution)
         K_train_2 = calculate(solution_2)
+        score.append(K_train_1)
 
         difference = K_train_2 - K_train_1
         print("________________")
@@ -61,14 +70,14 @@ def simulated_annealing(solution, stations_dict):
         if difference > 0 or math.exp(difference / temperature) > random.uniform(0, 1):
             trains.remove(train)
             trains.append(new_train)
-            print("accepted")
-        else:
-            print("declined")
-
+        
+        
+        
         temperature = temperature * cooling_factor
+    see_annealing(score)
 
     stop = timeit.default_timer()
     print('Time: ', stop - start)
 
 
-    return solution_2
+    return solution
