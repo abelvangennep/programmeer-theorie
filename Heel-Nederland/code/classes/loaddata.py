@@ -13,7 +13,7 @@ def load_data(file, skip):
         reader = csv.reader(csvfile)
         for row in reader:
             if skip:
-                if row[0].lower() != skip.lower() and row[1].lower() != skip.lower():
+                if row[0].lower() != skip.lower().rstrip() and row[1].lower() != skip.lower().rstrip():
                     data_list.append(row)
                 else: 
                     skip_count += 1 
