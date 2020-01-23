@@ -102,3 +102,10 @@ def draw_simulated(better_solution, stations_object):
                     init_func = init, interval = 3, repeat = False)
 
         plt.show()
+
+def see_annealing(costs):
+    plt.figure()
+    plt.title("Evolution of scores of the simulated annealing")
+    # plt.plot(122)
+    plt.plot(costs, 'b')
+    plt.show()
