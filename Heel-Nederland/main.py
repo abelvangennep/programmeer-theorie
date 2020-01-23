@@ -110,7 +110,7 @@ def main():
     f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
     f.close()
 
-    draw_train(better_solution, stations_objects)
+    draw_train(better_solution, stations_objects, best_solution)
     # # draw_train_holland(best_solution, stations_objects)
 
 def boolean_input(user_input):

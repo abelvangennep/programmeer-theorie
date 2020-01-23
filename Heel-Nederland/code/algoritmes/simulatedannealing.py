@@ -14,7 +14,7 @@ def simulated_annealing(solution, stations_dict):
     start = timeit.default_timer()
     max = 180
     temperature = 600
-    cooling_factor = 0.999
+    cooling_factor = 0.99
     temperature_end = 10
     iteration = 0
     trains = solution["trains"]

@@ -456,3 +456,144 @@ SCORE:6661.0
 simulated annealing: attempts:1
 SCORE:5676.921348314607
 
+random: attempts:1
+SCORE:6766.0
+
+random: attempts:1
+SCORE:6879.0
+
+simulated annealing: attempts:1
+SCORE:5857.842696629214
+
+random: attempts:1
+SCORE:6465.0
+
+simulated annealing: attempts:1
+SCORE:5236.561797752809
+
+random: attempts:1
+SCORE:6779.0
+
+simulated annealing: attempts:1
+SCORE:5491.483146067416
+
+random: attempts:1
+SCORE:6951.0
+
+simulated annealing: attempts:1
+SCORE:5589.123595505618
+
+random: attempts:1
+SCORE:6921.0
+
+simulated annealing: attempts:1
+SCORE:5694.483146067416
+
+random: attempts:1
+SCORE:6942.0
+
+simulated annealing: attempts:1
+SCORE:5798.842696629214
+
+random: attempts:1
+SCORE:6906.0
+
+simulated annealing: attempts:1
+SCORE:5195.685393258427
+
+random: attempts:1
+SCORE:6545.0
+
+simulated annealing: attempts:1
+SCORE:5363.921348314607
+
+random: attempts:1
+SCORE:6825.0
+
+simulated annealing: attempts:1
+SCORE:5015.044943820225
+
+random: attempts:1
+SCORE:6744.0
+
+simulated annealing: attempts:1
+SCORE:5532.561797752809
+
+random: attempts:1
+SCORE:6874.0
+
+simulated annealing: attempts:1
+SCORE:6016.561797752809
+
+random: attempts:1
+SCORE:6717.0
+
+simulated annealing: attempts:1
+SCORE:5055.123595505618
+
+random: attempts:1
+SCORE:6768.0
+
+simulated annealing: attempts:1
+SCORE:6021.561797752809
+
+random: attempts:1
+SCORE:6771.0
+
+simulated annealing: attempts:1
+SCORE:5672.921348314607
+
+random: attempts:1
+SCORE:6850.0
+
+simulated annealing: attempts:1
+SCORE:5665.202247191011
+
+random: attempts:1
+SCORE:6649.0
+
+simulated annealing: attempts:1
+SCORE:5162.404494382023
+
+random: attempts:1
+SCORE:6801.0
+
+simulated annealing: attempts:1
+SCORE:5638.921348314607
+
+random: attempts:1
+SCORE:6868.0
+
+simulated annealing: attempts:1
+SCORE:5925.202247191011
+
+random: attempts:1
+SCORE:6948.0
+
+simulated annealing: attempts:1
+SCORE:5716.483146067416
+
+random: attempts:1
+SCORE:6960.0
+
+simulated annealing: attempts:1
+SCORE:6247.202247191011
+
+random: attempts:1
+SCORE:6969.0
+
+simulated annealing: attempts:1
+SCORE:5310.3258426966295
+
+random: attempts:1
+SCORE:7034.0
+
+simulated annealing: attempts:1
+SCORE:5886.123595505618
+
+random: attempts:1
+SCORE:6876.0
+
+simulated annealing: attempts:1
+SCORE:5723.483146067416
+
