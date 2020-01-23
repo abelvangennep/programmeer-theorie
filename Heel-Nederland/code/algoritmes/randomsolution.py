@@ -1,8 +1,8 @@
 from train import Train
 from stations import Stations
 
-def random_solution(stations_dict, connection_objects, station_1_connection, station_uneven_connections, station_only_once):
-    max = 180
+def random_solution(stations_dict, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains):
+    # max = 180
     solution = {}
     trains = []
 
@@ -18,7 +18,7 @@ def random_solution(stations_dict, connection_objects, station_1_connection, sta
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
-            if train.travel_time + connection.travel_time > max:
+            if train.travel_time + connection.travel_time > max_minutes:
                 break 
 
             train.add_connection(connection)
@@ -32,7 +32,7 @@ def random_solution(stations_dict, connection_objects, station_1_connection, sta
             if connection.visited > 0:  
                 counter_visited += 1
                 
-        if len(connection_objects) == counter_visited or len(trains) > 20:
+        if len(connection_objects) == counter_visited or len(trains) > max_trains:
             break
 
     solution["trains"] = trains

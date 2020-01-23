@@ -66,5 +66,5 @@ class Stations():
     def __str__(self):
         stations = ""
         for station in self.stations:
-            stations += station + "\n"
+            stations += station + "   "
         return stations
