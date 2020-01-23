@@ -16,9 +16,9 @@ def simulated_annealing(solution, stations_dict):
     To achieve the optimum, three parameters have to be optimized, the cooling_factor, temperature and end_temperature.
     """
     start = timeit.default_timer()
-    
+
     score = []
-    
+
     max_train_duration = 180
     temperature = 160
     cooling_factor = 0.99999
@@ -44,7 +44,7 @@ def simulated_annealing(solution, stations_dict):
     solution_temp = {}
     solution_temp["total_connections"] = solution["total_connections"]
 
-    # Itterate untill the temperature is equal or smaller then the desired end 
+    # Itterate untill the temperature is equal or smaller then the desired end
     while temperature > temperature_end:
         iteration += 1
 
@@ -65,7 +65,7 @@ def simulated_annealing(solution, stations_dict):
             visited_stations = False
             station_only_once = False
 
-            # Select a random connection and append the connection if the total time limit is lower then max_train_duration 
+            # Select a random connection and append the connection if the total time limit is lower then max_train_duration
             connection = new_train.get_random_connection(visited_stations, station_only_once)
             if new_train.travel_time + connection.travel_time > max_train_duration:
                 break
@@ -76,11 +76,11 @@ def simulated_annealing(solution, stations_dict):
         K_train_1 = calculate(solution)
         K_train_2 = calculate(solution_temp)
         difference = K_train_2 - K_train_1
-         
+
         # Append score to a list
         score.append(K_train_1)
 
-        
+
         print("________________")
         print(K_train_1)
         print(K_train_2)
@@ -91,10 +91,10 @@ def simulated_annealing(solution, stations_dict):
         if difference > 0 or math.exp(difference / temperature) > random.uniform(0, 1):
             trains.remove(train)
             trains.append(new_train)
-        
+
         # Reduce temperature
         temperature = temperature * cooling_factor
-    
+
     # Run visualisation
     see_annealing(score)
 
