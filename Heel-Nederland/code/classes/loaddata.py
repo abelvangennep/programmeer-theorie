@@ -1,4 +1,5 @@
 import csv
+import random
 
 from station import Station
 from connection import Connection
@@ -32,7 +33,7 @@ def load_stations(data_list, stations_data):
 
     return stations
 
-def load_connections(data_list, stations_object):
+def load_connections(data_list, stations_object, change_connections):
     connections = []
 
     for item in data_list:
@@ -41,18 +42,43 @@ def load_connections(data_list, stations_object):
 
         connection = Connection(station_1, station_2, int(float(item[2])))
         connections.append(connection)
+ 
         station_1.add_connection(connection)
         station_2.add_connection(connection)
 
 
+    if change_connections:
+        i = 0 
+        for i in range(3): 
+            i += 1 
+            random_connection = random.choice(connections)
+
+            uneven_connection = False
+            one_connection = False 
+            random_station = stations_object.get_random_start_station(uneven_connection, one_connection)
+
+            # if the random station is not part of the connection
+            if random_station is not random_connection.station_1 and random_station is not random_connection.station_2: 
+            
+                # choose random station from the 2 stations in connection
+                change_station = random.choice([random_connection.station_1, random_connection.station_2])
+                
+                # delete this connection from the station
+                if change_station == random_connection.station_1:
+                    random_connection.station_1 = random_station
+                else: 
+                    random_connection.station_2 = random_station
+
+                # add this connection to the random station 
+                random_station.add_connection(random_connection)
+
+                # and replace it with complete random station
+                change_station.delete_connection(random_connection)
+
+                # print(random_connection)
+
     return connections
 
-# def change_connections(stations_object):
 
-    
-#     random_station = stations_object.get_complete_random_start_station()
-#     random_connection = random_station.get_random_connection() 
-#     print(random_connection)
-    
 
 
