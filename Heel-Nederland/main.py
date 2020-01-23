@@ -23,39 +23,39 @@ def main():
     best_score = 0
     attempts = 1
 
-    # ...  
+    # ...
     data = ""
     max_minutes = 0
-    max_trains = 0  
+    max_trains = 0
     holland = input("Please choose:\nNoord- en Zuid-Holland (1)\nor Heel Nederland (2)\n")
-    while True: 
+    while True:
         option_1 = ['1','noord- en zuid-holland']
         option_2 = ['2', 'heel nederland', '']
 
-        if holland.lower() in option_1: 
+        if holland.lower() in option_1:
             data = "data/ConnectiesHolland.csv"
             max_minutes = 120
-            max_trains = 7 
-            break 
+            max_trains = 7
+            break
         elif holland.lower() in option_2:
             data = "data/ConnectiesNationaal.csv"
             max_minutes = 180
-            max_trains = 20 
+            max_trains = 20
             break
-        else: 
+        else:
             holland = input("Invalid input. Please type '1' or '2'. ")
-    
-    # Advanced 
+
+    # Advanced
     skip_station = input("\nDoes a train station need to be avoided? ")
     skip_station = boolean_input(skip_station)
-    if skip_station: 
+    if skip_station:
         skip_station = input("Which station? ")
 
     # Load data from the csv files with all the connections and their travel times
     data_list = load_data(data, skip_station)
 
-    while True: 
-        if data_list == False: 
+    while True:
+        if data_list == False:
             skip_station = False
             data_list = load_data(data, skip_station)
             stations_data = load_data("data/StationsNationaal.csv", skip_station)
@@ -63,35 +63,35 @@ def main():
 
             skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
             data_list = load_data(data, skip_station)
-        elif data_list != False: 
-                break 
+        elif data_list != False:
+                break
 
     change_connections = input("\nShould any connections be changed? ")
     change_connections = boolean_input(change_connections)
 
-    # ... 
+    # ...
     random = input("\nPlease choose: \nCompletely random (1) \nor Random with Heuristics (2)\n")
     heuristics = False
-    while True: 
+    while True:
         option_1 = ['1', 'random', 'completely random']
         option_2 = ['2', 'heuristics', 'random with heuristics', '']
 
-        if random.lower() in option_1: 
-            # Set all heuristics to false 
-            station_only_once = False 
-            station_1_connection = False 
-            station_uneven_connections = False 
+        if random.lower() in option_1:
+            # Set all heuristics to false
+            station_only_once = False
+            station_1_connection = False
+            station_uneven_connections = False
             cut_connections = False
             paste_connections = False
-            break 
-        elif random.lower() in option_2: 
+            break
+        elif random.lower() in option_2:
             heuristics = True
-            break 
-        else: 
+            break
+        else:
             random = input("Invalid input. Please type '1' or '2'. ")
 
-    # Prompt the user for which heuristics they want to apply, if they chose this option 
-    if heuristics: 
+    # Prompt the user for which heuristics they want to apply, if they chose this option
+    if heuristics:
         print("\nPlease choose which heuristics to apply. Respond with yes or no for each heuristic:")
 
         station_only_once = input("Visit a station only once per train. ")
@@ -123,12 +123,12 @@ def main():
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
         connection_objects = load_connections(data_list, stations_objects, change_connections)
-        # if connection_objects == False: 
+        # if connection_objects == False:
         #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
 
-        # Solution random, generates a random solution with chosen heuristics 
+        # Solution random, generates a random solution with chosen heuristics
         solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains)
-        
+
         if cut_connections:
             # Cut a connection from a "train" if the begin or end connection is in an other train
             solution = cut(solution)
@@ -163,7 +163,7 @@ def main():
     f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    if sim_annealing: 
+    if sim_annealing:
         better_solution = simulated_annealing(solution, stations_objects)
         better_score = calculate(better_solution)
 
@@ -178,28 +178,22 @@ def main():
         f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
         f.close()
 
-<<<<<<< HEAD
-    draw_train(better_solution, stations_objects, best_solution)
-    # # draw_train_holland(best_solution, stations_objects)
-=======
-        draw_train(better_solution, stations_objects)
-        # draw_train_holland(best_solution, stations_objects)
-    else:
-        draw_train(best_solution, stations_objects)
->>>>>>> c15435941f02ac78f277ef4fc62969190e908588
 
-# ... 
+    draw_train(better_solution, stations_objects)
+    # draw_train_holland(best_solution, stations_objects)
+    # draw_train(best_solution, stations_objects)
+
 def boolean_input(user_input):
     yes = ['yes', 'y', 'ye', '']
     no = ['no', 'n']
 
-    while True: 
+    while True:
         if user_input.lower() in yes:
             user_input = True
-            break 
+            break
         elif user_input.lower() in no:
             user_input = False
-            break 
+            break
         else:
             user_input = input("Invalid input. Please respond with yes or no. ")
 
