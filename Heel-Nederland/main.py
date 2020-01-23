@@ -21,7 +21,7 @@ import math
 
 def main():
     best_score = 0
-    attempts = 1
+    attempts = 10000
 
     # ...
     data = ""
@@ -122,7 +122,7 @@ def main():
         stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
-        connection_objects = load_connections(data_list, stations_objects, change_connections)
+        connection_objects = load_connections(data_list, stations_objects)
         # if connection_objects == False:
         #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
 
@@ -179,9 +179,9 @@ def main():
         f.close()
 
 
-    draw_train(better_solution, stations_objects)
+    # draw_train(better_solution, stations_objects)
     # draw_train_holland(best_solution, stations_objects)
-    # draw_train(best_solution, stations_objects)
+    draw_train(best_solution, stations_objects)
 
 def boolean_input(user_input):
     yes = ['yes', 'y', 'ye', '']
