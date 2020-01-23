@@ -32,21 +32,25 @@ def main():
         option_1 = ['1','noord- en zuid-holland']
         option_2 = ['2', 'heel nederland', '']
 
-        if holland.lower() in option_1:
+        # Convert input to lowercase and remove possible whitespace at end
+        # If users input corresponds with option 1
+        if holland.lower().rstrip() in option_1:
             data = "data/ConnectiesHolland.csv"
             max_minutes = 120
             max_trains = 7
             break
-        elif holland.lower() in option_2:
+        # If users input corresponds with option 2
+        elif holland.lower().rstrip() in option_2:
             data = "data/ConnectiesNationaal.csv"
             max_minutes = 180
             max_trains = 20
             break
+        # If users input is invalid, ask user to answer again
         else:
-            holland = input("Invalid input. Please type '1' or '2'. ")
+            holland = input("Invalid input. Please respond with '1' or '2'. ")
 
     # Advanced
-    skip_station = input("\nDoes a train station need to be avoided? ")
+    skip_station = input("\nShould a specific station be avoided? ")
     skip_station = boolean_input(skip_station)
     if skip_station:
         skip_station = input("Which station? ")
@@ -66,7 +70,7 @@ def main():
         elif data_list != False:
                 break
 
-    change_connections = input("\nShould any connections be changed? ")
+    change_connections = input("\nDo you want 3 connections to be changed randomly? ")
     change_connections = boolean_input(change_connections)
 
     # ...
@@ -76,7 +80,7 @@ def main():
         option_1 = ['1', 'random', 'completely random']
         option_2 = ['2', 'heuristics', 'random with heuristics', '']
 
-        if random.lower() in option_1:
+        if random.lower().rstrip() in option_1:
             # Set all heuristics to false
             station_only_once = False
             station_1_connection = False
@@ -84,15 +88,15 @@ def main():
             cut_connections = False
             paste_connections = False
             break
-        elif random.lower() in option_2:
+        elif random.lower().rstrip() in option_2:
             heuristics = True
             break
         else:
-            random = input("Invalid input. Please type '1' or '2'. ")
+            random = input("Invalid input. Please respond with '1' or '2'. ")
 
     # Prompt the user for which heuristics they want to apply, if they chose this option
     if heuristics:
-        print("\nPlease choose which heuristics to apply. Respond with yes or no for each heuristic:")
+        print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
 
         station_only_once = input("Visit a station only once per train. ")
         station_only_once = boolean_input(station_only_once)
@@ -188,14 +192,14 @@ def boolean_input(user_input):
     no = ['no', 'n']
 
     while True:
-        if user_input.lower() in yes:
+        if user_input.lower().rstrip() in yes:
             user_input = True
             break
-        elif user_input.lower() in no:
+        elif user_input.lower().rstrip() in no:
             user_input = False
             break
         else:
-            user_input = input("Invalid input. Please respond with yes or no. ")
+            user_input = input("Invalid input. Please respond with 'yes' or 'no'. ")
 
     return user_input
 

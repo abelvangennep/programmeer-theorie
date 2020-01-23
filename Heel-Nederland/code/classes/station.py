@@ -14,5 +14,8 @@ class Station():
         """Add a connection to the station"""
         self.connections.append(connection)
 
+    def delete_connection(self, connection): 
+        self.connections.remove(connection)
+
     def __str__(self):
         return f"{self.name}"
