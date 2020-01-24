@@ -57,8 +57,10 @@ def main():
 
     f= open("outputfiles/output.csv","a+")
     f.write("random: train, lijnvoering\n")
+    counter = 0
     for train in best_solution["trains"]:
-        f.write(f"train, {train}\n")
+        counter += 1
+        f.write(f"train_{counter}, {train}\n")
     f.close()
 
     # Append the best_score to a text file
@@ -72,8 +74,11 @@ def main():
 
         f= open("outputfiles/output.csv","a+")
         f.write("simulated annealing: train, lijnvoering\n")
+
+        counter = 0
         for train in better_solution["trains"]:
-            f.write(f"train, {train}\n")
+            counter += 1
+            f.write(f"train_{counter}, {train}\n")
         f.close()
 
         # Append the best_score to a text file
