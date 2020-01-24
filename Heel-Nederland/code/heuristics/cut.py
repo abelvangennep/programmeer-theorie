@@ -1,9 +1,10 @@
 def cut(solution):
+    """Cuts unnessecary connections that are already visited in another train"""
     trains = solution["trains"]
 
-    # Delete first and last connections
+    # Delete first/last connection
     for train in trains:
-        
+
         # While the train exists
         while train.travel_time > 0:
 
@@ -18,13 +19,14 @@ def cut(solution):
             elif last_connection.visited > 1:
                 train.delete_connection(-1)
 
-            # If the first and last connection can't be deleted, break the while loop
+            # Break if the last connection can't be deleted
+            # KAN DE ELSE NIET WEG???????????????????
             else:
                 break
 
     # Delete other possible connections
     for train in trains:
-        
+
         # If the train exists
         if train.travel_time > 0:
             counter = 0
@@ -33,7 +35,7 @@ def cut(solution):
             while counter <= len(train.connections):
                 index = -1
                 counter = 1
-                
+
                 for connection in train.connections:
                     index += 1
 
@@ -43,15 +45,16 @@ def cut(solution):
                         # If the connection is the same as the next connection
                         # and this connection has been visited more than twice
                         if connection == train.connections[index + 1] and connection.visited > 2:
+
                             # Delete both connections
                             train.delete_connection(index)
                             train.delete_connection(index)
                             index -= 1
                             break
-                    # If nothing is deleted, increment the counter
+
+                        # If nothing is deleted, increment the counter
                         else:
                             counter += 1
                     else:
                         counter += 1
-
     return solution
