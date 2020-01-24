@@ -14,7 +14,7 @@ from train import Train
 from cut import cut
 from paste import paste
 from stations import Stations
-from visualize import draw_train, draw_train_holland
+from visualize import draw_train
 from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 import math
@@ -61,39 +61,36 @@ def main():
     # print("0.001", math.exp(0.001))
     # print("2", math.exp(2))
 
-    f= open("output.csv","a+")
+    f= open("outputfiles/output.csv","a+")
     f.write("random: trein, lijnvoering\n")
     for train in best_solution["trains"]:
         f.write(f"trein, {train}\n")
     f.close()
 
     # Append the best_score to a text file
-    f= open("solution.txt","a+")
-    f.write(f"random: attempts:{ user_choices['attempts']}\n" f"SCORE:{best_score}\n\n")
+    f= open("outputfiles/solution.txt","a+")
+    f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
     if  user_choices["sim_annealing"]:
         better_solution = simulated_annealing(solution, stations_objects)
         better_score = calculate(better_solution)
 
-        f= open("output.csv","a+")
+        f= open("outputfiles/output.csv","a+")
         f.write("simulated annealing: trein, lijnvoering\n")
         for train in better_solution["trains"]:
             f.write(f"trein, {train}\n")
         f.close()
 
         # Append the best_score to a text file
-        f= open("solution.txt","a+")
-        f.write(f"simulated annealing: attempts:{user_choices['attempts']}\n" f"SCORE:{better_score}\n\n")
+        f= open("outputfiles/solution.txt","a+")
+        f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
         f.close()
 
 
-        draw_train(better_solution, stations_objects)
-    
-    else: 
-        draw_train(best_solution, stations_objects)
+    # draw_train(better_solution, stations_objects)
     # draw_train_holland(best_solution, stations_objects)
-    # draw_train(best_solution, stations_objects)
+    draw_train(best_solution, stations_objects)
 
 
 def user_interface(): 
@@ -204,7 +201,7 @@ def user_interface():
     #     if change_default: 
     #         temperature = input("What do you want the temperature to be? (default: 160) ")
 
-    # return user_choices 
+    return user_choices 
 
 
 def result_input(user_input, option_1, option_2): 
