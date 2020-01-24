@@ -16,7 +16,6 @@ class Connection():
             return True
         return False
 
-
     def add_visit(self):
         """Add a visit to the connection"""
         self.visited += 1
