@@ -3,7 +3,7 @@ import random
 
 class Train():
     """
-    In this class train objects are created these train objects contain all
+    In this class train objects are created. These train objects contain all
     connections of one train, the start/end station and the travel time.
     """
     def __init__(self, start_station):
