@@ -12,7 +12,7 @@ def draw_train(best_solution, stations_objects):
                     'gold', 'sienna', 'khaki', 'lightpink', 'slateblue',
                     'moccasin', 'yellowgreen', 'coral', 'lightsteelblue', 'indigo',
                     'seagreen', 'slategray', 'khaki', 'thistle', 'salmon']
-
+    
     # Set x ,y limits
     axes = plt.gca()
     axes.set_xlim(3.25, 7.3)
@@ -68,7 +68,7 @@ def draw_train_holland(best_solution, stations_objects):
         plt.imshow(img, aspect = "auto", extent = [3.9, 5.45, 51.55, 53.08])
 
         station_coordinates = []
-        
+
         # Draw points on the x, y coordinates of the stations
         for station in stations_objects.stations.values():
             station_coordinates.append([station.y, station.x])
