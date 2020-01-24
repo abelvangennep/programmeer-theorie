@@ -17,7 +17,8 @@ T = amount of trains, Min = total time of all trains
 Where the purpose of the case is to get K as high as possible.
 
 ## Prerequisites
-For Mac use pip3 and for Windows just use pip
+The code is written in Python 3.7.5, in requirements.txt the used packages can be found. 
+Easy installation can be done by using for Mac pip3 and for Windows just use pip
 
 ```bash
 pip3 install -r requirements.txt
