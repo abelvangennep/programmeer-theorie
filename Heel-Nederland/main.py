@@ -57,23 +57,30 @@ def main():
             best_solution = solution
             best_score = score
 
+    # Open outputfile
     f= open("outputfiles/output.csv","w")
     f.write("random:\ntrein, lijnvoering\n")
+
     counter = 0
+
+    # Write random solution to outputfile
     for train in best_solution["trains"]:
         counter += 1
         f.write(f'train_{counter}, "{train}"\n')
-
     f.write(f"SCORE:{best_score}\n\n")
     f.close()
 
-    if  user_choices["sim_annealing"] == True:
+    # If simulated annealing is chosen
+    if user_choices["sim_annealing"] == True:
         better_solution = simulated_annealing(solution, stations_objects, user_choices)
         better_score = calculate(better_solution)
 
+        # Open outputfile
         f= open("outputfiles/output.csv","a+")
         f.write("simulated annealing:\ntrein, lijnvoering\n")
         counter = 0
+
+        # Write simulated annealing solution to outputfile
         for train in better_solution["trains"]:
             counter += 1
             f.write(f'trein_{counter}, "{train}"\n')
@@ -82,14 +89,14 @@ def main():
 
         best_solution = better_solution
 
-    # Draw the map 
-    if user_choices["data"] == "data/ConnectiesHolland.csv": 
+    # Draw the map
+    if user_choices["data"] == "data/ConnectiesHolland.csv":
         draw_train_holland(best_solution, stations_objects)
-    else: 
+    else:
         draw_train(best_solution, stations_objects)
-    
-def user_interface(stations_data):
 
+def user_interface(stations_data):
+    """User interface"""
     user_choices = {}
 
     option_1 = ['yes', 'ye', 'y', '']
@@ -114,21 +121,21 @@ def user_interface(stations_data):
 
     # Ask user if a station should be omitted (part of advanced)
     skip_station = string_input(input("\nShould a specific station be avoided? "), option_1, option_2)
-    if skip_station == "1": 
+    if skip_station == "1":
         skip_station = input("What station? ")
 
-        all_stations = [] 
-        for row in stations_data: 
+        all_stations = []
+        for row in stations_data:
             all_stations.append(row[0].lower())
 
         while True:
-            if skip_station.lower().rstrip() in all_stations: 
-                break 
+            if skip_station.lower().rstrip() in all_stations:
+                break
             skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
-    
+
     else:
         skip_station = False
-    
+
     user_choices["skip"] = skip_station
 
     # Ask user if 3 connections should be changed randomly (part of advanced)
@@ -176,53 +183,53 @@ def user_interface(stations_data):
 
     print("\n********** RUNTIME **********")
 
-    user_choices["attempts"] = number_input(input("\nHow many times to do you want to run the random algorithm? "), int, 0, None) 
+    user_choices["attempts"] = number_input(input("\nHow many times to do you want to run the random algorithm? "), int, 0, None)
 
     user_choices["start_temperature"] = 160
     user_choices["end_temperature"] = 5
     user_choices["cooling_factor"] = 0.99
     user_choices["trains"] = 11
 
-    if user_choices["sim_annealing"] == True: 
-        change_default = string_input(input("\nDo you want to change the default settings for simulated annealing? "), option_1, option_2) 
-        if change_default == "1": 
+    if user_choices["sim_annealing"] == True:
+        change_default = string_input(input("\nDo you want to change the default settings for simulated annealing? "), option_1, option_2)
+        if change_default == "1":
             user_choices["start_temperature"] = number_input(input("Starting temperature? (default: 160) "), int, 0, None)
             user_choices["end_temperature"] = number_input(input("End temperature? (default: 5) "), int, 0, user_choices["start_temperature"])
             user_choices["cooling_factor"] = number_input(input("Cooling factor? (default: 0.99, min: >0, max: <1) "), float, 0, 1)
-            user_choices["trains"] = number_input(input(f"Number of trains? (default: random, max: {user_choices['max_trains']}) "), int, 0, user_choices['max_trains'] + 1) 
+            user_choices["trains"] = number_input(input(f"Number of trains? (default: random, max: {user_choices['max_trains']}) "), int, 0, user_choices['max_trains'] + 1)
 
     return user_choices
 
-def number_input(user_input, data_type, min, max): 
-    """Check if number input is valid and return the user's input.""" 
-    while True: 
-        try: 
+def number_input(user_input, data_type, min, max):
+    """Check if number input is valid and return the user's input."""
+    while True:
+        try:
             user_input = data_type(user_input)
-            if max == None: 
-                while True: 
-                    if user_input > int(min): 
+            if max == None:
+                while True:
+                    if user_input > int(min):
                         return user_input
-                    else: 
+                    else:
                         user_input = input(f"Please respond with a number higher than {min}. ")
-                        break 
-            else: 
-                while True: 
-                    if user_input > int(min) and user_input < int(max): 
+                        break
+            else:
+                while True:
+                    if user_input > int(min) and user_input < int(max):
                         return user_input
-                    else: 
+                    else:
                         user_input = input(f"Please respond with a number between {min} and {max}. ")
-                        break 
-        except ValueError: 
+                        break
+        except ValueError:
             user_input = input("Please respond with a number. ")
 
-def string_input(user_input, option_1, option_2): 
+def string_input(user_input, option_1, option_2):
     """Check if string input is valid and return which option the user chooses."""
-    while True: 
-        if user_input.lower().rstrip() in option_1: 
+    while True:
+        if user_input.lower().rstrip() in option_1:
             return "1"
-        elif user_input.lower().rstrip() in option_2: 
+        elif user_input.lower().rstrip() in option_2:
             return "2"
-        else: 
+        else:
             user_input = input(f"Invalid input. Please respond with '{option_1[0]}' or '{option_2[0]}'. ")
 
 def delete_trains(solution):
