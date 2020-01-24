@@ -22,11 +22,14 @@ import math
 def main():
     best_score = 0
 
-    user_choices = user_interface()
+    skip = False
+    stations_data = load_data("data/StationsNationaal.csv", skip)
+
+    user_choices = user_interface(stations_data)
 
     # Load data from the csv files with all the connections and their travel times
-    data_list = load_data( user_choices["data"],  user_choices["skip"])
-    stations_data = load_data("data/StationsNationaal.csv",  user_choices["skip"])
+    
+    data_list = load_data(user_choices["data"],  user_choices["skip"])
 
     for _ in range(user_choices["attempts"]):
         # Stations_object is a dictionary in which all the station objects are loaded
@@ -86,7 +89,7 @@ def main():
     else: 
         draw_train(best_solution, stations_objects)
     
-def user_interface():
+def user_interface(stations_data):
 
     user_choices = {}
 
@@ -111,29 +114,19 @@ def user_interface():
         user_choices["max_trains"] = 20
 
     # Ask user if a station should be omitted (part of advanced)
-    user_choices["skip"] = False
-
-    skip_station = input("\nShould a specific station be avoided? ")
-    skip_station = string_input(skip_station, option_1, option_2)
-
-    if skip_station == "1":
+    skip_station = string_input(input("\nShould a specific station be avoided? "), option_1, option_2)
+    if skip_station == "1": 
         skip_station = input("What station? ")
 
-        # Load data from the csv files with all the connections and their travel times
-        data_list = load_data(user_choices["data"], skip_station)
+        all_stations = [] 
+        for row in stations_data: 
+            all_stations.append(row[0].lower())
 
         while True:
-            if data_list == False:
-                skip_station = False
-                data_list = load_data(user_choices["data"], skip_station)
-                stations_data = load_data("data/StationsNationaal.csv", skip_station)
-                all_stations = load_stations(data_list, stations_data)
-
-                skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
-                data_list = load_data(user_choices["data"], skip_station)
-            elif data_list != False:
-                user_choices["skip"] = skip_station
-                break
+            if skip_station.lower().rstrip() in all_stations: 
+                break 
+            skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
+        user_choices["skip"] = skip_station
 
     # Ask user if 3 connections should be changed randomly (part of advanced)
     change_connections = input("\nDo you want 3 connections to be changed randomly? ")
