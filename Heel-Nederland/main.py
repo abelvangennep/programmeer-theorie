@@ -57,9 +57,9 @@ def main():
 
 
     f= open("outputfiles/output.csv","a+")
-    f.write("random: trein, lijnvoering\n")
+    f.write("random: train, lijnvoering\n")
     for train in best_solution["trains"]:
-        f.write(f"trein, {train}\n")
+        f.write(f"train, {train}\n")
     f.close()
 
     # Append the best_score to a text file
@@ -72,9 +72,9 @@ def main():
         better_score = calculate(better_solution)
 
         f= open("outputfiles/output.csv","a+")
-        f.write("simulated annealing: trein, lijnvoering\n")
+        f.write("simulated annealing: train, lijnvoering\n")
         for train in better_solution["trains"]:
-            f.write(f"trein, {train}\n")
+            f.write(f"train, {train}\n")
         f.close()
 
         # Append the best_score to a text file
@@ -216,12 +216,14 @@ def number_input(user_input, data_type, min, max):
         except ValueError: 
             user_input = input("Please respond with a number. ")
 
-    while True:
-        if user_input.lower().rstrip() in option_1:
+def result_input(user_input, option_1, option_2): 
+
+    while True: 
+        if user_input.lower().rstrip() in option_1: 
             return "1"
-        elif user_input.lower().rstrip() in option_2:
+        elif user_input.lower().rstrip() in option_2: 
             return "2"
-        else:
+        else: 
             user_input = input(f"Invalid input. Please respond with '{option_1[0]}' or '{option_2[0]}'. ")
 
 # remove trains
