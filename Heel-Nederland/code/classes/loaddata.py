@@ -6,12 +6,14 @@ from connection import Connection
 from stations import Stations
 
 def load_data(file, skip):
-    """"""
+    """Loads all data from a csvfile and returns the data in a list"""
     data_list = []
     
+    # Open the csv file
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
+            # If a station is skipped, check whether the station is in the row, append if the station isn't
             if skip:
                 if row[0].lower() != skip.lower().rstrip() and row[1].lower() != skip.lower().rstrip():
                     data_list.append(row)
@@ -21,11 +23,14 @@ def load_data(file, skip):
     return data_list
 
 def load_stations(data_list, stations_data):
-    """"""
+    """Load stations, creates a stations object and loads all the objects of station in it"""
+    # Create empty Stations object
     stations = Stations()
-    for item in data_list:
-        stations.create_station(item[0], stations_data)
-        stations.create_station(item[1], stations_data)
+
+    # Create for every 
+    for item in stations_data:
+        station_object = Station(item[0], float(item[2]), float(item[1]))
+        stations.append_station(item[0], station_object)
 
     return stations
 

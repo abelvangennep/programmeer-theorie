@@ -28,8 +28,7 @@ def main():
     user_choices = user_interface(stations_data)
 
     # Load data from the csv files with all the connections and their travel times
-    
-    data_list = load_data(user_choices["data"],  user_choices["skip"])
+    data_list = load_data(user_choices["data"], user_choices["skip"])
 
     for _ in range(user_choices["attempts"]):
         # Stations_object is a dictionary in which all the station objects are loaded
@@ -126,7 +125,11 @@ def user_interface(stations_data):
             if skip_station.lower().rstrip() in all_stations: 
                 break 
             skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
-        user_choices["skip"] = skip_station
+    
+    else:
+        skip_station = False
+    
+    user_choices["skip"] = skip_station
 
     # Ask user if 3 connections should be changed randomly (part of advanced)
     change_connections = input("\nDo you want 3 connections to be changed randomly? ")
