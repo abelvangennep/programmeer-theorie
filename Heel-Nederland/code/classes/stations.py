@@ -3,7 +3,7 @@ import random
 
 class Stations():
     """
-    In this class station objects are added to a stations dictionary. 
+    In this class station objects are added to a stations dictionary.
     """
     def __init__(self):
         self.stations = {}
@@ -36,8 +36,11 @@ class Stations():
                     stations_with_1_connection.append(station)
 
             for connection in station.connections:
+                # If station with uneven amount of connections
                 if uneven_connection:
-                    if connection.visited < 1 and station not in stations_uneven_connections and len(station.connections) % 2 == 1:
+                    if len(station.connections) % 2 == 1 and connection.visited < 1 and station not in stations_uneven_connections:
+                    # HEB VAN DE IF STATEMENT HIERONDER DE VOLGORDE VERANDERD NAAR HIERBOVEN
+                    # if connection.visited < 1 and station not in stations_uneven_connections and len(station.connections) % 2 == 1:
                         stations_uneven_connections.append(station)
 
                 if connection.visited < 1 and station not in unvisited_connections:
@@ -58,13 +61,13 @@ class Stations():
         return random.choice(all_stations)
 
     def get_complete_random_start_station(self):
-        """Return random start station"""
+        """Returns a complete random start station"""
         all_stations = []
 
+        # Add all stations once to list
         for station in self.stations.values():
             if station not in all_stations:
                 all_stations.append(station)
-
         return random.choice(all_stations)
 
     def __str__(self):
