@@ -55,17 +55,14 @@ def main():
             best_solution = solution
             best_score = score
 
-    f= open("outputfiles/output.csv","a+")
-    f.write("random: train, lijnvoering\n")
+    f= open("outputfiles/output.csv","w")
+    f.write("random:\ntrein, lijnvoering\n")
     counter = 0
     for train in best_solution["trains"]:
         counter += 1
-        f.write(f"train_{counter}, {train}\n")
-    f.close()
+        f.write(f'train_{counter}, "{train}"\n')
 
-    # Append the best_score to a text file
-    f= open("outputfiles/solution.txt","a+")
-    f.write(f"random: attempts:{user_choices['attempts']}\n" f"SCORE:{best_score}\n\n")
+    f.write(f"SCORE:{best_score}\n\n")
     f.close()
 
     if  user_choices["sim_annealing"] == True:
@@ -73,19 +70,13 @@ def main():
         better_score = calculate(better_solution)
 
         f= open("outputfiles/output.csv","a+")
-        f.write("simulated annealing: train, lijnvoering\n")
-
+        f.write("simulated annealing:\ntrein, lijnvoering\n")
         counter = 0
         for train in better_solution["trains"]:
             counter += 1
-            f.write(f"train_{counter}, {train}\n")
+            f.write(f'trein_{counter}, "{train}"\n')
+        f.write(f"SCORE:{better_score}\n\n")
         f.close()
-
-        # Append the best_score to a text file
-        f= open("outputfiles/solution.txt","a+")
-        f.write(f"simulated annealing\n" f"SCORE:{better_score}\n\n")
-        f.close()
-
 
         draw_train(better_solution, stations_objects)
     # draw_train_holland(best_solution, stations_objects)
