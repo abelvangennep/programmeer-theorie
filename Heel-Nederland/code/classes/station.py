@@ -2,7 +2,7 @@ import random
 
 class Station():
     """
-
+    
     """
     def __init__(self, name, x, y):
         self.name = name
@@ -14,7 +14,8 @@ class Station():
         """Add a connection to the station"""
         self.connections.append(connection)
 
-    def delete_connection(self, connection): 
+    def delete_connection(self, connection):
+        """Deletes a connection of the station"""
         self.connections.remove(connection)
 
     def __str__(self):

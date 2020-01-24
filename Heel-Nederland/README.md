@@ -29,6 +29,7 @@ pip3 install -r requirements.txt
 
 We seperated our code in different folders. In the folder code you have four folders. DIT WIJST VANZELF DENK IK
 In the folder Data are all input csv files with the connections and coordinates.
+Outputfiles contains the highscores.
 
 ## Usage
 ```bash
@@ -36,6 +37,4 @@ python3 main.py
 ```
 
 ## Authors
-Yana Visscher
-Abel van Gennep
-Emma de Gier
+#### Yana Visscher, Abel van Gennep and Emma de Gier
