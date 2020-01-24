@@ -70,20 +70,20 @@ def draw_train_holland(best_solution, stations_objects):
 
     station_coordinates = []
 
-        station_coordinates = []
+    station_coordinates = []
 
-        # Draw points on the x, y coordinates of the stations
-        for station in stations_objects.stations.values():
-            station_coordinates.append([station.y, station.x])
-            plt.scatter(station.x, station.y, s = 5)
+    # Draw points on the x, y coordinates of the stations
+    for station in stations_objects.stations.values():
+        station_coordinates.append([station.y, station.x])
+        plt.scatter(station.x, station.y, s = 5)
 
-        # Draw every train route of the solution
-        for train in best_solution["trains"]:
-            dict_coordinates = train.coordinates()
-            x_list = dict_coordinates["x"]
-            y_list = dict_coordinates["y"]
-            plt.plot(x_list, y_list)
-            plt.pause(1)
+    # Draw every train route of the solution
+    for train in best_solution["trains"]:
+        dict_coordinates = train.coordinates()
+        x_list = dict_coordinates["x"]
+        y_list = dict_coordinates["y"]
+        plt.plot(x_list, y_list)
+        plt.pause(1)
 
         plt.show()
 
