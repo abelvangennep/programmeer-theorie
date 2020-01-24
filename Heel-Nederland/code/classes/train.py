@@ -132,15 +132,13 @@ class Train():
 
     def __str__(self):
         station = self.start_station
-        route = self.start_station
-        if not self.connections and self.travel_time == 0 and self.start_station == "":
-            string = "*deleted*"
-        else:
-            for connection in self.connections:
-                if connection.station_1 == station:
-                    station = connection.station_2
-                else:
-                    station = connection.station_1
-                route = f"{route} - {connection.travel_time} - {station}"
-            string = f"{route} ({self.travel_time})"
-        return string
+        train_stations_list =[]
+        
+        for connection in self.connections:
+            if connection.station_1 == station:
+                train_stations_list.append(connection.station_2.name)
+            else:
+                train_stations_list.append(connection.station_1.name)
+    
+        return f"{train_stations_list}"
+
