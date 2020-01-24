@@ -1,6 +1,7 @@
 def create_train():
+    """"""
     station = stations_dict.get_random_start_station(station_uneven_connections, station_1_connection)
-    train = Train(station) 
+    train = Train(station)
 
     visited_stations = []
 
@@ -11,6 +12,6 @@ def create_train():
             visited_stations.append(connection.station_2)
 
         if train.travel_time + connection.travel_time > max:
-            break 
+            break
 
         train.add_connection(connection)

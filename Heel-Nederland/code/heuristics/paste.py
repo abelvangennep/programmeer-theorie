@@ -3,6 +3,7 @@ def paste(solution, max_minutes):
     trains = solution["trains"]
 
     for train_1 in trains:
+        
         # If the train exists
         if train_1.travel_time > 0:
 
@@ -10,6 +11,7 @@ def paste(solution, max_minutes):
             last_station_1 = train_1.current_station
 
             for train_2 in trains:
+
                 # If both of the trains exist and are not the same train
                 if train_1 is not train_2 and train_1.travel_time > 0 and train_2.travel_time > 0:
 
@@ -51,6 +53,7 @@ def paste(solution, max_minutes):
 
                         # If the start station of the first train and the start station of the second train are the same
                         elif first_station_1 == first_station_2:
+
                             # Reverse the order of the connections of the first train
                             train_1.start_station = train_1.current_station
                             train_1.current_station = train_1.start_station
