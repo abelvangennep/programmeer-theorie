@@ -6,6 +6,7 @@ class Station():
     the name of the station, the connections the station has and the x, y coordinates
     of the station.
     """
+    
     def __init__(self, name, x, y):
         self.name = name
         self.connections = []

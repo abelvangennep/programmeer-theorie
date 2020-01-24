@@ -70,10 +70,12 @@ def draw_train_holland(best_solution, stations_objects):
 
     station_coordinates = []
 
-    # Draw points on the x, y coordinates of the stations
-    for station in stations_objects.stations.values():
-        station_coordinates.append([station.y, station.x])
-        plt.scatter(station.x, station.y, s=5)
+        station_coordinates = []
+
+        # Draw points on the x, y coordinates of the stations
+        for station in stations_objects.stations.values():
+            station_coordinates.append([station.y, station.x])
+            plt.scatter(station.x, station.y, s = 5)
 
         # Draw every train route of the solution
         for train in best_solution["trains"]:

@@ -6,6 +6,7 @@ class Train():
     In this class train objects are created. These train objects contain all
     connections of one train, the start/end station and the travel time.
     """
+
     def __init__(self, start_station):
         self.start_station = start_station
         self.current_station = start_station
@@ -55,8 +56,11 @@ class Train():
     def add_connection(self, connection):
         """Add a connection to the train"""
         self.connections.append(connection)
+
+        # Update the train's travel time
         self.travel_time += connection.travel_time
 
+        # Set new current station
         if self.current_station == connection.station_1:
             self.current_station = connection.station_2
         else:
@@ -73,14 +77,14 @@ class Train():
 
         # If the connection is not the last connection of the train
         if self.travel_time > 0:
-            # If the connection is the start of the train
+            # Set new current station if the connection is the first
             if index == 0:
                 if self.start_station == connection.station_1:
                     self.start_station = connection.station_2
                 else:
                     self.start_station = connection.station_1
 
-            # Else if the connection is the end of the train
+            # Set new current station if the connection is the last
             elif index == -1:
                 if self.current_station == connection.station_1:
                     self.current_station = connection.station_2
@@ -91,7 +95,7 @@ class Train():
 
             connection.delete_visit()
 
-        # Empty the train, if the connection is the last connection
+        # Empty the train, if the connection is the last connection on the train
         else:
             self.empty_train()
 
@@ -116,6 +120,8 @@ class Train():
         coordinates_y.append(station.y)
 
         for connection in self.connections:
+
+            # Check which station is the other station and add coordinates
             if connection.station_1 == station:
                 station = connection.station_2
                 coordinates_x.append(station.x)
@@ -127,18 +133,16 @@ class Train():
 
         coordinates["x"] = coordinates_x
         coordinates["y"] = coordinates_y
-
         return coordinates
 
     def __str__(self):
         station = self.start_station
         train_stations_list =[]
-        
+
         for connection in self.connections:
             if connection.station_1 == station:
                 train_stations_list.append(connection.station_2.name)
             else:
                 train_stations_list.append(connection.station_1.name)
-    
-        return f"{train_stations_list}"
 
+        return f"{train_stations_list}"

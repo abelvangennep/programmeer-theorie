@@ -2,40 +2,47 @@ from train import Train
 from stations import Stations
 
 def random_solution(stations_dict, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains):
-    # max = 180
+    """Returns random solution with or without heuristics"""
+
     solution = {}
     trains = []
 
     while True:
         station = stations_dict.get_random_start_station(station_uneven_connections, station_1_connection)
-        train = Train(station) 
+
+        # Make a train object
+        train = Train(station)
 
         visited_stations = []
 
         while True:
             connection = train.get_random_connection(visited_stations, station_only_once)
+
+            # Add to visited_stations if heuristic visit_station_only_once is applied
             if station_only_once:
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
+            # Break if maximum minutes is reached
             if train.travel_time + connection.travel_time > max_minutes:
-                break 
+                break
 
             train.add_connection(connection)
-
+            
         trains.append(train)
 
         counter_visited = 0
-       
+
+        # Check if connection is visited and count counter_visited up
         for connection in connection_objects:
-            # if connection is visited
-            if connection.visited > 0:  
+            if connection.visited > 0:
                 counter_visited += 1
-                
+
+        # Break if all connections are visited or max train length is reached
         if len(connection_objects) == counter_visited or len(trains) > max_trains:
             break
 
+    # Add trains and connection length to solution dictionary
     solution["trains"] = trains
     solution["total_connections"] = len(connection_objects)
-    
     return solution
