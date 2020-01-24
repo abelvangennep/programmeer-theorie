@@ -4,7 +4,7 @@ class Connection():
     the first and second station, the travel time of the connection and the count
     of how many times the connection is visited.
     """
-    
+
     def __init__(self, station_1, station_2, travel_time):
         self.station_1 = station_1
         self.station_2 = station_2
@@ -12,7 +12,7 @@ class Connection():
         self.visited = 0
 
     def __eq__(self, other):
-        """Compares just the two station names"""
+        """Compare just the two station names"""
         if self.station_1.name == other.station_1.name and self.station_2.name == other.station_2.name:
             return True
         return False
@@ -26,5 +26,5 @@ class Connection():
         self.visited -= 1
 
     def __str__(self):
-        """Returns a string"""
+        """Return a string"""
         return f"{self.station_1}, {self.station_2}, {self.travel_time}, {self.visited}"

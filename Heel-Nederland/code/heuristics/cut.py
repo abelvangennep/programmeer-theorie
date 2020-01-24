@@ -2,7 +2,7 @@ def cut(solution):
     """Cuts unnessecary connections that are already visited in another train"""
     trains = solution["trains"]
 
-    # Delete first/last connection
+    # Delete first/last connections
     for train in trains:
 
         # While the train exists
@@ -20,7 +20,6 @@ def cut(solution):
                 train.delete_connection(-1)
 
             # Break if the last connection can't be deleted
-            # KAN DE ELSE NIET WEG???????????????????
             else:
                 break
 

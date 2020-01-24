@@ -14,7 +14,7 @@ class Train():
         self.travel_time = 0
 
     def set_start_station(self, station):
-        """Sets the start station and current station"""
+        """Set the start station and current station"""
         self.start_station = station
         self.current_station = station
 
@@ -110,7 +110,7 @@ class Train():
         self.current_station = ""
 
     def coordinates(self):
-        """Saves all coordinates of the train stations that are visited"""
+        """Save all coordinates of the train stations that are visited"""
         coordinates = {}
         coordinates_x = []
         coordinates_y = []
@@ -137,7 +137,7 @@ class Train():
 
     def __str__(self):
         station = self.start_station
-        train_stations_list =[]
+        train_stations_list = []
 
         for connection in self.connections:
             if connection.station_1 == station:

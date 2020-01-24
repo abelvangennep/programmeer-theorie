@@ -1,7 +1,7 @@
 def paste(solution, max_minutes):
     """Paste trains together if possible"""
     trains = solution["trains"]
-    
+
     for train_1 in trains:
         # If the train exists
         if train_1.travel_time > 0:
@@ -54,7 +54,8 @@ def paste(solution, max_minutes):
                             # Reverse the order of the connections of the first train
                             train_1.start_station = train_1.current_station
                             train_1.current_station = train_1.start_station
-                            train_1.connections = list(reversed(train_1.connections))
+                            train_1.connections = list(
+                                reversed(train_1.connections))
 
                             # Attach the second train in reversed order to the already reversed first train
                             for connection in train_2.connections:
