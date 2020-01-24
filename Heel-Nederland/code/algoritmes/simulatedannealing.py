@@ -9,7 +9,7 @@ import time
 import timeit
 import random
 
-def simulated_annealing(solution, stations_dict):
+def simulated_annealing(solution, stations_dict, user_choices):
     """
     Simulated annealing is a probabilistic algorithm, which can calculte a globale optimum.
     The algorithm compares the scores of to different solutions, even a worse score can be excepted.
@@ -19,12 +19,12 @@ def simulated_annealing(solution, stations_dict):
 
     score = []
 
-    max_train_duration = 180
-    temperature = 160
-    cooling_factor = 0.99999
-    temperature_end = 20
+    max_train_duration = user_choices["max_minutes"]
+    temperature = user_choices["start_temperature"] 
+    temperature_end = user_choices["end_temperature"] 
+    cooling_factor = user_choices["cooling_factor"] 
     iteration = 0
-    amount_of_trains = 11
+    amount_of_trains = user_choices["trains"]
     trains = solution["trains"]
 
     # Calculate the difference between the amount of trains in the solution and desired amount of trains

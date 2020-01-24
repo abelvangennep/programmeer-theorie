@@ -44,7 +44,7 @@ def main():
 
         if  user_choices["paste_connections"] == True:
             # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
-            solution = paste(solution)
+            solution = paste(solution, user_choices["max_minutes"])
 
         solution = delete_trains(solution)
 
@@ -54,7 +54,6 @@ def main():
         if score > best_score:
             best_solution = solution
             best_score = score
-
 
     f= open("outputfiles/output.csv","a+")
     f.write("random: train, lijnvoering\n")
@@ -67,8 +66,8 @@ def main():
     f.write(f"random: attempts:{user_choices['attempts']}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    if  user_choices["sim_annealing"]:
-        better_solution = simulated_annealing(solution, stations_objects)
+    if  user_choices["sim_annealing"] == True:
+        better_solution = simulated_annealing(solution, stations_objects, user_choices)
         better_score = calculate(better_solution)
 
         f= open("outputfiles/output.csv","a+")
@@ -83,9 +82,10 @@ def main():
         f.close()
 
 
-    draw_train(better_solution, stations_objects)
+        draw_train(better_solution, stations_objects)
     # draw_train_holland(best_solution, stations_objects)
-    draw_train(best_solution, stations_objects)
+    else: 
+        draw_train(best_solution, stations_objects)
 
 
 def user_interface():
@@ -184,16 +184,20 @@ def user_interface():
 
     user_choices["attempts"] = number_input(input("\nHow many times to do you want to run the random algorithm? "), int, 0, None) 
 
-    if sim_annealing: 
+    user_choices["start_temperature"] = 160
+    user_choices["end_temperature"] = 5
+    user_choices["cooling_factor"] = 0.99
+    user_choices["trains"] = 11
+
+    if user_choices["sim_annealing"] == True: 
         change_default = result_input(input("\nDo you want to change the default settings for simulated annealing? "), option_1, option_2) 
         if change_default == "1": 
-            user_choices["temperature"] = number_input(input("Starting temperature? (default: 160) "), int, 0, None)
-            user_choices["end_temperature"] = number_input(input("End temperature? (default: 5) "), int, 0, user_choices["temperature"])
+            user_choices["start_temperature"] = number_input(input("Starting temperature? (default: 160) "), int, 0, None)
+            user_choices["end_temperature"] = number_input(input("End temperature? (default: 5) "), int, 0, user_choices["start_temperature"])
             user_choices["cooling_factor"] = number_input(input("Cooling factor? (default: 0.99, min: >0, max: <1) "), float, 0, 1)
             user_choices["trains"] = number_input(input(f"Number of trains? (default: random, max: {user_choices['max_trains']}) "), int, 0, user_choices['max_trains'] + 1) 
 
     return user_choices
-
 
 def number_input(user_input, data_type, min, max): 
     while True: 
