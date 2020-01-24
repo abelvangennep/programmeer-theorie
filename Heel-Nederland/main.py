@@ -55,11 +55,6 @@ def main():
             best_solution = solution
             best_score = score
 
-    # print("0.4", math.exp(0.4))
-    # print("0.2", math.exp(0.2))
-    # print("-0.4", math.exp(-0.4))
-    # print("0.001", math.exp(0.001))
-    # print("2", math.exp(2))
 
     f= open("outputfiles/output.csv","a+")
     f.write("random: trein, lijnvoering\n")
@@ -69,7 +64,7 @@ def main():
 
     # Append the best_score to a text file
     f= open("outputfiles/solution.txt","a+")
-    f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
+    f.write(f"random: attempts:{user_choices['attempts']}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
     if  user_choices["sim_annealing"]:
@@ -84,11 +79,11 @@ def main():
 
         # Append the best_score to a text file
         f= open("outputfiles/solution.txt","a+")
-        f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
+        f.write(f"simulated annealing\n" f"SCORE:{better_score}\n\n")
         f.close()
 
 
-    # draw_train(better_solution, stations_objects)
+    draw_train(better_solution, stations_objects)
     # draw_train_holland(best_solution, stations_objects)
     draw_train(best_solution, stations_objects)
 
@@ -187,22 +182,38 @@ def user_interface():
 
     print("\n********** RUNTIME **********") 
 
-    attempts = input("\nHow many times to do you want to run the random algorithm? ")
-    while True: 
-        try: 
-            attempts = int(attempts)
-            user_choices["attempts"] = attempts
-            break 
-        except ValueError: 
-            attempts = input("Please respond with a number. ")
+    user_choices["attempts"] = number_input(input("\nHow many times to do you want to run the random algorithm? "), int, 0, None) 
 
-    # if sim_annealing: 
-    #     change_default = boolean_input(input("\nDo you want to change the default settings for simulated annealing? ")) 
-    #     if change_default: 
-    #         temperature = input("What do you want the temperature to be? (default: 160) ")
+    if sim_annealing: 
+        change_default = result_input(input("\nDo you want to change the default settings for simulated annealing? "), option_1, option_2) 
+        if change_default == "1": 
+            user_choices["temperature"] = number_input(input("Starting temperature? (default: 160) "), int, 0, None)
+            user_choices["end_temperature"] = number_input(input("End temperature? (default: 5) "), int, 0, user_choices["temperature"])
+            user_choices["cooling_factor"] = number_input(input("Cooling factor? (default: 0.99, min: >0, max: <1) "), float, 0, 1)
+            user_choices["trains"] = number_input(input(f"Number of trains? (default: random, max: {user_choices['max_trains']}) "), int, 0, user_choices['max_trains'] + 1) 
 
     return user_choices 
 
+def number_input(user_input, data_type, min, max): 
+    while True: 
+        try: 
+            user_input = data_type(user_input)
+            if max == None: 
+                while True: 
+                    if user_input > int(min): 
+                        return user_input
+                    else: 
+                        user_input = input(f"Please respond with a number higher than {min}. ")
+                        break 
+            else: 
+                while True: 
+                    if user_input > int(min) and user_input < int(max): 
+                        return user_input
+                    else: 
+                        user_input = input(f"Please respond with a number between {min} and {max}. ")
+                        break 
+        except ValueError: 
+            user_input = input("Please respond with a number. ")
 
 def result_input(user_input, option_1, option_2): 
     
