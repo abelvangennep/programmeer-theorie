@@ -1,30 +1,41 @@
 # RailNL
 
-Get the quality of the train routes as high as possible.
+RailNL is responsible for the intercity trains in the Netherlands. The purpose of this case is to take care of the train routes and get the quality of the routes as high as possible. A train route visits multiple stations and the route can't be longer than the given time frame.
 
-## Installing
-For Mac
+In the first part of the case we focussed on the provinces North- and South-Holland. All connections need to be visited and you can use a maximum of seven trains. Every train isn't allowed to be longer than two hours.
+
+In the second part of the case we focussed on all of the Netherlands. You can use a maximum of twenty trains and every train isn't allowed to be longer than three hours.
+
+In the advanced part you can change three connections and see what happens if a specific station falls out.
+
+There's a function
+K = p * 10000 - ( T * 100 + Min )
+
+Where K = quality of the routes
+p = fraction of connections that are visited between 0 and 1
+T = amount of trains
+Min = total time of all trains
+
+Where the purpose of the case is to get K as high as possible.
+
+## Prerequisites
+For Mac use pip3 and for Windows just use pip
+
 ```bash
-pip3 install matplotlib
+pip3 install -r requirements.txt
 ```
 
-For Windows
-```bash
-pip install matplotlib
-```
+## Structure
+
+We seperated our code in different folders. In the folder code you have four folders. DIT WIJST VANZELF DENK IK
+In the folder Data are all input csv files with the connections and coordinates.
 
 ## Usage
-For Mac
 ```bash
 python3 main.py
 ```
 
-For windows
-```bash
-python main.py
-```
-
 ## Authors
-#### Yana
-#### Abel
-#### Emma
+Yana Visscher
+Abel van Gennep
+Emma de Gier
