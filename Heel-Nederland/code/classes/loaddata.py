@@ -23,11 +23,11 @@ def load_data(file, skip):
     return data_list
 
 def load_stations(data_list, stations_data):
-    """Load stations, creates a stations object and loads all the objects of station in it"""
+    """Load stations, creates every station and creates the stations object, the stations object is returned"""
     # Create empty Stations object
     stations = Stations()
 
-    # Create for every 
+    # Create a station object for every station and append to the dictionary in stations
     for item in stations_data:
         station_object = Station(item[0], float(item[2]), float(item[1]))
         stations.append_station(item[0], station_object)
@@ -35,24 +35,25 @@ def load_stations(data_list, stations_data):
     return stations
 
 def load_connections(data_list, stations_object, change_connections):
-    """Add connections to station objects(??)"""
+    """Loads all the connection in the connection class and returns a list of connections."""
     connections = []
+
 
     for item in data_list:
         station_1 = stations_object.get_station(item[0])
         station_2 = stations_object.get_station(item[1])
 
+        # Create a connection opject and append the connection to the list
         connection = Connection(station_1, station_2, int(float(item[2])))
         connections.append(connection)
 
+        # Append the connection to the attribute connections of the station object
         station_1.add_connection(connection)
         station_2.add_connection(connection)
 
-
+    # If the user chose to random change a connection (Advanced)
     if change_connections:
-        i = 0
-        for i in range(3):
-            i += 1
+        for _ in range(3):
             random_connection = random.choice(connections)
 
             uneven_connection = False
@@ -68,12 +69,13 @@ def load_connections(data_list, stations_object, change_connections):
                 # Delete this connection from the station
                 if change_station == random_connection.station_1:
                     random_connection.station_1 = random_station
-                # IS DEZE ELSE NODIG??????????
                 else:
                     random_connection.station_2 = random_station
+
                 # Add connection to the random station
                 random_station.add_connection(random_connection)
 
                 # Replace it with complete random station
                 change_station.delete_connection(random_connection)
+
     return connections
