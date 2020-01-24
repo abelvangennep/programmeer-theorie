@@ -120,6 +120,8 @@ class Train():
         coordinates_y.append(station.y)
 
         for connection in self.connections:
+
+            # Check which station is the other station and add coordinates
             if connection.station_1 == station:
                 station = connection.station_2
                 coordinates_x.append(station.x)
@@ -131,7 +133,6 @@ class Train():
 
         coordinates["x"] = coordinates_x
         coordinates["y"] = coordinates_y
-
         return coordinates
 
     def __str__(self):
