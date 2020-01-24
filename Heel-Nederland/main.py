@@ -14,14 +14,14 @@ from train import Train
 from cut import cut
 from paste import paste
 from stations import Stations
-from visualize import draw_train, draw_train_holland
+from visualize import draw_train
 from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 import math
 
 def main():
     best_score = 0
-    attempts = 10000
+    attempts = 1000
 
     # ...
     data = ""
@@ -126,7 +126,7 @@ def main():
         stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
-        connection_objects = load_connections(data_list, stations_objects)
+        connection_objects = load_connections(data_list, stations_objects, change_connections)
         # if connection_objects == False:
         #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
 
@@ -156,14 +156,14 @@ def main():
     # print("0.001", math.exp(0.001))
     # print("2", math.exp(2))
 
-    f= open("output.csv","a+")
+    f= open("outputfiles/output.csv","a+")
     f.write("random: trein, lijnvoering\n")
     for train in best_solution["trains"]:
         f.write(f"trein, {train}\n")
     f.close()
 
     # Append the best_score to a text file
-    f= open("solution.txt","a+")
+    f= open("outputfiles/solution.txt","a+")
     f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
@@ -171,14 +171,14 @@ def main():
         better_solution = simulated_annealing(solution, stations_objects)
         better_score = calculate(better_solution)
 
-        f= open("output.csv","a+")
+        f= open("outputfiles/output.csv","a+")
         f.write("simulated annealing: trein, lijnvoering\n")
         for train in better_solution["trains"]:
             f.write(f"trein, {train}\n")
         f.close()
 
         # Append the best_score to a text file
-        f= open("solution.txt","a+")
+        f= open("outputfiles/solution.txt","a+")
         f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
         f.close()
 

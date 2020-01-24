@@ -24,7 +24,7 @@ def draw_train(best_solution, stations_objects):
     plt.title("train")
 
     # Read and show image
-    img = plt.imread("NLkaart.png")
+    img = plt.imread("pictures/NLkaart.png")
     plt.imshow(img, aspect = "auto", extent = [3.25, 7.3, 50.65, 53.7])
 
     station_coordinates = []
@@ -58,7 +58,7 @@ def draw_train(best_solution, stations_objects):
 #         plt.title("train Holland")
 #
 #         # Read and show image
-#         img = plt.imread("NLkaartHolland.png")
+#         img = plt.imread("pictures/NLkaartHolland.png")
 #         plt.imshow(img, aspect = "auto", extent = [3.9, 5.45, 51.55, 53.08])
 #
 #         station_coordinates = []
