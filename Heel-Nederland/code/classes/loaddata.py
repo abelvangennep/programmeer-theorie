@@ -8,7 +8,6 @@ from stations import Stations
 def load_data(file, skip):
     """"""
     data_list = []
-    skip_count = 0
     
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -16,13 +15,8 @@ def load_data(file, skip):
             if skip:
                 if row[0].lower() != skip.lower().rstrip() and row[1].lower() != skip.lower().rstrip():
                     data_list.append(row)
-                else:
-                    skip_count += 1
             else:
                 data_list.append(row)
-
-    if skip and skip_count == 0:
-        return False
 
     return data_list
 
