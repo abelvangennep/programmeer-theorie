@@ -23,7 +23,6 @@ def main():
     best_score = 0
     attempts = 10000
 
-    # ...
     data = ""
     max_minutes = 0
     max_trains = 0
