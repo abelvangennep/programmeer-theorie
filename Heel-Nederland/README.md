@@ -11,10 +11,8 @@ In the advanced part you can change three connections and see what happens if a 
 There's a function
 K = p * 10000 - ( T * 100 + Min )
 
-Where K = quality of the routes
-p = fraction of connections that are visited between 0 and 1
-T = amount of trains
-Min = total time of all trains
+Where K = quality of the routes, p = fraction of connections that are visited between 0 and 1,
+T = amount of trains, Min = total time of all trains
 
 Where the purpose of the case is to get K as high as possible.
 
@@ -27,9 +25,10 @@ pip3 install -r requirements.txt
 
 ## Structure
 
-We seperated our code in different folders. In the folder code you have four folders. DIT WIJST VANZELF DENK IK
-In the folder Data are all input csv files with the connections and coordinates.
-Outputfiles contains the highscores.
+We seperated our code in different folders. In the folder code you have four folders for
+algorithms, classees, heuristics and visualization. In the folder Data are all input csv
+ files with the connections and coordinates. Outputfiles contains the highscores and the
+ trains that belong to that score.
 
 ## Usage
 ```bash
@@ -37,4 +36,4 @@ python3 main.py
 ```
 
 ## Authors
-#### Yana Visscher, Abel van Gennep and Emma de Gier
+Yana Visscher, Abel van Gennep and Emma de Gier
