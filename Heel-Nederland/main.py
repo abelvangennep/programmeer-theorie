@@ -14,129 +14,35 @@ from train import Train
 from cut import cut
 from paste import paste
 from stations import Stations
-from visualize import draw_train, draw_train_holland
+from visualize import draw_train
 from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 import math
 
 def main():
     best_score = 0
-    attempts = 10000
 
-    data = ""
-    max_minutes = 0
-    max_trains = 0
-    holland = input("Please choose:\nNoord- en Zuid-Holland (1)\nor Heel Nederland (2)\n")
-    while True:
-        option_1 = ['1','noord- en zuid-holland']
-        option_2 = ['2', 'heel nederland', '']
-
-        # Convert input to lowercase and remove possible whitespace at end
-        # If users input corresponds with option 1
-        if holland.lower().rstrip() in option_1:
-            data = "data/ConnectiesHolland.csv"
-            max_minutes = 120
-            max_trains = 7
-            break
-        # If users input corresponds with option 2
-        elif holland.lower().rstrip() in option_2:
-            data = "data/ConnectiesNationaal.csv"
-            max_minutes = 180
-            max_trains = 20
-            break
-        # If users input is invalid, ask user to answer again
-        else:
-            holland = input("Invalid input. Please respond with '1' or '2'. ")
-
-    # Advanced
-    skip_station = input("\nShould a specific station be avoided? ")
-    skip_station = boolean_input(skip_station)
-    if skip_station:
-        skip_station = input("Which station? ")
+    user_choices = user_interface()
 
     # Load data from the csv files with all the connections and their travel times
-    data_list = load_data(data, skip_station)
+    data_list = load_data( user_choices["data"],  user_choices["skip"])
+    stations_data = load_data("data/StationsNationaal.csv",  user_choices["skip"])
 
-    while True:
-        if data_list == False:
-            skip_station = False
-            data_list = load_data(data, skip_station)
-            stations_data = load_data("data/StationsNationaal.csv", skip_station)
-            all_stations = load_stations(data_list, stations_data)
-
-            skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
-            data_list = load_data(data, skip_station)
-        elif data_list != False:
-                break
-
-    change_connections = input("\nDo you want 3 connections to be changed randomly? ")
-    change_connections = boolean_input(change_connections)
-
-    # ...
-    random = input("\nPlease choose: \nCompletely random (1) \nor Random with Heuristics (2)\n")
-    heuristics = False
-    while True:
-        option_1 = ['1', 'random', 'completely random']
-        option_2 = ['2', 'heuristics', 'random with heuristics', '']
-
-        if random.lower().rstrip() in option_1:
-            # Set all heuristics to false
-            station_only_once = False
-            station_1_connection = False
-            station_uneven_connections = False
-            cut_connections = False
-            paste_connections = False
-            break
-        elif random.lower().rstrip() in option_2:
-            heuristics = True
-            break
-        else:
-            random = input("Invalid input. Please respond with '1' or '2'. ")
-
-    # Prompt the user for which heuristics they want to apply, if they chose this option
-    if heuristics:
-        print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
-
-        station_only_once = input("Visit a station only once per train. ")
-        station_only_once = boolean_input(station_only_once)
-
-        station_1_connection = input("Start a train with a station that only has one connection. ")
-        station_1_connection = boolean_input(station_1_connection)
-
-        station_uneven_connections = input("Start a train with a station that has an uneven number of connections. ")
-        station_uneven_connections = boolean_input(station_uneven_connections)
-
-        cut_connections = input("Delete already visited connections, where possible. ")
-        cut_connections = boolean_input(cut_connections)
-
-        paste_connections = input("Join trains together, if possible. ")
-        paste_connections = boolean_input(paste_connections)
-
-    # ...
-    sim_annealing = input("\nDo you want to use the Simulated Annealing algorithm?\n")
-    sim_annealing = boolean_input(sim_annealing)
-
-    # # Load data from the csv files with all the connections and their travel times
-    # data_list = load_data(data, skip_station)
-    stations_data = load_data("data/StationsNationaal.csv", skip_station)
-
-    for _ in range(attempts):
+    for _ in range(user_choices["attempts"]):
         # Stations_object is a dictionary in which all the station objects are loaded
         stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection, which are loaded from data_list
-        connection_objects = load_connections(data_list, stations_objects)
-        # if connection_objects == False:
-        #     skip_data = input(f"This station is invalid! Please choose from {stations_objects}")
+        connection_objects = load_connections(data_list, stations_objects, user_choices["change_connections"])
 
-        # Solution random, generates a random solution with chosen heuristics
-        solution = random_solution(stations_objects, connection_objects, station_1_connection, station_uneven_connections, station_only_once, max_minutes, max_trains)
+        # Generate a random solution with chosen heuristics
+        solution = random_solution(stations_objects, connection_objects,  user_choices["station_1_connection"],  user_choices["station_uneven_connections"],  user_choices["station_only_once"],  user_choices["max_minutes"],  user_choices["max_trains"])
 
-        if cut_connections:
+        if  user_choices["cut_connections"] == True:
             # Cut a connection from a "train" if the begin or end connection is in an other train
             solution = cut(solution)
 
-        if paste_connections:
+        if  user_choices["paste_connections"] == True:
             # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution)
 
@@ -155,29 +61,29 @@ def main():
     # print("0.001", math.exp(0.001))
     # print("2", math.exp(2))
 
-    f= open("output.csv","a+")
+    f= open("outputfiles/output.csv","a+")
     f.write("random: trein, lijnvoering\n")
     for train in best_solution["trains"]:
         f.write(f"trein, {train}\n")
     f.close()
 
     # Append the best_score to a text file
-    f= open("solution.txt","a+")
+    f= open("outputfiles/solution.txt","a+")
     f.write(f"random: attempts:{attempts}\n" f"SCORE:{best_score}\n\n")
     f.close()
 
-    if sim_annealing:
+    if  user_choices["sim_annealing"]:
         better_solution = simulated_annealing(solution, stations_objects)
         better_score = calculate(better_solution)
 
-        f= open("output.csv","a+")
+        f= open("outputfiles/output.csv","a+")
         f.write("simulated annealing: trein, lijnvoering\n")
         for train in better_solution["trains"]:
             f.write(f"trein, {train}\n")
         f.close()
 
         # Append the best_score to a text file
-        f= open("solution.txt","a+")
+        f= open("outputfiles/solution.txt","a+")
         f.write(f"simulated annealing: attempts:{attempts}\n" f"SCORE:{better_score}\n\n")
         f.close()
 
@@ -186,21 +92,127 @@ def main():
     # draw_train_holland(best_solution, stations_objects)
     draw_train(best_solution, stations_objects)
 
-def boolean_input(user_input):
-    yes = ['yes', 'y', 'ye', '']
-    no = ['no', 'n']
+
+def user_interface():
+
+    user_choices = {}
+
+    option_1 = ['yes', 'ye', 'y', '']
+    option_2 = ['no', 'n']
+
+    print("\n********** MAP **********\n")
+
+    # Ask user for which part of the map the train routes should be calculated
+    holland = input("Please choose:\nNoord- en Zuid-Holland (1)\nor Heel Nederland (2)\n")
+    option_1_holland = ['1','noord- en zuid-holland']
+    option_2_holland = ['2', 'heel nederland', '']
+
+    holland = result_input(holland, option_1_holland, option_2_holland)
+    if holland == "1":
+        user_choices["data"] = "data/ConnectiesHolland.csv"
+        user_choices["max_minutes"] = 120
+        user_choices["max_trains"] = 7
+    else:
+        user_choices["data"] = "data/ConnectiesNationaal.csv"
+        user_choices["max_minutes"] = 180
+        user_choices["max_trains"] = 20
+
+    # Ask user if a station should be omitted (part of advanced)
+    user_choices["skip"] = False
+
+    skip_station = input("\nShould a specific station be avoided? ")
+    skip_station = result_input(skip_station, option_1, option_2)
+
+    if skip_station == "1":
+        skip_station = input("What station? ")
+
+        # Load data from the csv files with all the connections and their travel times
+        data_list = load_data(user_choices["data"], skip_station)
+
+        while True:
+            if data_list == False:
+                skip_station = False
+                data_list = load_data(user_choices["data"], skip_station)
+                stations_data = load_data("data/StationsNationaal.csv", skip_station)
+                all_stations = load_stations(data_list, stations_data)
+
+                skip_station = input(f"This station is invalid. Please choose from the following:\n\n{all_stations}\n\n")
+                data_list = load_data(user_choices["data"], skip_station)
+            elif data_list != False:
+                user_choices["skip"] = skip_station
+                break
+
+    # Ask user if 3 connections should be changed randomly (part of advanced)
+    change_connections = input("\nDo you want 3 connections to be changed randomly? ")
+    user_choices["change_connections"] = False
+    if result_input(change_connections, option_1, option_2) == "1":
+        user_choices["change_connections"] = True
+
+    print("\n********** ALGORITHM **********")
+
+    # Ask user if they want to run a completely random algorithm or employ certain heuristics
+    random = input("\nPlease choose: \nCompletely random (1) \nor Random with Heuristics (2)\n")
+    option_1_random = ['1', 'random', 'completely random']
+    option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+    random = result_input(random, option_1_random, option_2_random)
+
+    # Set all heuristics to false
+    user_choices["station_only_once"] = False
+    user_choices["station_1_connection"] = False
+    user_choices["station_uneven_connections"] = False
+    user_choices["cut_connections"] = False
+    user_choices["paste_connections"] = False
+
+    # Prompt the user for which heuristics they want to apply, if they chose this option
+    if random == "2":
+        print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
+
+        # Set heuristic to true, if the user chooses this option
+        if result_input(input("Visit a station only once per train. "), option_1, option_2) == "1":
+            user_choices["station_only_once"] = True
+        if result_input(input("Start a train with a station that only has one connection. "), option_1, option_2) == "1":
+            user_choices["station_1_connection"] = True
+        if result_input(input("Start a train with a station that has an uneven number of connections. "), option_1, option_2) == "1":
+            user_choices["station_uneven_connections"] = True
+        if result_input(input("Delete already visited connections, where possible. "), option_1, option_2) == "1":
+            user_choices["cut_connections"] = True
+        if result_input(input("Join trains together, if possible. "), option_1, option_2) == "1":
+            user_choices["paste_connections"] = True
+
+    # Ask the user if they want to run the simulated annealing algorithm
+    sim_annealing = input("\nDo you want to use the Simulated Annealing algorithm? ")
+    user_choices["sim_annealing"] = False
+    if result_input(sim_annealing, option_1, option_2) == "1":
+        user_choices["sim_annealing"] = True
+
+    print("\n********** RUNTIME **********")
+
+    attempts = input("\nHow many times to do you want to run the random algorithm? ")
+    while True:
+        try:
+            attempts = int(attempts)
+            user_choices["attempts"] = attempts
+            break
+        except ValueError:
+            attempts = input("Please respond with a number. ")
+
+    # if sim_annealing:
+    #     change_default = boolean_input(input("\nDo you want to change the default settings for simulated annealing? "))
+    #     if change_default:
+    #         temperature = input("What do you want the temperature to be? (default: 160) ")
+
+    return user_choices
+
+
+def result_input(user_input, option_1, option_2):
 
     while True:
-        if user_input.lower().rstrip() in yes:
-            user_input = True
-            break
-        elif user_input.lower().rstrip() in no:
-            user_input = False
-            break
+        if user_input.lower().rstrip() in option_1:
+            return "1"
+        elif user_input.lower().rstrip() in option_2:
+            return "2"
         else:
-            user_input = input("Invalid input. Please respond with 'yes' or 'no'. ")
-
-    return user_input
+            user_input = input(f"Invalid input. Please respond with '{option_1[0]}' or '{option_2[0]}'. ")
 
 # remove trains
 def delete_trains(solution):
@@ -214,7 +226,6 @@ def delete_trains(solution):
     solution["trains"] = existing_trains
 
     return solution
-
 
 if __name__ == '__main__':
     main()
