@@ -27,7 +27,8 @@ def simulated_annealing(solution, stations_dict, user_choices):
     iteration = 0
     trains = solution["trains"]
 
-    # Calculate the difference between the amount of trains in the solution and desired amount of trains
+    # Calculate the difference between the amount of trains in the solution and
+    # desired amount of trains
     number_of_trains_difference = len(solution["trains"]) - amount_of_trains
 
     # If the difference is bigger then 0 delete trains
@@ -40,7 +41,9 @@ def simulated_annealing(solution, stations_dict, user_choices):
     # If the difference is smaller then 0 add trains
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
-            station = stations_dict.get_random_start_station(user_choices["SA_station_uneven_connections"], user_choices["SA_station_1_connection"])
+            station = stations_dict.get_random_start_station(user_choices\
+                      ["SA_station_uneven_connections"], \
+                      user_choices["SA_station_1_connection"])
             new_train = Train(station)
 
     # Create a new dictionary solution to compare the old solution with
@@ -55,7 +58,8 @@ def simulated_annealing(solution, stations_dict, user_choices):
         solution_temp["trains"] =  []
         train = random.choice(trains)
 
-        # Append al the trains to the temporary solution, except the chosen train and create a new train
+        # Append al the trains to the temporary solution, except the chosen
+        # train and create a new train
         for every_train in trains:
             if every_train is train:
                 station = stations_dict.get_complete_random_start_station()
@@ -68,7 +72,8 @@ def simulated_annealing(solution, stations_dict, user_choices):
             visited_stations = []
 
             # Get random connection or with heuristics if chosen
-            connection = new_train.get_random_connection(visited_stations, user_choices["SA_station_only_once"])
+            connection = new_train.get_random_connection(visited_stations, \
+                         user_choices["SA_station_only_once"])
 
             if user_choices["SA_station_only_once"]:
                 visited_stations.append(connection.station_1)
