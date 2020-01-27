@@ -44,7 +44,7 @@ def cut(solution):
                         # If the connection is the same as the next connection
                         # and has been visited more than twice
                         if connection == train.connections[index + 1] and \
-                        connection.visited > 2:
+                            connection.visited > 2:
 
                             # Delete both connections
                             train.delete_connection(index)

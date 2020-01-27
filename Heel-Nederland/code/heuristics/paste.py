@@ -12,7 +12,7 @@ def paste(solution, max_minutes):
             for train_2 in trains:
                 # If both of the trains exist and are not the same train
                 if train_1 is not train_2 and train_1.travel_time > 0 and \
-                train_2.travel_time > 0:
+                    train_2.travel_time > 0:
 
                     # If the total travel time of both trains does not exceed
                     # the train time limit

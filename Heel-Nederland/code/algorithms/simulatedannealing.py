@@ -96,7 +96,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
 
         # Change the solution, when new train is accepted
         if difference > 0 or math.exp(difference / temperature) > \
-        random.uniform(0, 1):
+            random.uniform(0, 1):
 
             for connection in train.connections:
                 connection.delete_visit()

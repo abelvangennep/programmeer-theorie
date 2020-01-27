@@ -37,7 +37,7 @@ class Stations():
                 if uneven_connection:
                     # Append the station if it has uneven connections and no visits
                     if len(station.connections) % 2 == 1 and connection.visited \
-                    < 1 and station not in stations_uneven_connections:
+                        < 1 and station not in stations_uneven_connections:
                         stations_uneven_connections.append(station)
 
                 # Append every unvisited station
