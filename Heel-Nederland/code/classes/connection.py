@@ -14,7 +14,7 @@ class Connection():
     def __eq__(self, other):
         """Compare just the two station names"""
         if self.station_1.name == other.station_1.name and self.station_2.name \
-            == other.station_2.name:
+        == other.station_2.name:
             return True
         return False
 

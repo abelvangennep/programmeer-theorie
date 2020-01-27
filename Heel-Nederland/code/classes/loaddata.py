@@ -17,7 +17,7 @@ def load_data(file, skip):
             # append if the station isn't
             if skip:
                 if row[0].lower() != skip.lower().rstrip() and row[1].lower() \
-                    != skip.lower().rstrip():
+                != skip.lower().rstrip():
                     data_list.append(row)
             else:
                 data_list.append(row)
@@ -67,7 +67,7 @@ def load_connections(data_list, stations_object, change_connections):
 
             # If the random station is not part of the connection
             if random_station is not random_connection.station_1 and \
-               random_station is not random_connection.station_2:
+            random_station is not random_connection.station_2:
 
                 # Random station from the 2 stations in connection
                 change_station = random.choice([random_connection.station_1, \

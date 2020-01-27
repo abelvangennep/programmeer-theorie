@@ -32,13 +32,10 @@ class Train():
 
             all_connections.append(connection)
 
-        # Return if there's a station with one connection
-            # If heuristic chosen starting a train with only one connection was chosen
-
-
             # If heuristic visit every city once per train was chosen
             if visit_city_once:
-                if connection.station_1 not in visited_stations or connection.station_2 not in visited_stations:
+                if connection.station_1 not in visited_stations or \
+                connection.station_2 not in visited_stations:
                     unvisited_cities.append(connection)
 
         # Return random unvisited connection which is connected to the current station
@@ -118,7 +115,8 @@ class Train():
         coordinates_y.append(station.y)
 
         for connection in self.connections:
-            # Check which station is the other station of the connection and add coordinates
+            # Check which station is the other station of the connection and add
+            # coordinates
             if connection.station_1 == station:
                 station = connection.station_2
                 coordinates_x.append(station.x)
