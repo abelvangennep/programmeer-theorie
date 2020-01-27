@@ -31,6 +31,7 @@ def draw_train(best_solution, stations_objects):
     plt.imshow(img, aspect="auto", extent=[3.25, 7.3, 50.65, 53.7])
 
     station_coordinates = []
+
     # Draw points on the x, y coordinates of the stations
     for station in stations_objects.stations.values():
         station_coordinates.append([station.y, station.x])
@@ -49,9 +50,8 @@ def draw_train(best_solution, stations_objects):
 
     plt.show()
 
-
 def draw_train_holland(best_solution, stations_objects):
-    """Draws every train of the solution of the North/South-Holland part"""
+    """Draws every train of the solution of the North-/South-Holland part"""
 
     # List of colors for the visualization
     colors = ['goldenrod', 'indianred', 'olive', 'sandybrown', 'skyblue',
@@ -75,8 +75,6 @@ def draw_train_holland(best_solution, stations_objects):
 
     station_coordinates = []
 
-    station_coordinates = []
-
     # Draw points on the x, y coordinates of the stations
     for station in stations_objects.stations.values():
         station_coordinates.append([station.y, station.x])
@@ -94,7 +92,6 @@ def draw_train_holland(best_solution, stations_objects):
         plt.pause(1)
 
     plt.show()
-
 
 def see_annealing(costs):
     """Plot simulated annealing line"""

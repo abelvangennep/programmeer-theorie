@@ -4,10 +4,8 @@ def cut(solution):
 
     # Delete first/last connections
     for train in trains:
-
         # While the train exists
         while train.travel_time > 0:
-
             first_connection = train.connections[0]
             last_connection = train.connections[-1]
 
@@ -25,7 +23,6 @@ def cut(solution):
 
     # Delete other possible connections
     for train in trains:
-
         # If the train exists
         if train.travel_time > 0:
             counter = 0
@@ -41,8 +38,7 @@ def cut(solution):
                     # If the connection at index is not the last connection
                     if index < len(train.connections) - 1:
 
-                        # If the connection is the same as the next connection
-                        # and this connection has been visited more than twice
+                        # If the connection is the same as the next connection and has been visited more than twice
                         if connection == train.connections[index + 1] and connection.visited > 2:
 
                             # Delete both connections
@@ -51,9 +47,6 @@ def cut(solution):
                             index -= 1
                             break
 
-                        # If nothing is deleted, increment the counter
-                        else:
-                            counter += 1
-                    else:
-                        counter += 1
+                    counter += 1
+
     return solution

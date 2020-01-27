@@ -1,0 +1,3 @@
+random: attempts:10
+SCORE:6952.0
+
