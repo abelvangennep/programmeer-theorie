@@ -12,7 +12,7 @@ def draw_train(best_solution, stations_objects):
     colors = ['goldenrod', 'indianred', 'olive', 'sandybrown', 'skyblue',
               'orchid', 'gold', 'sienna', 'khaki', 'lightpink', 'slateblue',
               'moccasin', 'yellowgreen', 'coral', 'lightsteelblue', 'indigo',
-              'seagreen', 'slategray', 'khaki', 'thistle']
+              'seagreen', 'slategray', 'salmon', 'thistle']
 
     # Set x ,y limits
     axes = plt.gca()
