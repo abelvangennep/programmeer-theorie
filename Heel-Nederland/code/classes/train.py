@@ -22,7 +22,7 @@ class Train():
         """Return a random connection"""
         unvisited_connections = []
         unvisited_cities = []
-        unvisited_connections_train = []
+        # unvisited_connections_train = []
         all_connections = []
 
         # Seperate all connections in the lists
@@ -31,8 +31,8 @@ class Train():
             if connection.visited < 1:
                 unvisited_connections.append(connection)
 
-            if connection not in self.connections:
-                unvisited_connections_train.append(connection)
+            # if connection not in self.connections:
+            #     unvisited_connections_train.append(connection)
 
             all_connections.append(connection)
 
@@ -41,14 +41,17 @@ class Train():
                 if connection.station_1 not in visited_stations or connection.station_2 not in visited_stations:
                     unvisited_cities.append(connection)
 
+        # Return random unvisited connection of all trains within
         if unvisited_connections:
             return random.choice(unvisited_connections)
 
-        if unvisited_cities:
+        # Return random unvisited city
+        elif unvisited_cities:
             return random.choice(unvisited_cities)
 
-        if unvisited_connections_train:
-            return random.choice(unvisited_connections_train)
+        # Return random unvisitied connection of the train
+        # elif unvisited_connections_train:
+        #     return random.choice(unvisited_connections_train)
 
         # Return a random connection, if all of the other lists are empty
         return random.choice(all_connections)
@@ -94,7 +97,7 @@ class Train():
             connection.delete_visit()
             self.connections.pop(index)
 
-        # Empty the train, if their was no more connection connected to the train
+        # Empty the train, if there was no more connection connected to the train
         else:
             self.empty_train()
 
@@ -120,7 +123,7 @@ class Train():
 
         for connection in self.connections:
 
-            # Check which station is the other station and add coordinates
+            # Check which station is the other station of the connection and add coordinates
             if connection.station_1 == station:
                 station = connection.station_2
                 coordinates_x.append(station.x)
@@ -132,6 +135,7 @@ class Train():
 
         coordinates["x"] = coordinates_x
         coordinates["y"] = coordinates_y
+
         return coordinates
 
     def __str__(self):

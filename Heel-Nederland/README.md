@@ -1,5 +1,4 @@
 # RailNL
-
 RailNL is responsible for the intercity trains in the Netherlands. The purpose of this case is to take care of the train routes and get the quality of the routes as high as possible. A train route visits multiple stations and the route can't be longer than the given time frame.
 
 In the first part of the case we focussed on the provinces North- and South-Holland. All connections need to be visited and you can use a maximum of seven trains. Every train isn't allowed to be longer than two hours.
@@ -26,14 +25,14 @@ pip3 install -r requirements.txt
 ```
 
 ## Structure
-
-We seperated our code in different folders. In the folder code you have four folders for algorithms, classes, heuristics and visualization. In the algorithm folder you can find the different algorithms we used. We have a complete random solution and simulated annealing. Both can be used with or without heuristics, which you can find in the heuristics folder.
+We seperated our code in different folders. In the folder code you have four folders for algorithms, classes, heuristics and visualization. In the algorithm folder you can find the different algorithms we used. We have a complete random solution and simulated annealing solution. Both can be used with or without heuristics, which you can find in the heuristics folder.
 In the folder data contains all input csv files with the connections and coordinates. Outputfiles contains the highscores and the
 trains that belong to that score.
 
- We made a user interface so the user can choose North-/South-Holland or Holland, which algorithms and if heuristics should be used. And the user can choose if a station should be omitted or different connections should be made (advanced part).
-
 ## Usage
+We made a user interface so the user can choose North-/South-Holland or Holland, which algorithms and if heuristics should be used. And the user can choose if a station should be omitted or different connections should be made (advanced part).
+Just run:
+
 ```bash
 python3 main.py
 ```

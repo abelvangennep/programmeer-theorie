@@ -40,9 +40,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
     # If the difference is smaller then 0 add trains
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
-            uneven_connection = False
-            one_connection = True
-            station = stations_dict.get_random_start_station(uneven_connection, one_connection)
+            station = stations_dict.get_random_start_station(user_choices["SA_station_uneven_connections"], user_choices["SA_station_1_connection"])
             new_train = Train(station)
 
     # Create a new dictionary solution to compare the old solution with
@@ -67,11 +65,15 @@ def simulated_annealing(solution, stations_dict, user_choices):
                 solution_temp["trains"].append(every_train)
 
         while True:
-            visited_stations = False
-            station_only_once = False
+            visited_stations = []
 
             # Select a random connection and append the connection if the total time limit is lower then max_train_duration
-            connection = new_train.get_random_connection(visited_stations, station_only_once)
+            connection = new_train.get_random_connection(visited_stations, user_choices["SA_station_only_once"])
+            
+            if user_choices["SA_station_only_once"]:
+                visited_stations.append(connection.station_1)
+                visited_stations.append(connection.station_2)
+
             if new_train.travel_time + connection.travel_time > max_train_duration:
                 break
 
