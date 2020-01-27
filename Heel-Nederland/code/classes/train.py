@@ -91,11 +91,10 @@ class Train():
                 else:
                     self.current_station = connection.station_1
 
+            connection.delete_visit()
             self.connections.pop(index)
 
-            connection.delete_visit()
-
-        # Empty the train, if the connection is the last connection on the train
+        # Empty the train, if their was no more connection connected to the train
         else:
             self.empty_train()
 
@@ -138,11 +137,14 @@ class Train():
     def __str__(self):
         station = self.start_station
         train_stations_list = []
+        train_stations_list.append(station.name)
 
         for connection in self.connections:
             if connection.station_1 == station:
                 train_stations_list.append(connection.station_2.name)
+                station = connection.station_2
             else:
                 train_stations_list.append(connection.station_1.name)
+                station = connection.station_1
 
         return f"{train_stations_list}"

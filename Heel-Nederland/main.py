@@ -1,4 +1,13 @@
+import os
+import sys
 import math
+directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(directory, "code"))
+sys.path.append(os.path.join(directory, "code", "classes"))
+sys.path.append(os.path.join(directory, "code", "algoritmes"))
+sys.path.append(os.path.join(directory, "code", "heuristics"))
+sys.path.append(os.path.join(directory, "code", "visualize"))
+
 from calculatefunction import calculate
 from simulatedannealing import simulated_annealing
 from visualize import draw_train, draw_train_holland
@@ -10,14 +19,6 @@ from loaddata import load_data, load_stations, load_connections
 from randomsolution import random_solution
 from station import Station
 from connection import Connection
-import os
-import sys
-directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(directory, "code"))
-sys.path.append(os.path.join(directory, "code", "classes"))
-sys.path.append(os.path.join(directory, "code", "algoritmes"))
-sys.path.append(os.path.join(directory, "code", "heuristics"))
-sys.path.append(os.path.join(directory, "code", "visualize"))
 
 
 def main():
@@ -79,9 +80,9 @@ def main():
 
     # If simulated annealing is chosen
     if user_choices["sim_annealing"] == True:
-        better_solution = simulated_annealing(
+        best_solution = simulated_annealing(
             solution, stations_objects, user_choices)
-        better_score = calculate(better_solution)
+        better_score = calculate(best_solution)
 
         # Open outputfile
         f = open("outputfiles/output.csv", "a+")
@@ -89,19 +90,35 @@ def main():
         counter = 0
 
         # Write simulated annealing solution to outputfile
-        for train in better_solution["trains"]:
+        for train in best_solution["trains"]:
             counter += 1
             f.write(f'trein_{counter}, "{train}"\n')
         f.write(f"SCORE:{better_score}\n\n")
         f.close()
 
-        best_solution = better_solution
+        best_solution = cut(best_solution)
+        best_solution = delete_trains(best_solution)
+
+        better_score = calculate(best_solution)
+
+        # Open outputfile
+        f = open("outputfiles/output.csv", "a+")
+        f.write("simulated annealing:\ntrein, lijnvoering\n")
+        counter = 0
+
+        # Write simulated annealing solution to outputfile
+        for train in best_solution["trains"]:
+            counter += 1
+            f.write(f'trein_{counter}, "{train}"\n')
+        f.write(f"SCORE:{better_score}\n\n")
+        f.close()
+
 
     # Draw the map
-    if user_choices["data"] == "data/ConnectiesHolland.csv":
-        draw_train_holland(best_solution, stations_objects)
-    else:
-        draw_train(best_solution, stations_objects)
+    # if user_choices["data"] == "data/ConnectiesHolland.csv":
+    #     draw_train_holland(best_solution, stations_objects)
+    # else:
+    #     draw_train(best_solution, stations_objects)
 
 
 def user_interface(stations_data):

@@ -32,12 +32,17 @@ def simulated_annealing(solution, stations_dict, user_choices):
 
     # If the difference is bigger then 0 delete trains,
     if number_of_trains_difference > 0:
+        for train in trains[amount_of_trains:]:
+            for connection in train.connections:
+                connection.delete_visit()
         del solution["trains"][amount_of_trains:]
 
     # If the difference is smaller then 0 add trains
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
-            station = stations_dict.get_complete_random_start_station()
+            uneven_connection = False
+            one_connection = True
+            station = stations_dict.get_random_start_station(uneven_connection, one_connection)
             new_train = Train(station)
 
     # Create a new dictionary solution to compare the old solution with
@@ -80,17 +85,19 @@ def simulated_annealing(solution, stations_dict, user_choices):
         # Append score to a list
         score.append(K_train_1)
 
-
-        print("________________")
-        print(K_train_1)
-        print(K_train_2)
-        print(iteration)
-        print("17:", math.exp(difference / temperature))
-
         # Change the solution, when new train is excepted
         if difference > 0 or math.exp(difference / temperature) > random.uniform(0, 1):
+            
+            for connection in train.connections:
+                connection.delete_visit()
+                
             trains.remove(train)
             trains.append(new_train)
+
+        # If the new train isnt accepted 
+        else:
+            for connection in new_train.connections:
+                connection.delete_visit()
 
         # Reduce temperature
         temperature = temperature * cooling_factor
