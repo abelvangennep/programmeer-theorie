@@ -9,6 +9,7 @@ In the second part of the case we focussed on all of the Netherlands. You can us
 In the advanced part you can change three connections and see what happens if a specific station falls out.
 
 There's a function
+
 K = p * 10000 - ( T * 100 + Min )
 
 Where K = quality of the routes, p = fraction of connections that are visited between 0 and 1,
@@ -17,7 +18,7 @@ T = amount of trains, Min = total time of all trains
 Where the purpose of the case is to get K as high as possible.
 
 ## Prerequisites
-The code is written in Python 3.7.5, in requirements.txt the used packages can be found. 
+The code is written in Python 3.7.5, in requirements.txt the used packages can be found.
 Easy installation can be done by using for Mac pip3 and for Windows just use pip
 
 ```bash
@@ -26,10 +27,11 @@ pip3 install -r requirements.txt
 
 ## Structure
 
-We seperated our code in different folders. In the folder code you have four folders for
-algorithms, classees, heuristics and visualization. In the folder Data are all input csv
- files with the connections and coordinates. Outputfiles contains the highscores and the
- trains that belong to that score.
+We seperated our code in different folders. In the folder code you have four folders for algorithms, classes, heuristics and visualization. In the algorithm folder you can find the different algorithms we used. We have a complete random solution and simulated annealing. Both can be used with or without heuristics, which you can find in the heuristics folder.
+In the folder data contains all input csv files with the connections and coordinates. Outputfiles contains the highscores and the
+trains that belong to that score.
+
+ We made a user interface so the user can choose North-/South-Holland or Holland, which algorithms and if heuristics should be used. And the user can choose if a station should be omitted or different connections should be made (advanced part).
 
 ## Usage
 ```bash

@@ -34,11 +34,11 @@ class Stations():
                     stations_with_1_connection.append(station)
 
             for connection in station.connections:
-                # If the heuristic of starting a train with a station that has 
+                # If the heuristic of starting a train with a station that has
                 # an uneven amount of connections should be applied
                 if uneven_connection:
                     # Append the station if it has an uneven amount of connections
-                    # and if it has no visits 
+                    # and if it has no visits
                     if len(station.connections) % 2 == 1 and connection.visited < 1 and station not in stations_uneven_connections:
                         stations_uneven_connections.append(station)
 
@@ -56,12 +56,13 @@ class Stations():
             return random.choice(unvisited_connections)
 
         # Return a complete random station, if all the other lists are empty
-        return self.get_complete_random_start_station() 
+        return self.get_complete_random_start_station()
 
     def get_complete_random_start_station(self):
         """Returns a complete random start station"""
         all_stations = []
 
+        # Add all stations to list
         for station in self.stations.values():
             if station not in all_stations:
                 all_stations.append(station)
