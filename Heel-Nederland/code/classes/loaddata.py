@@ -8,7 +8,7 @@ from stations import Stations
 def load_data(file, skip):
     """Loads all data from a csvfile and returns the data in a list"""
     data_list = []
-    
+
     # Open the csv file
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -37,7 +37,6 @@ def load_stations(data_list, stations_data):
 def load_connections(data_list, stations_object, change_connections):
     """Loads all the connection in the connection class and returns a list of connections."""
     connections = []
-
 
     for item in data_list:
         station_1 = stations_object.get_station(item[0])
