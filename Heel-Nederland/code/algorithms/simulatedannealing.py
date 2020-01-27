@@ -68,9 +68,11 @@ def simulated_annealing(solution, stations_dict, user_choices):
                 solution_temp["trains"].append(new_train)
             else:
                 solution_temp["trains"].append(every_train)
+                
+        visited_stations = []
 
         while True:
-            visited_stations = []
+            
 
             # Get random connection or with heuristics if chosen
             connection = new_train.get_random_connection(visited_stations, \

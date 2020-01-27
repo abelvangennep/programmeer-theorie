@@ -284,10 +284,10 @@ def user_interface(stations_data):
         "\nHow many times to do you want to run the random algorithm? "),\
             int, 0, None)
 
-    user_choices["start_temperature"] = 160
+    user_choices["start_temperature"] = 180
     user_choices["end_temperature"] = 5
     user_choices["cooling_factor"] = 0.9999
-    user_choices["trains"] = 11
+    user_choices["trains"] = 10
 
     if user_choices["sim_annealing"]:
         change_default = string_input(input(
@@ -295,15 +295,15 @@ def user_interface(stations_data):
                 " annealing? "), option_1, option_2)
         if change_default == "1":
             user_choices["start_temperature"] = number_input(
-                input("Starting temperature? (default: 160) "), int, 0, None)
+                input("Starting temperature? (default: 180) "), int, 0, None)
             user_choices["end_temperature"] = number_input(input(
                 "End temperature? (default: 5) "), int, 0,\
                     user_choices["start_temperature"])
             user_choices["cooling_factor"] = number_input(
-                input("Cooling factor? (default: 0.99, min: >0, max: <1) "),\
+                input("Cooling factor? (default: 0.9999, min: >0, max: <1) "),\
                     float, 0, 1)
             user_choices["trains"] = number_input(input(
-                f"Number of trains? (default: random, max:"\
+                f"Number of trains? (default: 10, max:"\
                     " {user_choices['max_trains']}) "), int, 0,\
                         user_choices['max_trains'] + 1)
 
