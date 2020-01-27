@@ -227,34 +227,34 @@ def user_interface(stations_data):
         user_choices["sim_annealing"] = True
 
     # Ask user if they want to employ certain heuristics in combination with Simulated Annealing
-    sim_annealing_heuristics = input(
-        "\nPlease choose: \nSimmulated Annealing without heuristics (1) \nor Random Simmulated Annealing with Heuristics (2)\n")
-    option_1_random = ['1', 'random', 'completely random']
-    option_2_random = ['2', 'heuristics', 'random with heuristics', '']
-    random = string_input(random, option_1_random, option_2_random)
+    if user_choices["sim_annealing"]: 
+        sim_annealing_heuristics = input(
+            "\nPlease choose: \nSimmulated Annealing without heuristics (1) \nor Random Simmulated Annealing with Heuristics (2)\n")
+        option_1_random = ['1', 'random', 'completely random']
+        option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+        random = string_input(random, option_1_random, option_2_random)
 
-    # Set all heuristics to false
-    user_choices["SA_station_only_once"] = False
-    user_choices["SA_station_1_connection"] = False
-    user_choices["SA_station_uneven_connections"] = False
-    user_choices["SA_cut_connections"] = False
-    user_choices["SA_paste_connections"] = False
+        # Set all heuristics to false
+        user_choices["SA_station_only_once"] = False
+        user_choices["SA_station_1_connection"] = False
+        user_choices["SA_station_uneven_connections"] = False
+        user_choices["SA_cut_connections"] = False
+        user_choices["SA_paste_connections"] = False
 
-    if sim_annealing_heuristics == "2":
-        print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
+        if sim_annealing_heuristics == "2":
+            print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
 
-        # Set heuristic to true, if the user chooses this option
-        if string_input(input("Visit a station only once per train. "), option_1, option_2) == "1":
-            user_choices["SA_station_only_once"] = True
-        if string_input(input("Start a train with a station that only has one connection. "), option_1, option_2) == "1":
-            user_choices["SA_station_1_connection"] = True
-        if string_input(input("Start a train with a station that has an uneven number of connections. "), option_1, option_2) == "1":
-            user_choices["SA_station_uneven_connections"] = True
-        if string_input(input("Delete already visited connections, where possible. "), option_1, option_2) == "1":
-            user_choices["SA_cut_connections"] = True
-        if string_input(input("Join trains together, if possible. "), option_1, option_2) == "1":
-            user_choices["SA_paste_connections"] = True
-
+            # Set heuristic to true, if the user chooses this option
+            if string_input(input("Visit a station only once per train. "), option_1, option_2) == "1":
+                user_choices["SA_station_only_once"] = True
+            if string_input(input("Start a train with a station that only has one connection. "), option_1, option_2) == "1":
+                user_choices["SA_station_1_connection"] = True
+            if string_input(input("Start a train with a station that has an uneven number of connections. "), option_1, option_2) == "1":
+                user_choices["SA_station_uneven_connections"] = True
+            if string_input(input("Delete already visited connections, where possible. "), option_1, option_2) == "1":
+                user_choices["SA_cut_connections"] = True
+            if string_input(input("Join trains together, if possible. "), option_1, option_2) == "1":
+                user_choices["SA_paste_connections"] = True
 
     print("\n********** RUNTIME **********")
     user_choices["attempts"] = number_input(input(
@@ -265,7 +265,7 @@ def user_interface(stations_data):
     user_choices["cooling_factor"] = 0.99
     user_choices["trains"] = 11
 
-    if user_choices["sim_annealing"] == True:
+    if user_choices["sim_annealing"]:
         change_default = string_input(input(
             "\nDo you want to change the default settings for simulated annealing? "), option_1, option_2)
         if change_default == "1":
