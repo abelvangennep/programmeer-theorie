@@ -25,33 +25,34 @@ class Stations():
         unvisited_connections = []
 
         for station in self.stations.values():
-            # If the heuristic of starting a train with a station that only has
-            # one connection should be applied
+            # If heuristic chosen starting a train with only one connection was chosen
             if one_connection:
-                # Append the station if it only has one connection
-                # and if it has no visits
+                # Append the station if it only has one connection and no visits
                 if len(station.connections) == 1 and station.connections[0].visited == 0:
                     stations_with_1_connection.append(station)
 
             for connection in station.connections:
-                # If the heuristic of starting a train with a station that has
-                # an uneven amount of connections should be applied
+                # If heuristic chosen starting a train with uneven amount of
+                # connections was chosen
                 if uneven_connection:
-                    # Append the station if it has an uneven amount of connections
-                    # and if it has no visits
-                    if len(station.connections) % 2 == 1 and connection.visited < 1 and station not in stations_uneven_connections:
+                    # Append the station if it has uneven connections and no visits
+                    if len(station.connections) % 2 == 1 and connection.visited \
+                    < 1 and station not in stations_uneven_connections:
                         stations_uneven_connections.append(station)
 
                 # Append every unvisited station
                 if connection.visited < 1 and station not in unvisited_connections:
                     unvisited_connections.append(station)
 
+        # Return if there's a station with one connection
         if len(stations_with_1_connection) > 0:
             return random.choice(stations_with_1_connection)
 
+        # Return if there's a station with an uneven amount of connections
         elif len(stations_uneven_connections) > 0:
             return random.choice(stations_uneven_connections)
 
+        # Return if there are unvisited stations
         elif len(unvisited_connections) > 0:
             return random.choice(unvisited_connections)
 

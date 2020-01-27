@@ -54,7 +54,7 @@ def main():
             solution = cut(solution)
 
         if user_choices["paste_connections"]:
-            # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
+            # Paste two trains if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution, user_choices["max_minutes"])
 
         solution = delete_trains(solution)
@@ -62,6 +62,7 @@ def main():
         # Calculate the K of a solution
         score = calculate(solution)
 
+        # Set score to new values
         if score > best_score:
             best_solution = solution
             best_score = score
@@ -97,9 +98,11 @@ def main():
         f.write(f"SCORE:{better_score}\n\n")
         f.close()
 
+        # If heuristic cut is chosen
         if user_choices["SA_cut_connections"]:
             best_solution = cut(best_solution)
 
+        # If heuristic paste is chosen
         if user_choices["SA_paste_connections"]:
             best_solution = paste(best_solution, user_choices["max_minutes"])
 

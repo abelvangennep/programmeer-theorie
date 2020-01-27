@@ -13,9 +13,11 @@ def load_data(file, skip):
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            # If a station is skipped, check whether the station is in the row, append if the station isn't
+            # If a station is skipped, check whether the station is in the row,
+            # append if the station isn't
             if skip:
-                if row[0].lower() != skip.lower().rstrip() and row[1].lower() != skip.lower().rstrip():
+                if row[0].lower() != skip.lower().rstrip() and row[1].lower() \
+                != skip.lower().rstrip():
                     data_list.append(row)
             else:
                 data_list.append(row)
@@ -23,11 +25,13 @@ def load_data(file, skip):
     return data_list
 
 def load_stations(data_list, stations_data):
-    """Load stations, creates every station and creates the stations object, the stations object is returned"""
+    """Load stations, creates every station and creates the stations object, \
+       the stations object is returned"""
     # Create empty Stations object
     stations = Stations()
 
-    # Create a station object for every station and append to the dictionary in stations
+    # Create a station object for every station and append to the dictionary in
+    # stations
     for item in stations_data:
         station_object = Station(item[0], float(item[2]), float(item[1]))
         stations.append_station(item[0], station_object)
@@ -35,7 +39,8 @@ def load_stations(data_list, stations_data):
     return stations
 
 def load_connections(data_list, stations_object, change_connections):
-    """Loads all the connection in the connection class and returns a list of connections."""
+    """Loads all the connection in the connection class and returns a list of \
+       connections."""
     connections = []
 
     for item in data_list:
@@ -57,13 +62,16 @@ def load_connections(data_list, stations_object, change_connections):
 
             uneven_connection = False
             one_connection = False
-            random_station = stations_object.get_random_start_station(uneven_connection, one_connection)
+            random_station = stations_object.get_random_start_station\
+                            (uneven_connection, one_connection)
 
             # If the random station is not part of the connection
-            if random_station is not random_connection.station_1 and random_station is not random_connection.station_2:
+            if random_station is not random_connection.station_1 and \
+            random_station is not random_connection.station_2:
 
                 # Random station from the 2 stations in connection
-                change_station = random.choice([random_connection.station_1, random_connection.station_2])
+                change_station = random.choice([random_connection.station_1, \
+                                 random_connection.station_2])
 
                 # Delete this connection from the station
                 if change_station == random_connection.station_1:
