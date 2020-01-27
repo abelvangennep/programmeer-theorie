@@ -35,7 +35,7 @@ class Train():
             # If heuristic visit every city once per train was chosen
             if visit_city_once:
                 if connection.station_1 not in visited_stations or \
-                connection.station_2 not in visited_stations:
+                    connection.station_2 not in visited_stations:
                     unvisited_cities.append(connection)
 
         # Return random unvisited connection which is connected to the current station
