@@ -48,11 +48,11 @@ def main():
         solution = random_solution(stations_objects, connection_objects,  user_choices["station_1_connection"],  user_choices[
                                    "station_uneven_connections"],  user_choices["station_only_once"],  user_choices["max_minutes"],  user_choices["max_trains"])
 
-        if user_choices["cut_connections"] == True:
+        if user_choices["cut_connections"]:
             # Cut a connection from a "train" if the begin or end connection is in an other train
             solution = cut(solution)
 
-        if user_choices["paste_connections"] == True:
+        if user_choices["paste_connections"]:
             # Paste 2 trains if their total time is less then 180min and their begin and start station is the same
             solution = paste(solution, user_choices["max_minutes"])
 
@@ -96,7 +96,12 @@ def main():
         f.write(f"SCORE:{better_score}\n\n")
         f.close()
 
-        best_solution = cut(best_solution)
+        if user_choices["SA_cut_connections"]:
+            best_solution = cut(best_solution)
+
+        if user_choices["SA_paste_connections"]:
+            best_solution = paste(best_solution)
+
         best_solution = delete_trains(best_solution)
 
         better_score = calculate(best_solution)
@@ -221,8 +226,37 @@ def user_interface(stations_data):
     if string_input(sim_annealing, option_1, option_2) == "1":
         user_choices["sim_annealing"] = True
 
-    print("\n********** RUNTIME **********")
+    # Ask user if they want to employ certain heuristics in combination with Simulated Annealing
+    sim_annealing_heuristics = input(
+        "\nPlease choose: \nSimmulated Annealing without heuristics (1) \nor Random Simmulated Annealing with Heuristics (2)\n")
+    option_1_random = ['1', 'random', 'completely random']
+    option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+    random = string_input(random, option_1_random, option_2_random)
 
+    # Set all heuristics to false
+    user_choices["SA_station_only_once"] = False
+    user_choices["SA_station_1_connection"] = False
+    user_choices["SA_station_uneven_connections"] = False
+    user_choices["SA_cut_connections"] = False
+    user_choices["SA_paste_connections"] = False
+
+    if sim_annealing_heuristics == "2":
+        print("\nPlease choose which heuristics to apply. Respond with 'yes' or 'no' for each heuristic:")
+
+        # Set heuristic to true, if the user chooses this option
+        if string_input(input("Visit a station only once per train. "), option_1, option_2) == "1":
+            user_choices["SA_station_only_once"] = True
+        if string_input(input("Start a train with a station that only has one connection. "), option_1, option_2) == "1":
+            user_choices["SA_station_1_connection"] = True
+        if string_input(input("Start a train with a station that has an uneven number of connections. "), option_1, option_2) == "1":
+            user_choices["SA_station_uneven_connections"] = True
+        if string_input(input("Delete already visited connections, where possible. "), option_1, option_2) == "1":
+            user_choices["SA_cut_connections"] = True
+        if string_input(input("Join trains together, if possible. "), option_1, option_2) == "1":
+            user_choices["SA_paste_connections"] = True
+
+
+    print("\n********** RUNTIME **********")
     user_choices["attempts"] = number_input(input(
         "\nHow many times to do you want to run the random algorithm? "), int, 0, None)
 
