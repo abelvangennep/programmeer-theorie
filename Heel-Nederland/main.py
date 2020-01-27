@@ -37,16 +37,17 @@ def main():
     data_list = load_data(user_choices["data"], user_choices["skip"])
 
     for _ in range(user_choices["attempts"]):
-        # Stations_object is a dictionary in which all the station objects are loaded
+        # Load all station objects into a dictionary 
         stations_objects = load_stations(data_list, stations_data)
 
-        # Connection_objects is a list of all the connection, which are loaded from data_list
+        # Connection_objects is a list of all the connection,
+        # which are loaded from data_list
         connection_objects = load_connections(
             data_list, stations_objects, user_choices["change_connections"])
 
         # Generate a random solution with chosen heuristics
-        solution = random_solution(stations_objects, connection_objects,  user_choices["station_1_connection"],  user_choices[
-                                   "station_uneven_connections"],  user_choices["station_only_once"],  user_choices["max_minutes"],  user_choices["max_trains"])
+        solution = random_solution(stations_objects, connection_objects,\
+            user_choices)
 
         if user_choices["cut_connections"]:
             # Cut a connection from a "train" if the begin or end connection is in an other train
@@ -100,7 +101,7 @@ def main():
             best_solution = cut(best_solution)
 
         if user_choices["SA_paste_connections"]:
-            best_solution = paste(best_solution)
+            best_solution = paste(best_solution, user_choices["max_minutes"])
 
         best_solution = delete_trains(best_solution)
 
@@ -262,7 +263,7 @@ def user_interface(stations_data):
 
     user_choices["start_temperature"] = 160
     user_choices["end_temperature"] = 5
-    user_choices["cooling_factor"] = 0.99
+    user_choices["cooling_factor"] = 0.9999
     user_choices["trains"] = 11
 
     if user_choices["sim_annealing"]:
