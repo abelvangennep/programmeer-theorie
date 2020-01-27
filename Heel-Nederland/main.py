@@ -4,7 +4,7 @@ import math
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "code"))
 sys.path.append(os.path.join(directory, "code", "classes"))
-sys.path.append(os.path.join(directory, "code", "algoritmes"))
+sys.path.append(os.path.join(directory, "code", "algorithms"))
 sys.path.append(os.path.join(directory, "code", "heuristics"))
 sys.path.append(os.path.join(directory, "code", "visualize"))
 
@@ -66,7 +66,7 @@ def main():
             best_score = score
 
     # Open outputfile
-    f = open("outputfiles/output.csv", "w")
+    f = open("output.csv", "w")
     f.write("random:\ntrein, lijnvoering\n")
 
     counter = 0
@@ -85,7 +85,7 @@ def main():
         better_score = calculate(best_solution)
 
         # Open outputfile
-        f = open("outputfiles/output.csv", "a+")
+        f = open("output.csv", "a+")
         f.write("simulated annealing:\ntrein, lijnvoering\n")
         counter = 0
 
@@ -102,7 +102,7 @@ def main():
         better_score = calculate(best_solution)
 
         # Open outputfile
-        f = open("outputfiles/output.csv", "a+")
+        f = open("output.csv", "a+")
         f.write("simulated annealing:\ntrein, lijnvoering\n")
         counter = 0
 
