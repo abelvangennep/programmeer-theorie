@@ -30,7 +30,7 @@ Contains an dictionary of all stations as keys and their connections as
 values.
 
 The functions we wrote within the station class can be used to get a station
-name, add a station object to ....!!!!!!!!!!!!!!!, get a random start station with
+name, add a station object to the stations dictionary, get a random start station with
 heuristics or get a complete random start station, dependent on if or which
 heuristics are chosen.
 
@@ -44,5 +44,5 @@ station, empty the train or get all the coordinates of all visited train
 stations of the train.
 
 
-Further information can be find in the docstrings or in the comments within
-the file.
+### Further information can be find in the docstrings or in the comments within
+### the file.

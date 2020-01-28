@@ -11,7 +11,8 @@ All algorithms:
 ## Random
 
 Our random solution returns a random solution with or without heuristics,
-dependent on the users choices.
+dependent on the users choices. Our algorithm always prefers a connection that's
+not visited yet, above one that's already visited.
 
 ## Simulated Annealing
 
@@ -21,14 +22,15 @@ worse score can be excepted. To achieve the optimum, three parameters have
 to be optimized, the cooling_factor, temperature and end_temperature.
 
 Our simulated annealing algorithm can also be used with heuristics.
-
 The starting point of simulated annealing is with a random solution or random
 with heuristics.
 
-OVER DE PARAMETERS EN WAT DEZE BETEKENEN!!!!!!!!!
-default PARAMETERS
-wat ze doen op de uitkomst
+The default parameters are:
+temp = 180
+cooling = 0.99999
+end = 5
+trains = 10
 
 
-Further information can be find in the docstrings or in the comments within
-the file.
+### Further information can be find in the docstrings or in the comments within
+### the file.
