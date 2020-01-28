@@ -29,7 +29,6 @@ def paste(solution, max_minutes):
                             for connection in train_1.connections:
                                 train_2.add_connection(connection)
 
-                            # Empty the first train object
                             train_1.empty_train()
 
                         # If the end station of the first train and the start
@@ -40,7 +39,6 @@ def paste(solution, max_minutes):
                             for connection in train_2.connections:
                                 train_1.add_connection(connection)
 
-                            # Empty the second train object
                             train_2.empty_train()
 
                         # If the end station of the first train and the end
@@ -52,7 +50,6 @@ def paste(solution, max_minutes):
                             for connection in reversed(train_1.connections):
                                 train_2.add_connection(connection)
 
-                            # Empty the first train object
                             train_1.empty_train()
 
                         # If the start station of the first train and the start
@@ -71,7 +68,6 @@ def paste(solution, max_minutes):
                             for connection in train_2.connections:
                                 train_1.add_connection(connection)
 
-                            # Empty the second train object
                             train_2.empty_train()
 
     return solution

@@ -11,13 +11,6 @@ class Connection():
         self.travel_time = travel_time
         self.visited = 0
 
-    def __eq__(self, other):
-        """Compare just the two station names"""
-        if self.station_1.name == other.station_1.name and self.station_2.name\
-            == other.station_2.name:
-            return True
-        return False
-
     def add_visit(self):
         """Add a visit to the connection"""
         self.visited += 1
@@ -25,6 +18,13 @@ class Connection():
     def delete_visit(self):
         """Delete a visit from the connection"""
         self.visited -= 1
+
+    def __eq__(self, other):
+        """Compare just the two station names"""
+        if self.station_1.name == other.station_1.name and self.station_2.name\
+            == other.station_2.name:
+            return True
+        return False
 
     def __str__(self):
         """Return a string"""

@@ -5,7 +5,6 @@ def calculate(solution):
     visited_connections = []
 
     for train in trains:
-
         # Update travel time
         minutes += train.travel_time
 

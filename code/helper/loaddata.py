@@ -5,6 +5,7 @@ from station import Station
 from connection import Connection
 from stations import Stations
 
+
 def load_data(file, skip):
     """Load all data from a csv file and return the data in a list"""
     data_list = []
@@ -55,11 +56,10 @@ def load_connections(data_list, stations_object, change_connections):
 
     # If the user chose to change 3 connections randomly (advanced)
     if change_connections:
-        
         change = 0
         nof_changes = 3
+        
         for change in range(nof_changes):
-            
             # Get a random connection and random station
             random_connection = random.choice(connections)
             random_station = stations_object.get_completely_random_station() 
@@ -77,7 +77,6 @@ def load_connections(data_list, stations_object, change_connections):
                         if connection.station_2 == random_connection.station_2: 
                             change = False
                     else: 
-                        
                         # If this connection exists set change to false 
                         if connection.station_1 == random_connection.station_2: 
                             change = False

@@ -1,9 +1,6 @@
 from train import Train
 from stations import Stations
 
-import time
-import timeit
-
 
 def random_solution(stations_dict, connection_objects, user_choices):
     """This method returns a random solution with or without heuristics"""
