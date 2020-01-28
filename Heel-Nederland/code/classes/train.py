@@ -22,6 +22,7 @@ class Train():
         """Return a random connection"""
         unvisited_connections = []
         unvisited_cities = []
+        unvisited_connections_train = []
         all_connections = []
 
         # Seperate all connections in the lists
@@ -30,21 +31,29 @@ class Train():
             if connection.visited < 1:
                 unvisited_connections.append(connection)
 
+                # If heuristic visit every city once per train was chosen
+                if visit_city_once:
+                    if connection.station_1 not in visited_stations or \
+                                connection.station_2 not in visited_stations:
+                        unvisited_cities.append(connection)
+
+            # If connection is not in the current train
+            if connection not in self.connections:
+                unvisited_connections_train.append(connection)
+
             all_connections.append(connection)
 
-            # If heuristic visit every city once per train was chosen
-            if visit_city_once:
-                if connection.station_1 not in visited_stations or \
-                    connection.station_2 not in visited_stations:
-                    unvisited_cities.append(connection)
+        # Return random unvisited city
+        if unvisited_cities:
+            return random.choice(unvisited_cities)
 
         # Return random unvisited connection which is connected to the current station
-        if unvisited_connections:
+        elif unvisited_connections:
             return random.choice(unvisited_connections)
 
-        # Return random unvisited city
-        elif unvisited_cities:
-            return random.choice(unvisited_cities)
+        # Return a connection which is not visited in the current train
+        elif unvisited_connections_train:
+            return random.choice(unvisited_connections_train)
 
         # Return a random connection, if all of the other lists are empty
         return random.choice(all_connections)
@@ -115,8 +124,8 @@ class Train():
         coordinates_y.append(station.y)
 
         for connection in self.connections:
-            # Check which station is the other station of the connection and add
-            # coordinates
+            # Check if station is the first or second station, change station
+            # and add coordinates coordinates
             if connection.station_1 == station:
                 station = connection.station_2
                 coordinates_x.append(station.x)
