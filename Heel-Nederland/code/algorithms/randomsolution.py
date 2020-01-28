@@ -1,55 +1,56 @@
 from train import Train
 from stations import Stations
 
+
 def random_solution(stations_dict, connection_objects, user_choices):
-    """Returns random solution with or without heuristics"""
+    """This method returns a random solution with or without heuristics"""
 
     solution = {}
     trains = []
+    counter_visited = 0 
 
-    while True:
-        # Get random start station or with heuristics if chosen
-        station = stations_dict.get_random_start_station(\
-            user_choices["station_uneven_connections"], \
-                user_choices["station_1_connection"])
+    # While not all connections are visited yet 
+    # and the maximum amount of trains is not reached
+    while len(connection_objects) != counter_visited\
+        and len(trains) < user_choices["max_trains"]:
 
-        # Make a train object
+        visited_stations = [] 
+        counter_visited = 0 
+        
+        # Get a random start station, applying chosen heuristics       
+        station = stations_dict.get_random_start_station(
+            user_choices["station_uneven_connections"],
+            user_choices["station_1_connection"])
+
+        # Make a new train object
         train = Train(station)
 
-        visited_stations = []
-
         while True:
-            # Get random connection or with heuristics if chosen
-            connection = train.get_random_connection(visited_stations,\
+            # Get a random connection, applying chosen heuristics
+            connection = train.get_random_connection(visited_stations,
                 user_choices["station_only_once"])
 
-            # Add to visited_stations if heuristic visit_station_only_once is chosen
+            # Add the stations in this connection to a list of visited stations
+            # if heuristic of visiting a station only once per train is chosen
             if user_choices["station_only_once"]:
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
-            # Break if maximum minutes is reached
+            # Break if adding the connection would exceed the train time limit
             if train.travel_time + connection.travel_time >\
                 user_choices["max_minutes"]:
                 break
-
+            
             train.add_connection(connection)
 
         trains.append(train)
-
-        counter_visited = 0
 
         for connection in connection_objects:
             # Check if connection is visited and increment visit count
             if connection.visited > 0:
                 counter_visited += 1
 
-        # Break if all connections are visited or max train length is reached
-        if len(connection_objects) == counter_visited or len(trains) >\
-            user_choices["max_trains"]:
-            break
-
-    # Add trains and connection length to solution dictionary
+    # Add trains and length of visited connections to the solution dictionary
     solution["trains"] = trains
     solution["total_connections"] = len(connection_objects)
 
