@@ -56,18 +56,38 @@ python3 main.py
 
 ## Highscore
 
-The highest score we acquired is a K of 7348. We got this result after running the random algorithm with all heuristics 3.371.716 times:
+The highest score we acquired is a K of 7348. We got this result after running 
+the random algorithm with all heuristics 3.371.716 times:
 
-' trein_1, "['Vlissingen', 'Roosendaal', 'Dordrecht', 'Breda', 'Tilburg', 'Eindhoven', 'Helmond', 'Venlo']"
-' trein_2, "['Enschede', 'Hengelo', 'Almelo', 'Zwolle', 'Amersfoort', 'Apeldoorn', 'Zutphen', 'Deventer', 'Almelo']"
-' trein_3, "[Den Helder', 'Alkmaar', 'Castricum', Zaandam', 'Beverwijk', 'Haarlem', 'Heemstede'Aerdenhout', 'Leiden Centraal', 'Den Haag HS', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal']"
-' trein_4, "['Lelystad Centrum', 'Almere Centrum', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Laan v NOI', 'Delft', 'Den Haag Centraal', 'Leiden Centraal', 'Alphen a/d Rijn', 'Utrecht Centraal', 'Amersfoort']"
-' trein_5, "['Zwolle', 'Assen', 'Groningen', 'Leeuwarden', 'Heerenveen', 'Steenwijk', 'Zwolle', 'Deventer', 'Apeldoorn']"
-' trein_6, "['Hilversum', 'Almere Centrum', 'Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Zuid']"
-' trein_7, "['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Blaak', 'Dordrecht', 'Rotterdam Centraal', 'Rotterdam Alexander', 'Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag HS', 'Gouda', 'Alphen a/d Rijn']"
-' trein_8, "[Roosendaal', 'Etten'Leur', 'Breda', 'Tilburg', 's'Hertogenbosch', 'Utrecht Centraal', 'Gouda', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal']"
-' trein_9, "['Amsterdam Amstel', 'Amsterdam Centraal', 'Utrecht Centraal', 'Hilversum', 'Amsterdam Amstel', 'Utrecht Centraal', 'Ede'Wageningen', 'Arnhem Centraal']"
-' trein_10, "['Zutphen', 'Dieren', 'Arnhem Centraal', 'Nijmegen', 'Oss', 's'Hertogenbosch', 'Eindhoven', 'Weert', 'Roermond', 'Sittard', 'Heerlen', 'Sittard', 'Maastricht']"
+- trein_1, "['Vlissingen', 'Roosendaal', 'Dordrecht', 'Breda', 'Tilburg', 
+'Eindhoven', 'Helmond', 'Venlo']"
+- trein_2, "['Enschede', 'Hengelo', 'Almelo', 'Zwolle', 'Amersfoort', 
+'Apeldoorn', 'Zutphen', 'Deventer', 'Almelo']"
+- trein_3, "[Den Helder', 'Alkmaar', 'Castricum', Zaandam', 'Beverwijk', 
+'Haarlem', 'Heemstede'Aerdenhout', 'Leiden Centraal', 'Den Haag HS', 'Delft', 
+'Schiedam Centrum', 'Rotterdam Centraal']"
+- trein_4, "['Lelystad Centrum', 'Almere Centrum', 'Amsterdam Amstel', 
+'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Laan v NOI', 
+'Delft', 'Den Haag Centraal', 'Leiden Centraal', 'Alphen a/d Rijn', 
+'Utrecht Centraal', 'Amersfoort']"
+- trein_5, "['Zwolle', 'Assen', 'Groningen', 'Leeuwarden', 'Heerenveen', 
+'Steenwijk', 'Zwolle', 'Deventer', 'Apeldoorn']"
+- trein_6, "['Hilversum', 'Almere Centrum', 'Amsterdam Centraal', 
+'Amsterdam Sloterdijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Beverwijk' 
+'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Zuid']"
+- trein_7, "['Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 
+'Rotterdam Blaak', 'Dordrecht', 'Rotterdam Centraal', 'Rotterdam Alexander', 
+'Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag HS', 'Gouda', 
+'Alphen a/d Rijn']"
+- trein_8, "[Roosendaal', 'Etten'Leur', 'Breda', 'Tilburg', 's'Hertogenbosch', 
+'Utrecht Centraal', 'Gouda', 'Den Haag Laan v NOI', 'Leiden Centraal', 
+'Schiphol Airport', 'Utrecht Centraal']"
+- trein_9, "['Amsterdam Amstel', 'Amsterdam Centraal', 'Utrecht Centraal', 
+'Hilversum', 'Amsterdam Amstel', 'Utrecht Centraal', 'Ede'Wageningen', 
+'Arnhem Centraal']"
+- trein_10, "['Zutphen', 'Dieren', 'Arnhem Centraal', 'Nijmegen', 'Oss', 
+'s'Hertogenbosch', 'Eindhoven', 'Weert', 'Roermond', 'Sittard', 'Heerlen', 
+'Sittard', 'Maastricht']"
 
 #### Visualisation:
 ![High Score Map](pictures/highscore.png)
