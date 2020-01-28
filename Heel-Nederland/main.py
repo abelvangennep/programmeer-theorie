@@ -300,11 +300,10 @@ def user_interface(stations_data):
                 "End temperature? (default: 5) "), int, 0,\
                     user_choices["start_temperature"])
             user_choices["cooling_factor"] = number_input(
-                input("Cooling factor? (default: 0.9999, min: >0, max: <1) "),\
+                input("Cooling factor? (default: 0.9999) "),\
                     float, 0, 1)
             user_choices["trains"] = number_input(input(
-                f"Number of trains? (default: 10, max:"\
-                    " {user_choices['max_trains']}) "), int, 0,\
+                f"Number of trains? (default: 10"), int, 0,\
                         user_choices['max_trains'] + 1)
 
     return user_choices
