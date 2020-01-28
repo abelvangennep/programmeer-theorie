@@ -6,15 +6,14 @@ from connection import Connection
 from stations import Stations
 
 def load_data(file, skip):
-    """Loads all data from a csvfile and returns the data in a list"""
+    """Load all data from a csv file and return the data in a list"""
     data_list = []
 
-    # Open the csv file
+    # Read the csv file
     with open(file, newline='') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            # If a station is skipped, check whether the station is in the row,
-            # append if the station isn't
+            # If a station should be skipped, append only the other stations
             if skip:
                 if row[0].lower() != skip.lower().rstrip() and row[1].lower() \
                     != skip.lower().rstrip():
@@ -25,13 +24,12 @@ def load_data(file, skip):
     return data_list
 
 def load_stations(data_list, stations_data):
-    """Load stations, creates every station and creates the stations object, \
-       the stations object is returned"""
-    # Create empty Stations object
+    """Create and return station objects"""
+    # Create a stations object
     stations = Stations()
 
-    # Create a station object for every station and append to the dictionary in
-    # stations
+    # Create a station object for every station 
+    # and append to the stations object
     for item in stations_data:
         station_object = Station(item[0], float(item[2]), float(item[1]))
         stations.append_station(item[0], station_object)
@@ -39,8 +37,7 @@ def load_stations(data_list, stations_data):
     return stations
 
 def load_connections(data_list, stations_object, change_connections):
-    """Loads all the connection in the connection class and returns a list of \
-       connections."""
+    """Load and return all connections"""
     connections = []
 
     for item in data_list:

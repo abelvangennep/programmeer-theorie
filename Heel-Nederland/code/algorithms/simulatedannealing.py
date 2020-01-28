@@ -16,7 +16,6 @@ def simulated_annealing(solution, stations_dict, user_choices):
     three parameters have to be optimized: the cooling factor, start 
     temperature and end temperature.
     """
-
     score = []
     start = timeit.default_timer()
 

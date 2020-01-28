@@ -4,7 +4,6 @@ from stations import Stations
 
 def random_solution(stations_dict, connection_objects, user_choices):
     """This method returns a random solution with or without heuristics"""
-
     counter_visited = 0 
     solution = {}
     trains = []
