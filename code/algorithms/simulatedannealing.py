@@ -12,7 +12,6 @@ def simulated_annealing(solution, stations_dict, user_choices):
     """
     This method returns a simulated annealing solution with or without heuristics
     """
-    start = timeit.default_timer()
 
     score = []
 
@@ -39,7 +38,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
     # If the difference is smaller then 0 add trains
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
-            station = stations_dict.get_complete_random_start_station()
+            station = stations_dict.get_completely_random_station()
             new_train = Train(station)
 
     # Create a new dictionary solution to compare the old solution with
@@ -58,7 +57,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
         # train and create a new train
         for every_train in trains:
             if every_train is train:
-                station = stations_dict.get_random_start_station(user_choices\
+                station = stations_dict.get_random_station(user_choices\
                         ["SA_station_uneven_connections"]\
                         , user_choices["SA_station_1_connection"])
                 new_train = Train(station)
@@ -69,8 +68,6 @@ def simulated_annealing(solution, stations_dict, user_choices):
         visited_stations = []
 
         while True:
-
-
             # Get random connection or with heuristics if chosen
             connection = new_train.get_random_connection(visited_stations, \
                          user_choices["SA_station_only_once"])
@@ -111,14 +108,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
         # Reduce temperature
         temperature = temperature * cooling_factor
 
-    # MOET DIT ER NOG UIT VOOR DE INLEVERING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # Print runtime of simulated annealing
-    stop = timeit.default_timer()
-    print('Time: ', stop - start)
-
     # Run visualisation
     see_annealing(score)
-
-
 
     return solution
