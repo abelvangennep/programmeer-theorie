@@ -21,6 +21,9 @@ from randomsolution import random_solution
 from station import Station
 from connection import Connection
 
+import time
+import timeit
+
 
 def main():
     best_score = 0
@@ -37,8 +40,10 @@ def main():
     # skipping a station if necessary
     data_list = load_data(user_choices["data"], user_choices["skip"])
 
+    start = timeit.default_timer()
+
     for _ in range(user_choices["attempts"]):
-        # Load all station objects into a dictionary 
+        # Load all station objects into a dictionary
         stations_objects = load_stations(data_list, stations_data)
 
         # Connection_objects is a list of all the connection,
@@ -67,6 +72,9 @@ def main():
         if score > best_score:
             best_solution = solution
             best_score = score
+
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)
 
     # Open outputfile
     f = open("output.csv", "w")
@@ -125,10 +133,10 @@ def main():
 
 
     # Draw the map
-    # if user_choices["data"] == "data/ConnectiesHolland.csv":
-    #     draw_train_holland(best_solution, stations_objects)
-    # else:
-    #     draw_train(best_solution, stations_objects)
+    if user_choices["data"] == "data/ConnectiesHolland.csv":
+        draw_train_holland(best_solution, stations_objects)
+    else:
+        draw_train(best_solution, stations_objects)
 
 
 def user_interface(stations_data):
@@ -150,7 +158,7 @@ def user_interface(stations_data):
     option_2_holland = ['2', 'heel nederland', '']
 
     holland = string_input(holland, option_1_holland, option_2_holland)
-    # Set the variables for data file, maximum amount of trains 
+    # Set the variables for data file, maximum amount of trains
     # and minutes per train, depending on the user's choice
     if holland == "1":
         user_choices["data"] = "data/ConnectiesHolland.csv"
@@ -177,7 +185,7 @@ def user_interface(stations_data):
         while True:
             if skip_station.lower().rstrip() in all_stations:
                 break
-            # If the user's input is invalid, ask again and show the list of 
+            # If the user's input is invalid, ask again and show the list of
             # all possible stations
             skip_station = input(
                 f"This station is invalid. Please choose from the following:\
@@ -196,7 +204,7 @@ def user_interface(stations_data):
 
     print("\n********** ALGORITHM **********")
 
-    # Ask user if they want to run a completely random algorithm 
+    # Ask user if they want to run a completely random algorithm
     # or employ certain heuristics
     random = input(
         "\nPlease choose: \nCompletely random (1)\
@@ -212,7 +220,7 @@ def user_interface(stations_data):
     user_choices["cut_connections"] = False
     user_choices["paste_connections"] = False
 
-    # Prompt the user for which heuristics they want to apply, 
+    # Prompt the user for which heuristics they want to apply,
     # if they chose this option
     if random == "2":
         print("\nPlease choose which heuristics to apply. Respond with 'yes'"\
@@ -244,7 +252,7 @@ def user_interface(stations_data):
 
     # Ask user if they want to employ certain heuristics in combination
     # with Simulated Annealing
-    if user_choices["sim_annealing"]: 
+    if user_choices["sim_annealing"]:
         sim_annealing_heuristics = input(
             "\nPlease choose: \nSimmulated Annealing without heuristics (1)"\
                 " \nor Random Simmulated Annealing with Heuristics (2)\n")

@@ -9,7 +9,7 @@ In the advanced part you can change three connections and see what happens if a 
 
 There's a function
 
-K = p * 10000 - ( T * 100 + Min )
+- K = p * 10000 - ( T * 100 + Min )
 
 Where K = quality of the routes, p = fraction of connections that are visited between 0 and 1,
 T = amount of trains, Min = total time of all trains
