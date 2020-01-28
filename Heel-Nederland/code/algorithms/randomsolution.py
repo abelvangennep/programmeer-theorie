@@ -5,17 +5,17 @@ from stations import Stations
 def random_solution(stations_dict, connection_objects, user_choices):
     """This method returns a random solution with or without heuristics"""
 
+    counter_visited = 0 
     solution = {}
     trains = []
-    counter_visited = 0 
 
     # While not all connections are visited yet 
     # and the maximum amount of trains is not reached
     while len(connection_objects) != counter_visited\
         and len(trains) < user_choices["max_trains"]:
 
-        visited_stations = [] 
         counter_visited = 0 
+        visited_stations = [] 
         
         # Get a random start station, applying chosen heuristics       
         station = stations_dict.get_random_start_station(
@@ -36,7 +36,7 @@ def random_solution(stations_dict, connection_objects, user_choices):
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
-            # Break if adding the connection would exceed the train time limit
+            # Break if adding the connection would exceed the max train duration
             if train.travel_time + connection.travel_time >\
                 user_choices["max_minutes"]:
                 break

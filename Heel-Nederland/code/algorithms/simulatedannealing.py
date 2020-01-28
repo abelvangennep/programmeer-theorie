@@ -10,36 +10,37 @@ import random
 
 def simulated_annealing(solution, stations_dict, user_choices):
     """
-    Simulated annealing is a probabilistic algorithm, which can calculte a global
-    optimum. The algorithm compares the scores of to different solutions, even a
-    worse score can be excepted. To achieve the optimum, three parameters have
-    to be optimized, the cooling_factor, temperature and end_temperature.
+    Simulated annealing is a probabilistic algorithm, which can calculte a
+    global optimum. The algorithm compares the scores of to different 
+    solutions, even a worse score can be excepted. To achieve the optimum,
+    three parameters have to be optimized: the cooling factor, start 
+    temperature and end temperature.
     """
-    start = timeit.default_timer()
 
     score = []
+    start = timeit.default_timer()
 
     # Set variables with choices user made
-    max_train_duration = user_choices["max_minutes"]
-    temperature = user_choices["start_temperature"]
-    temperature_end = user_choices["end_temperature"]
     cooling_factor = user_choices["cooling_factor"]
-    amount_of_trains = user_choices["trains"]
     iteration = 0
+    max_minutes = user_choices["max_minutes"]
+    max_trains = user_choices["trains"]
+    temperature_start = user_choices["start_temperature"]
+    temperature_end = user_choices["end_temperature"]
     trains = solution["trains"]
 
     # Calculate the difference between the amount of trains in the solution and
     # desired amount of trains
-    number_of_trains_difference = len(solution["trains"]) - amount_of_trains
+    number_of_trains_difference = len(solution["trains"]) - max_trains
 
-    # If the difference is bigger then 0 delete trains
+    # Delete trains if the difference is bigger than 0 
     if number_of_trains_difference > 0:
-        for train in trains[amount_of_trains:]:
+        for train in trains[max_trains:]:
             for connection in train.connections:
                 connection.delete_visit()
-        del solution["trains"][amount_of_trains:]
+        del solution["trains"][max_trains:]
 
-    # If the difference is smaller then 0 add trains
+    # Add trains if the difference is smaller than 0
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
             station = stations_dict.get_random_start_station(user_choices\
@@ -51,16 +52,17 @@ def simulated_annealing(solution, stations_dict, user_choices):
     solution_temp = {}
     solution_temp["total_connections"] = solution["total_connections"]
 
-    # Iterate untill the temperature is equal or smaller then the desired end
-    while temperature > temperature_end:
+    # Iterate until the start temperature is equal to or smaller than the 
+    # desired end temperature
+    while temperature_start > temperature_end:
         iteration += 1
 
         # Empty temporary solution and choose a random train
         solution_temp["trains"] =  []
         train = random.choice(trains)
 
-        # Append al the trains to the temporary solution, except the chosen
-        # train and create a new train
+        # Append all trains to the temporary solution, except the chosen train
+        # and create a new train
         for every_train in trains:
             if every_train is train:
                 station = stations_dict.get_complete_random_start_station()
@@ -72,18 +74,16 @@ def simulated_annealing(solution, stations_dict, user_choices):
         visited_stations = []
 
         while True:
-            
-
-            # Get random connection or with heuristics if chosen
+            # Get a random connection, applying chosen heuristics
             connection = new_train.get_random_connection(visited_stations, \
-                         user_choices["SA_station_only_once"])
+                user_choices["SA_station_only_once"])
 
             if user_choices["SA_station_only_once"]:
                 visited_stations.append(connection.station_1)
                 visited_stations.append(connection.station_2)
 
-            # Break if maximum train duration is reached
-            if new_train.travel_time + connection.travel_time > max_train_duration:
+            # Break if adding the connection would exceed the max train duration
+            if new_train.travel_time + connection.travel_time > max_minutes:
                 break
 
             new_train.add_connection(connection)
@@ -97,7 +97,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
         score.append(K_train_1)
 
         # Change the solution, when new train is accepted
-        if difference > 0 or math.exp(difference / temperature) > \
+        if difference > 0 or math.exp(difference / temperature_start) > \
             random.uniform(0, 1):
 
             for connection in train.connections:
@@ -112,7 +112,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
                 connection.delete_visit()
 
         # Reduce temperature
-        temperature = temperature * cooling_factor
+        temperature_start = temperature_start * cooling_factor
 
     # Run visualisation
     see_annealing(score)
