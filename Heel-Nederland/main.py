@@ -21,6 +21,9 @@ from visualize import draw_train, draw_train_holland
 from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 
+import time
+import timeit
+
 
 def main():
     best_score = 0
@@ -36,6 +39,8 @@ def main():
     # Zuid Holland), skipping a station if necessary
     data_list = load_data(user_choices["data"], user_choices["skip"])
 
+    start = timeit.default_timer()
+
     for _ in range(user_choices["attempts"]):
         # Load all stations as objects into a dictionary
         stations_objects = load_stations(data_list, stations_data)
@@ -46,7 +51,7 @@ def main():
 
         # Generate a random solution with chosen heuristics
         solution = random_solution(stations_objects, connection_objects,
-                                   user_choices)
+                                    user_choices)
 
         # Run the heuristic of "cutting" trains, if the user chose this option
         if user_choices["cut_connections"]:
@@ -66,6 +71,9 @@ def main():
         if score > best_score:
             best_solution = solution
             best_score = score
+
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)
 
     # Open outputfile
     f = open("output.csv", "w")
@@ -123,10 +131,10 @@ def main():
         f.close()
 
     # Draw the map
-    # if user_choices["data"] == "data/ConnectiesHolland.csv":
-    #     draw_train_holland(best_solution, stations_objects)
-    # else:
-    #     draw_train(best_solution, stations_objects)
+    if user_choices["data"] == "data/ConnectiesHolland.csv":
+        draw_train_holland(best_solution, stations_objects)
+    else:
+        draw_train(best_solution, stations_objects)
 
 
 def user_interface(stations_data):
@@ -197,7 +205,7 @@ def user_interface(stations_data):
     # Ask user if they want to run a completely random algorithm
     # or apply certain heuristics
     random = input("\nPlease choose: \nCompletely random (1)"
-                   "\nor Random with Heuristics (2)\n")
+        "\nor Random with Heuristics (2)\n")
     option_1_random = ['1', 'random', 'completely random']
     option_2_random = ['2', 'heuristics', 'random with heuristics', '']
     random = string_input(random, option_1_random, option_2_random)
@@ -213,23 +221,23 @@ def user_interface(stations_data):
     # if they chose this option
     if random == "2":
         print("\nPlease choose which heuristics to apply. Respond with 'yes'"
-              " or 'no' for each heuristic:")
+            " or 'no' for each heuristic:")
 
         # Set heuristic to true, if the user chooses this option
         if string_input(input("Visit a station only once per train. "),
-                        option_1, option_2) == "1":
+            option_1, option_2) == "1":
             user_choices["station_only_once"] = True
         if string_input(input("Start a train with a station that only has one"
-                              " connection. "), option_1, option_2) == "1":
+            " connection. "), option_1, option_2) == "1":
             user_choices["station_1_connection"] = True
         if string_input(input("Start a train with a station that has an"
-                              " uneven number of connections. "), option_1, option_2) == "1":
+            " uneven number of connections. "), option_1, option_2) == "1":
             user_choices["station_uneven_connections"] = True
         if string_input(input("Delete already visited connections, where"
-                              " possible. "), option_1, option_2) == "1":
+            " possible. "), option_1, option_2) == "1":
             user_choices["cut_connections"] = True
         if string_input(input("Join trains together, if possible. "),
-                        option_1, option_2) == "1":
+            option_1, option_2) == "1":
             user_choices["paste_connections"] = True
 
     # Ask the user if they want to run the simulated annealing algorithm
@@ -243,8 +251,8 @@ def user_interface(stations_data):
     # with Simulated Annealing
     if user_choices["sim_annealing"]:
         sim_annealing_heuristics = input("\nPlease choose: \nSimmulated"
-                                         " Annealing without Heuristics (1) \nor Random Simmulated Annealing"
-                                         " with Heuristics (2)\n")
+            " Annealing without Heuristics (1) \nor Random Simmulated Annealing"
+            " with Heuristics (2)\n")
         option_1_random = ['1', 'random', 'completely random']
         option_2_random = ['2', 'heuristics', 'random with heuristics', '']
         random = string_input(random, option_1_random, option_2_random)
@@ -262,19 +270,19 @@ def user_interface(stations_data):
 
             # Set heuristic to true, if the user chooses this option
             if string_input(input("Visit a station only once per train. "),
-                            option_1, option_2) == "1":
+                option_1, option_2) == "1":
                 user_choices["SA_station_only_once"] = True
             if string_input(input("Start a train with a station that only has"
-                                  " one connection. "), option_1, option_2) == "1":
+                " one connection. "), option_1, option_2) == "1":
                 user_choices["SA_station_1_connection"] = True
             if string_input(input("Start a train with a station that has an"
-                                  " uneven number of connections. "), option_1, option_2) == "1":
+                " uneven number of connections. "), option_1, option_2) == "1":
                 user_choices["SA_station_uneven_connections"] = True
             if string_input(input("Delete already visited connections, where"
-                                  " possible. "), option_1, option_2) == "1":
+                " possible. "), option_1, option_2) == "1":
                 user_choices["SA_cut_connections"] = True
             if string_input(input("Join trains together, if possible. "),
-                            option_1, option_2) == "1":
+                option_1, option_2) == "1":
                 user_choices["SA_paste_connections"] = True
 
     print("\n********** RUNTIME **********")
@@ -291,7 +299,7 @@ def user_interface(stations_data):
 
     if user_choices["sim_annealing"]:
         change_default = string_input(input("\nDo you want to change the"
-                                            "default settings for simulated annealing? "), option_1, option_2)
+            "default settings for simulated annealing? "), option_1, option_2)
 
         # Change the default settings depending on user's input
         if change_default == "1":

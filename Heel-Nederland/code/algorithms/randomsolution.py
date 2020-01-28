@@ -1,22 +1,25 @@
 from train import Train
 from stations import Stations
 
+import time
+import timeit
+
 
 def random_solution(stations_dict, connection_objects, user_choices):
     """This method returns a random solution with or without heuristics"""
-    counter_visited = 0 
+    counter_visited = 0
     solution = {}
     trains = []
 
-    # While not all connections are visited yet 
+    # While not all connections are visited yet
     # and the maximum amount of trains is not reached
     while len(connection_objects) != counter_visited\
         and len(trains) < user_choices["max_trains"]:
 
-        counter_visited = 0 
-        visited_stations = [] 
-        
-        # Get a random start station, applying chosen heuristics       
+        counter_visited = 0
+        visited_stations = []
+
+        # Get a random start station, applying chosen heuristics
         station = stations_dict.get_random_station(
             user_choices["station_uneven_connections"],
             user_choices["station_1_connection"])
@@ -39,7 +42,7 @@ def random_solution(stations_dict, connection_objects, user_choices):
             if train.travel_time + connection.travel_time >\
                 user_choices["max_minutes"]:
                 break
-            
+
             train.add_connection(connection)
 
         trains.append(train)
