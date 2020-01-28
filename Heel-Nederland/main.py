@@ -7,6 +7,7 @@ sys.path.append(os.path.join(directory, "code", "classes"))
 sys.path.append(os.path.join(directory, "code", "algorithms"))
 sys.path.append(os.path.join(directory, "code", "heuristics"))
 sys.path.append(os.path.join(directory, "code", "visualize"))
+sys.path.append(os.path.join(directory, "code", "helper"))
 
 from calculatefunction import calculate
 from simulatedannealing import simulated_annealing
