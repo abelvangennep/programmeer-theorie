@@ -1,6 +1,5 @@
 def calculate(solution):
-    """Returns the score of the solution"""
-
+    """This method returns the score of the solution"""
     trains = solution["trains"]
     minutes = 0
     visited_connections = []

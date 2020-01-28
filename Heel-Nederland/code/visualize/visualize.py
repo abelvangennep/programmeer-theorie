@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def draw_train(best_solution, stations_objects):
-    """Draws every train of the solution of the Netherlands part"""
+    """Draw every train of the solution of the Netherlands part"""
 
     # List of colors for the visualization
     colors = ['goldenrod', 'indianred', 'olive', 'sandybrown', 'skyblue',
@@ -50,8 +50,9 @@ def draw_train(best_solution, stations_objects):
 
     plt.show()
 
+
 def draw_train_holland(best_solution, stations_objects):
-    """Draws every train of the solution of the North-/South-Holland part"""
+    """Draw every train of the solution of the North-/South-Holland part"""
 
     # List of colors for the visualization
     colors = ['goldenrod', 'indianred', 'olive', 'sandybrown', 'skyblue',
@@ -92,6 +93,7 @@ def draw_train_holland(best_solution, stations_objects):
         plt.pause(1)
 
     plt.show()
+
 
 def see_annealing(costs):
     """Plot simulated annealing line"""

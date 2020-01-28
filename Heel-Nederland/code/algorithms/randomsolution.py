@@ -7,8 +7,12 @@ import timeit
 
 def random_solution(stations_dict, connection_objects, user_choices):
     """This method returns a random solution with or without heuristics"""
+<<<<<<< HEAD
 
     counter_visited = 0
+=======
+    counter_visited = 0 
+>>>>>>> 5eeccce2d03bbb8fd4c6a643a3f2f9a2e3c5bded
     solution = {}
     trains = []
 
@@ -17,11 +21,19 @@ def random_solution(stations_dict, connection_objects, user_choices):
     while len(connection_objects) != counter_visited\
         and len(trains) < user_choices["max_trains"]:
 
+<<<<<<< HEAD
         counter_visited = 0
         visited_stations = []
 
         # Get a random start station, applying chosen heuristics
         station = stations_dict.get_random_start_station(
+=======
+        counter_visited = 0 
+        visited_stations = [] 
+        
+        # Get a random start station, applying chosen heuristics       
+        station = stations_dict.get_random_station(
+>>>>>>> 5eeccce2d03bbb8fd4c6a643a3f2f9a2e3c5bded
             user_choices["station_uneven_connections"],
             user_choices["station_1_connection"])
 

@@ -11,31 +11,35 @@ class Stations():
         self.stations = {}
 
     def get_station(self, station_name):
-        """Return the station with the given station name"""
+        """Return the station with given station name"""
         return self.stations[station_name]
 
     def append_station(self, name, station_object):
-        """Create a new station"""
+        """Add a station to the stations dictionary"""
         self.stations[name] = station_object
 
-    def get_random_start_station(self, uneven_connection, one_connection):
-        """Return a random start station, possible with heuristics"""
+    def get_random_station(self, uneven_connection, one_connection):
+        """Return a random station, possibly with heuristics. This method
+        prefers unvisited connections over visited ones"""
         stations_with_1_connection = []
         stations_uneven_connections = []
         unvisited_connections = []
 
         for station in self.stations.values():
-            # If heuristic chosen starting a train with only one connection was chosen
+            # If the heuristic of starting a train with only one connection
+            # was chosen
             if one_connection:
-                # Append the station if it only has one connection and no visits
-                if len(station.connections) == 1 and station.connections[0].visited == 0:
+                # Append the station if it only has one connection and no visit
+                if len(station.connections) == 1 and\
+                    station.connections[0].visited == 0:
                     stations_with_1_connection.append(station)
 
             for connection in station.connections:
-                # If heuristic chosen starting a train with uneven amount of
+                # If the heuristic of starting a train with an uneven amount of
                 # connections was chosen
                 if uneven_connection:
-                    # Append the station if it has uneven connections and no visits
+                    # Append the station if it has an uneven number of connections
+                    # and no visits
                     if len(station.connections) % 2 == 1 and connection.visited \
                         < 1 and station not in stations_uneven_connections:
                         stations_uneven_connections.append(station)
@@ -56,11 +60,11 @@ class Stations():
         elif len(unvisited_connections) > 0:
             return random.choice(unvisited_connections)
 
-        # Return a complete random station, if all the other lists are empty
-        return self.get_complete_random_start_station()
+        # Return a completely random station, if all the other lists are empty
+        return self.get_completely_random_station()
 
-    def get_complete_random_start_station(self):
-        """Returns a complete random start station"""
+    def get_completely_random_station(self):
+        """Return a completely random station"""
         all_stations = []
 
         # Add all stations to list

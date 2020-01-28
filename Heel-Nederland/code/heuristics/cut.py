@@ -29,8 +29,8 @@ def cut(solution):
         if train.travel_time > 0:
             counter = 0
 
-            # Keep iterating over the connections of this train, while connections
-            # are being deleted
+            # Keep iterating over the connections of this train, while 
+            # connections are being deleted
             while counter <= len(train.connections):
                 index = -1
                 counter = 1

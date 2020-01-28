@@ -354,7 +354,7 @@ def string_input(user_input, option_1, option_2):
         else:
             user_input = input(
                 f"Invalid input. Please respond with '{option_1[0]}' or"\
-                    " '{option_2[0]}'. ")
+                    f" '{option_2[0]}'. ")
 
 
 def delete_trains(solution):
