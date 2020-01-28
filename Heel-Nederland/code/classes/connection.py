@@ -28,5 +28,4 @@ class Connection():
 
     def __str__(self):
         """Return a string"""
-        return f"{self.station_1}, {self.station_2}, {self.travel_time}, \
-            {self.visited}"
+        return f"{self.station_1}, {self.station_2}, {self.travel_time}"
