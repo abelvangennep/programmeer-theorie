@@ -3,7 +3,7 @@ import random
 
 class Train():
     """
-    In this class train objects are created. These train objects contain all
+    In this class train objects are stored. These train objects contain all
     connections of one train, the start/end station and the travel time.
     """
 
@@ -18,10 +18,10 @@ class Train():
         self.start_station = station
         self.current_station = station
 
-    def get_random_connection(self, visited_stations, visit_city_once):
+    def get_random_connection(self, visited_stations, visit_station_once):
         """Return a random connection"""
         unvisited_connections = []
-        unvisited_cities = []
+        unvisited_stations = []
         unvisited_connections_train = []
         all_connections = []
 
@@ -31,11 +31,12 @@ class Train():
             if connection.visited < 1:
                 unvisited_connections.append(connection)
 
-                # If heuristic visit every city once per train was chosen
-                if visit_city_once:
+                # If the heuristic of visiting every station only once per 
+                # train was chosen
+                if visit_station_once:
                     if connection.station_1 not in visited_stations or \
-                                connection.station_2 not in visited_stations:
-                        unvisited_cities.append(connection)
+                        connection.station_2 not in visited_stations:
+                        unvisited_stations.append(connection)
 
             # If connection is not in the current train
             if connection not in self.connections:
@@ -43,19 +44,19 @@ class Train():
 
             all_connections.append(connection)
 
-        # Return random unvisited city
-        if unvisited_cities:
-            return random.choice(unvisited_cities)
+        # Return a random connection with unvisited stations
+        if unvisited_stations:
+            return random.choice(unvisited_stations)
 
-        # Return random unvisited connection which is connected to the current station
+        # Return a random unvisited connection
         elif unvisited_connections:
             return random.choice(unvisited_connections)
 
-        # Return a connection which is not visited in the current train
+        # Return a random connection which is not visited in current train
         elif unvisited_connections_train:
             return random.choice(unvisited_connections_train)
 
-        # Return a random connection, if all of the other lists are empty
+        # Return a completely random connection if all the other lists are empty
         return random.choice(all_connections)
 
     def add_connection(self, connection):
@@ -99,7 +100,7 @@ class Train():
             connection.delete_visit()
             self.connections.pop(index)
 
-        # Empty the train, if there was no more connection connected to the train
+        # Empty the train if the connection is the last connection
         else:
             self.empty_train()
 

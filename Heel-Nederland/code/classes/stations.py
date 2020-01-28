@@ -19,7 +19,8 @@ class Stations():
         self.stations[name] = station_object
 
     def get_random_station(self, uneven_connection, one_connection):
-        """Return a random station, possibly with heuristics"""
+        """Return a random station, possibly with heuristics. This method
+        prefers unvisited connections over visited ones"""
         stations_with_1_connection = []
         stations_uneven_connections = []
         unvisited_connections = []
