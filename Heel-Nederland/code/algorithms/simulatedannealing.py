@@ -43,7 +43,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
     # Add trains if the difference is smaller than 0
     elif number_of_trains_difference < 0:
         for _ in range(number_of_trains_difference):
-            station = stations_dict.get_random_start_station(user_choices\
+            station = stations_dict.get_random_station(user_choices\
                       ["SA_station_uneven_connections"], \
                       user_choices["SA_station_1_connection"])
             new_train = Train(station)
@@ -65,7 +65,7 @@ def simulated_annealing(solution, stations_dict, user_choices):
         # and create a new train
         for every_train in trains:
             if every_train is train:
-                station = stations_dict.get_complete_random_start_station()
+                station = stations_dict.get_completely_random_station()
                 new_train = Train(station)
                 solution_temp["trains"].append(new_train)
             else:

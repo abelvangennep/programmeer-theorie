@@ -18,7 +18,7 @@ def random_solution(stations_dict, connection_objects, user_choices):
         visited_stations = [] 
         
         # Get a random start station, applying chosen heuristics       
-        station = stations_dict.get_random_start_station(
+        station = stations_dict.get_random_station(
             user_choices["station_uneven_connections"],
             user_choices["station_1_connection"])
 

@@ -62,7 +62,7 @@ def load_connections(data_list, stations_object, change_connections):
 
             uneven_connection = False
             one_connection = False
-            random_station = stations_object.get_random_start_station\
+            random_station = stations_object.get_random_station\
                             (uneven_connection, one_connection)
 
             # If the random station is not part of the connection
