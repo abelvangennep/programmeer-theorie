@@ -115,7 +115,7 @@ def user_interface(stations_data):
     user_choices = {}
 
     # Set options for yes or no questions
-    option_1 = ['yes', 'ye', 'y', '']
+    option_1 = ['yes', 'ye', 'y']
     option_2 = ['no', 'n']
 
     print("\n********** MAP **********\n")
@@ -126,7 +126,7 @@ def user_interface(stations_data):
 
     # Set options for this question
     option_1_holland = ['1', 'noord- en zuid-holland']
-    option_2_holland = ['2', 'heel nederland', '']
+    option_2_holland = ['2', 'heel nederland']
 
     holland = string_input(holland, option_1_holland, option_2_holland)
     # Set the variables for data file, maximum amount of trains
@@ -153,7 +153,7 @@ def user_interface(stations_data):
         for row in stations_data:
             all_stations.append(row[0].lower())
 
-        while skip_station.lower().rstrip() in all_stations:
+        while skip_station.lower().rstrip() not in all_stations:
             # If the user's input is not a station, ask again and show the list
             # of all possible stations
             skip_station = input(
@@ -178,7 +178,7 @@ def user_interface(stations_data):
     random = input("\nPlease choose: \nCompletely random (1)"
         "\nor Random with Heuristics (2)\n")
     option_1_random = ['1', 'random', 'completely random']
-    option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+    option_2_random = ['2', 'heuristics', 'random with heuristics']
     random = string_input(random, option_1_random, option_2_random)
 
     # Set all heuristics to false
@@ -225,7 +225,7 @@ def user_interface(stations_data):
             " Annealing without Heuristics (1) \nor Random Simmulated Annealing"
             " with Heuristics (2)\n")
         option_1_random = ['1', 'random', 'completely random']
-        option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+        option_2_random = ['2', 'heuristics', 'random with heuristics']
         random = string_input(random, option_1_random, option_2_random)
 
         # Set all heuristics to false
