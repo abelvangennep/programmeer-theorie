@@ -47,11 +47,11 @@ def main():
 
         # Load all connections into a dictionary
         connection_objects = load_connections(data_list, stations_objects,
-                                              user_choices["change_connections"])
+            user_choices["change_connections"])
 
         # Generate a random solution with chosen heuristics
         solution = random_solution(stations_objects, connection_objects,
-                                    user_choices)
+            user_choices)
 
         # Run the heuristic of "cutting" trains, if the user chose this option
         if user_choices["cut_connections"]:
@@ -266,7 +266,7 @@ def user_interface(stations_data):
 
         if sim_annealing_heuristics == "2":
             print("\nPlease choose which heuristics to apply. Respond with 'yes'"
-                  " or 'no' for each heuristic:")
+                " or 'no' for each heuristic:")
 
             # Set heuristic to true, if the user chooses this option
             if string_input(input("Visit a station only once per train. "),
@@ -330,7 +330,7 @@ def number_input(user_input, data_type, min, max):
                     # If the user's input number is too high
                     else:
                         user_input = input("Please respond with a number"
-                                           f" higher than {min}. ")
+                            f" higher than {min}. ")
                         break
             # If there is a maximum
             else:
@@ -340,7 +340,7 @@ def number_input(user_input, data_type, min, max):
                     # If the user's input number is too high or too low
                     else:
                         user_input = input("Please respond with a number"
-                                           f" between {min} and {max}. ")
+                            f" between {min} and {max}. ")
                         break
         # If the user's input is not a number
         except ValueError:
