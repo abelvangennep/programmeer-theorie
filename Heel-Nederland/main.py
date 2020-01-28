@@ -84,7 +84,7 @@ def main():
     # Write random solution to outputfile
     for train in best_solution["trains"]:
         counter += 1
-        f.write(f'train_{counter}, "{train}"\n')
+        f.write(f'trein_{counter}, "{train}"\n')
     f.write(f"SCORE:{best_score}\n\n")
     f.close()
 
