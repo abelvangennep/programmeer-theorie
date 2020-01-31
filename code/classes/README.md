@@ -44,5 +44,5 @@ station, empty the train or get all the coordinates of all visited train
 stations of the train.
 
 
-### Further information can be find in the docstrings or in the comments within
+### Further information can be found in the docstrings or in the comments within
 ### the file.

@@ -21,9 +21,6 @@ from visualize import draw_train, draw_train_holland
 from simulatedannealing import simulated_annealing
 from calculatefunction import calculate
 
-import time
-import timeit
-
 
 def main():
     best_score = 0
@@ -38,8 +35,6 @@ def main():
     # Load the connections data from the csv file (Heel Nederland or Noord- en
     # Zuid Holland), skipping a station if necessary
     data_list = load_data(user_choices["data"], user_choices["skip"])
-
-    start = timeit.default_timer()
 
     for _ in range(user_choices["attempts"]):
         # Load all stations as objects into a dictionary
@@ -72,9 +67,6 @@ def main():
             best_solution = solution
             best_score = score
 
-    stop = timeit.default_timer()
-    print('Time: ', stop - start)
-
     # Open outputfile
     f = open("output.csv", "w")
     f.write("random:\ntrein, lijnvoering\n")
@@ -92,30 +84,12 @@ def main():
     if user_choices["sim_annealing"] == True:
         best_solution = simulated_annealing(
             solution, stations_objects, user_choices)
-        better_score = calculate(best_solution)
-
-        # Open outputfile
-        f = open("output.csv", "a+")
-        f.write("simulated annealing:\ntrein, lijnvoering\n")
-        counter = 0
-
-        # Write simulated annealing solution to outputfile
-        for train in best_solution["trains"]:
-            counter += 1
-            f.write(f'trein_{counter}, "{train}"\n')
-        f.write(f"SCORE:{better_score}\n\n")
-        f.close()
 
         # If heuristic cut is chosen
         if user_choices["SA_cut_connections"]:
             best_solution = cut(best_solution)
 
-        # If heuristic paste is chosen
-        if user_choices["SA_paste_connections"]:
-            best_solution = paste(best_solution, user_choices["max_minutes"])
-
         best_solution = delete_trains(best_solution)
-
         better_score = calculate(best_solution)
 
         # Open outputfile
@@ -136,13 +110,12 @@ def main():
     else:
         draw_train(best_solution, stations_objects)
 
-
 def user_interface(stations_data):
     """User interface"""
     user_choices = {}
 
     # Set options for yes or no questions
-    option_1 = ['yes', 'ye', 'y', '']
+    option_1 = ['yes', 'ye', 'y']
     option_2 = ['no', 'n']
 
     print("\n********** MAP **********\n")
@@ -153,7 +126,7 @@ def user_interface(stations_data):
 
     # Set options for this question
     option_1_holland = ['1', 'noord- en zuid-holland']
-    option_2_holland = ['2', 'heel nederland', '']
+    option_2_holland = ['2', 'heel nederland']
 
     holland = string_input(holland, option_1_holland, option_2_holland)
     # Set the variables for data file, maximum amount of trains
@@ -180,9 +153,7 @@ def user_interface(stations_data):
         for row in stations_data:
             all_stations.append(row[0].lower())
 
-        while True:
-            if skip_station.lower().rstrip() in all_stations:
-                break
+        while skip_station.lower().rstrip() not in all_stations:
             # If the user's input is not a station, ask again and show the list
             # of all possible stations
             skip_station = input(
@@ -207,7 +178,7 @@ def user_interface(stations_data):
     random = input("\nPlease choose: \nCompletely random (1)"
         "\nor Random with Heuristics (2)\n")
     option_1_random = ['1', 'random', 'completely random']
-    option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+    option_2_random = ['2', 'heuristics', 'random with heuristics']
     random = string_input(random, option_1_random, option_2_random)
 
     # Set all heuristics to false
@@ -254,7 +225,7 @@ def user_interface(stations_data):
             " Annealing without Heuristics (1) \nor Random Simmulated Annealing"
             " with Heuristics (2)\n")
         option_1_random = ['1', 'random', 'completely random']
-        option_2_random = ['2', 'heuristics', 'random with heuristics', '']
+        option_2_random = ['2', 'heuristics', 'random with heuristics']
         random = string_input(random, option_1_random, option_2_random)
 
         # Set all heuristics to false
@@ -262,7 +233,6 @@ def user_interface(stations_data):
         user_choices["SA_station_1_connection"] = False
         user_choices["SA_station_uneven_connections"] = False
         user_choices["SA_cut_connections"] = False
-        user_choices["SA_paste_connections"] = False
 
         if sim_annealing_heuristics == "2":
             print("\nPlease choose which heuristics to apply. Respond with 'yes'"
@@ -281,9 +251,6 @@ def user_interface(stations_data):
             if string_input(input("Delete already visited connections, where"
                 " possible. "), option_1, option_2) == "1":
                 user_choices["SA_cut_connections"] = True
-            if string_input(input("Join trains together, if possible. "),
-                option_1, option_2) == "1":
-                user_choices["SA_paste_connections"] = True
 
     print("\n********** RUNTIME **********")
 
@@ -316,7 +283,6 @@ def user_interface(stations_data):
 
     return user_choices
 
-
 def number_input(user_input, data_type, min, max):
     """Check if number input is valid and return the user's input."""
     while True:
@@ -346,7 +312,6 @@ def number_input(user_input, data_type, min, max):
         except ValueError:
             user_input = input("Please respond with a number. ")
 
-
 def string_input(user_input, option_1, option_2):
     """Check if string input is valid and return which option the user chooses."""
     while True:
@@ -361,7 +326,6 @@ def string_input(user_input, option_1, option_2):
                 f"Invalid input. Please respond with '{option_1[0]}' or"
                 f" '{option_2[0]}'. ")
 
-
 def delete_trains(solution):
     """Remove empty trains from solution."""
     trains = solution["trains"]
@@ -374,7 +338,6 @@ def delete_trains(solution):
     solution["trains"] = existing_trains
 
     return solution
-
 
 if __name__ == '__main__':
     main()
